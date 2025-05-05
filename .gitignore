@@ -72,3 +72,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/ThirdParties/SDK/Firebase/Plugins/x86_64/FirebaseCppApp-11_8_1.bundle
+Assets/ThirdParties/SDK/Firebase/Plugins/x86_64/FirebaseCppApp-11_8_1.bundle.meta
+Assets/ThirdParties/SDK/Firebase/Plugins/x86_64/FirebaseCppApp-11_8_1.dll
+Assets/ThirdParties/SDK/Firebase/Plugins/x86_64/FirebaseCppApp-11_8_1.dll.meta
+Assets/ThirdParties/SDK/Firebase/Plugins/x86_64/FirebaseCppApp-11_8_1.so
+Assets/ThirdParties/SDK/Firebase/Plugins/x86_64/FirebaseCppApp-11_8_1.so.meta
