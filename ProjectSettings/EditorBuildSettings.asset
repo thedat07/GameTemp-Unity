@@ -20,7 +20,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Core/Tool/PopupTool.unity
     guid: 5a38e10e5d1482644bb7b3a8ae20e0d1
-  - enabled: 0
-    path: Assets/Scenes/TemplateData2/TemplateData2.unity
-    guid: c081cf4d7567cd949848215fc539cdab
   m_configObjects: {}
