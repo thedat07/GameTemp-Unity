@@ -1,0 +1,50 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using SS.View;
+
+[System.Serializable]
+public class CheckInternet
+{
+    public NetworkReachability network;
+
+    public float timeReset;
+
+    public bool IsInternet()
+    {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            Console.Log("Internet", "No Internet Connection");
+            return false;
+        }
+        else
+        {
+            Console.Log("Internet", "Internet Available");
+            return true;
+        }
+    }
+}
+
+public class PopupNoInternetController : Controller
+{
+    public const string POPUPNOINTERNET_SCENE_NAME = "PopupNoInternet";
+
+    public override string SceneName()
+    {
+        return POPUPNOINTERNET_SCENE_NAME;
+    }
+
+    public void OnShownInternet()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void OnTryConnect()
+    {
+        if (GameManager.Instance.checkInternet.IsInternet())
+        {
+            gameObject.SetActive(false);
+            GameManager.Instance.checkInternet.network = Application.internetReachability;
+        }
+    }
+}

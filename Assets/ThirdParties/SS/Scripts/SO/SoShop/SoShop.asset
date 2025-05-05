@@ -1,0 +1,247 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183b69f28eca4f2489a13ad6209079e2, type: 3}
+  m_Name: SoShop
+  m_EditorClassIdentifier: 
+  purchaseConfig:
+  - pack: 0
+    productIdStore: com.bus.screw3d.starterpack
+    data:
+    - vaule: 2
+      type: 0
+    - vaule: 2
+      type: 1
+    - vaule: 2
+      type: 2
+    - vaule: 2
+      type: 3
+    - vaule: 500
+      type: 6
+    productType: 1
+  - pack: 1
+    productIdStore: com.bus.screw3d.skylineoffer
+    data:
+    - vaule: 3
+      type: 0
+    - vaule: 3
+      type: 1
+    - vaule: 3
+      type: 2
+    - vaule: 3
+      type: 3
+    - vaule: 1000
+      type: 6
+    productType: 0
+  - pack: 2
+    productIdStore: com.bus.screw3d.premiumoffer
+    data:
+    - vaule: 2
+      type: 0
+    - vaule: 2
+      type: 1
+    - vaule: 2
+      type: 2
+    - vaule: 2
+      type: 3
+    - vaule: 2
+      type: 4
+    - vaule: 2
+      type: 5
+    - vaule: 1000
+      type: 6
+    productType: 0
+  - pack: 3
+    productIdStore: com.bus.screw3d.poweroffer
+    data:
+    - vaule: 6
+      type: 0
+    - vaule: 6
+      type: 1
+    - vaule: 6
+      type: 2
+    - vaule: 6
+      type: 3
+    - vaule: 6
+      type: 4
+    - vaule: 6
+      type: 5
+    - vaule: 2500
+      type: 6
+    - vaule: 21600
+      type: 10
+    productType: 0
+  - pack: 4
+    productIdStore: com.bus.screw3d.vipoffer
+    data:
+    - vaule: 12
+      type: 0
+    - vaule: 12
+      type: 1
+    - vaule: 12
+      type: 2
+    - vaule: 12
+      type: 3
+    - vaule: 12
+      type: 4
+    - vaule: 12
+      type: 5
+    - vaule: 5000
+      type: 6
+    - vaule: 43200
+      type: 10
+    productType: 0
+  - pack: 5
+    productIdStore: com.bus.screw3d.championoffer
+    data:
+    - vaule: 24
+      type: 0
+    - vaule: 24
+      type: 1
+    - vaule: 24
+      type: 2
+    - vaule: 24
+      type: 3
+    - vaule: 24
+      type: 4
+    - vaule: 24
+      type: 5
+    - vaule: 6500
+      type: 6
+    - vaule: 86400
+      type: 10
+    productType: 0
+  - pack: 6
+    productIdStore: com.bus.screw3d.removeads
+    data:
+    - vaule: 0
+      type: 12
+    productType: 1
+  - pack: 7
+    productIdStore: com.bus.screw3d.removeads2
+    data:
+    - vaule: 0
+      type: 12
+    - vaule: 500
+      type: 6
+    - vaule: 2
+      type: 1
+    - vaule: 2
+      type: 2
+    productType: 1
+  - pack: 8
+    productIdStore: com.bus.screw3d.coint1
+    data:
+    - vaule: 250
+      type: 6
+    productType: 0
+  - pack: 9
+    productIdStore: com.bus.screw3d.coint2
+    data:
+    - vaule: 1100
+      type: 6
+    productType: 0
+  - pack: 10
+    productIdStore: com.bus.screw3d.coint3
+    data:
+    - vaule: 2250
+      type: 6
+    productType: 0
+  - pack: 11
+    productIdStore: com.bus.screw3d.coint4
+    data:
+    - vaule: 5000
+      type: 6
+    productType: 0
+  - pack: 12
+    productIdStore: com.bus.screw3d.coint5
+    data:
+    - vaule: 10500
+      type: 6
+    productType: 0
+  - pack: 13
+    productIdStore: com.bus.screw3d.coint6
+    data:
+    - vaule: 22000
+      type: 6
+    productType: 0
+  - pack: 14
+    productIdStore: com.bus.screw3d.recoverykit
+    data:
+    - vaule: 1
+      type: 1
+    - vaule: 1
+      type: 2
+    - vaule: 300
+      type: 6
+    productType: 0
+  - pack: 14
+    productIdStore: com.bus.screw3d.recoverykit
+    data:
+    - vaule: 1
+      type: 1
+    - vaule: 1
+      type: 2
+    - vaule: 300
+      type: 6
+    productType: 0
+  cointConfig:
+  - pack: 0
+    vaule: 100
+    data:
+    - vaule: 3
+      type: 1
+  - pack: 1
+    vaule: 100
+    data:
+    - vaule: 3
+      type: 3
+  - pack: 2
+    vaule: 100
+    data:
+    - vaule: 3
+      type: 2
+  - pack: 3
+    vaule: 100
+    data:
+    - vaule: 3
+      type: 0
+  - pack: 4
+    vaule: 120
+    data:
+    - vaule: 3
+      type: 5
+  - pack: 5
+    vaule: 200
+    data:
+    - vaule: 3
+      type: 4
+  - pack: 6
+    vaule: 250
+    data:
+    - vaule: 0
+      type: 8
+  - pack: 7
+    vaule: 200
+    data: []
+  adsConfig:
+  - pack: 0
+    data:
+    - vaule: 1
+      type: 7
+  - pack: 7
+    data:
+    - vaule: 1
+      type: 7
+  - pack: 1
+    data:
+    - vaule: 30
+      type: 6
