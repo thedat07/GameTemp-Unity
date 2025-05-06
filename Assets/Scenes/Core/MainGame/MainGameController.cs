@@ -33,8 +33,6 @@ public class MainGameController : Controller
 
         GameManager.Instance.GetSettingPresenter().PlayMusic();
 
-        GameManager.Instance.GetAdsPresenter().ShowBanner();
-
         yield return new WaitForEndOfFrame();
     }
 }

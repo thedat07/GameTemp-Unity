@@ -39,6 +39,7 @@ MonoBehaviour:
     - DOTween.Modules
     - LeanCommon
     - LeanPool
+    - MaxSdk.Scripts
     - Purchasing.Common
     - Tests
     showAdvancedSettings: 0

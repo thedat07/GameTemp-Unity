@@ -37,13 +37,13 @@ public static class StaticData
 
     public static float GetSizeAds(bool back = false)
     {
-        if (GameManager.Instance.GetAdsData().isRemoveAds == false)
+        if (Gley.MobileAds.API.CanShowAds())
         {
-            return back == false ? 150 : 0;
+            return back == false ? 160 : 0;
         }
         else
         {
-            return back == false ? 0 : 150;
+            return back == false ? 0 : 160;
         }
     }
 

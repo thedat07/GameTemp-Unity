@@ -106,16 +106,20 @@ public class AdsShop
     public AdsPack pack;
     public List<ItemShopData> data;
 
-    public void SetData(UnityAction action)
+    public void SetData(UnityAction onSuccess = null, UnityAction onFail = null, UnityAction onCompleted = null)
     {
         if (data != null)
         {
             if (data.Count > 0)
             {
-                UnityEvent onCompleted = new UnityEvent();
-                onCompleted.AddListener(() => { Rewards(); action?.Invoke(); });
-                GameManager.Instance.GetAdsPresenter().ShowRewarded(pack.ToString(), onCompleted, null);
+                GameManager.Instance.GetAdsPresenter().ShowRewardedVideo(pack.ToString(), OnSuccess, onFail, onCompleted);
             }
+        }
+        
+        void OnSuccess()
+        {
+            Rewards();
+            onSuccess?.Invoke();
         }
 
         void Rewards()
@@ -180,7 +184,7 @@ public class ItemShop
     {
         if (pack == ShopPack.RemoveAds)
         {
-            return !GameManager.Instance.GetAdsData().isRemoveAds;
+            return !Gley.MobileAds.API.CanShowAds();
         }
         else
         {

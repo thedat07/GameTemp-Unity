@@ -3,25 +3,32 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
+using Gley.MobileAds;
 
 public class AdsPresenter : MonoBehaviour
 {
-    // public MaxManager maxAds;
-
     public AdsDataNotSave adsDataNotSave;
 
     AdsData m_AdsData;
 
+    public string placementInter = "";
+    public string placementReward = "";
+
     public void Init()
     {
         m_AdsData = GameManager.Instance.GetAdsData();
-        // maxAds.Init();
-        TigerForge.EventManager.StartListening(AdsData.Key, HideBanner);
+        Gley.MobileAds.API.Initialize(OnInitialized);
+        void OnInitialized()
+        {
+            //Show ads only after this method is called
+            //This callback is not mandatory if you do not want to show banners as soon as your app starts.
+            ShawBanner();
+        }
     }
 
     public void ShowMediationDebugger()
     {
-        //  MaxSdk.ShowMediationDebugger();
+        MaxSdk.ShowMediationDebugger();
     }
 
     public int UpdateAdShowedCount()
@@ -39,55 +46,65 @@ public class AdsPresenter : MonoBehaviour
     [ContextMenu("Remove Ads")]
     public void OnRemoveAds()
     {
-        if (m_AdsData.isRemoveAds == false)
-        {
-            m_AdsData.isRemoveAds = true;
-            TigerForge.EventManager.EmitEvent(AdsData.Key);
-        }
+        Gley.MobileAds.API.RemoveAds(true);
+        TigerForge.EventManager.EmitEvent(AdsData.Key);
     }
 
-    public void ShowBanner()
+    public void ShawBanner()
     {
-        if (m_AdsData.isRemoveAds == false)
-        {
-            // maxAds.ShowBanner();
-        }
+        Gley.MobileAds.API.ShowBanner(BannerPosition.Bottom, BannerType.Banner);
     }
 
     public void HideBanner()
     {
-        //   maxAds.HideBanner();
+        Gley.MobileAds.API.HideBanner();
     }
 
-    public void ShowInterstitial(UnityEvent onClose, string placement)
+    public void ShowInterstitial(string placement)
     {
-        onClose?.Invoke();
-        //  maxAds.ShowInterAds(placement, onClose);
+        placementInter = placement;
+        Gley.MobileAds.API.ShowInterstitial();
     }
 
-
-
-    public void ShowRewarded(string placement, UnityEvent onCompleted, UnityEvent onFailed)
+    public void ShowRewardedVideo(string placement, UnityAction onSuccess = null, UnityAction onFail = null, UnityAction onCompleted = null)
     {
-        // UnityEvent onCompletedAds = new UnityEvent();
-        // onCompletedAds.AddListener(() =>
-        // {
-        //     StartCoroutine(Wait());
-        // });
+        placementReward = placement;
+        Gley.MobileAds.API.ShowRewardedVideo(CompleteMethod);
 
-        // maxAds.ShowRewardAds(placement, onCompletedAds, onFailed);
+        void CompleteMethod(bool completed)
+        {
+            if (completed)
+            {
+                onSuccess?.Invoke();
+                adsDataNotSave.UpdateLastAdTime();
+            }
+            else
+            {
+                onFail?.Invoke();
+            }
 
-        // IEnumerator Wait()
-        // {
-        //     yield return new WaitForEndOfFrame();
-        //     onCompleted?.Invoke();
-        //     adsDataNotSave.UpdateLastAdTime();
-        // }
-        onCompleted?.Invoke();
+            onCompleted?.Invoke();
+        }
     }
 
-    void OnDestroy()
+    public void ShowRewardedInterstitial(string placement, UnityAction onSuccess = null, UnityAction onFail = null, UnityAction onCompleted = null)
     {
-        TigerForge.EventManager.StopListening(AdsData.Key, HideBanner);
+        placementReward = placement;
+        Gley.MobileAds.API.ShowRewardedInterstitial(VideoComplete);
+
+        void VideoComplete(bool watched)
+        {
+            if (watched)
+            {
+                onSuccess?.Invoke();
+                adsDataNotSave.UpdateLastAdTime();
+            }
+            else
+            {
+                onFail?.Invoke();
+            }
+
+            onCompleted?.Invoke();
+        }
     }
 }

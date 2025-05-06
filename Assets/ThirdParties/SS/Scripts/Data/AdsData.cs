@@ -2,24 +2,17 @@ using System;
 using UnityEngine;
 using DesignPatterns;
 using LibraryGame;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class AdsData
 {
     public const string Key = "keyAdsData";
 
-    public bool isRemoveAds
+    public bool IsRemoveShowAds
     {
         get { return LibraryGameSave.LoadAdsData("remove", false); }
-        set
-        {
-            LibraryGameSave.SaveAdsData("remove", value);
-
-            if (value == true)
-            {
-                UnityEngine.Console.LogWarning("Ads", "Remove Ads!");
-            }
-        }
+        set { LibraryGameSave.SaveAdsData("remove", value); }
     }
 
     public AdsData()
@@ -43,7 +36,7 @@ public class AdsDataNotSave
 
         if (currentLevel >= minLevelForAds &&
             Time.time >= lastAdTime + adInterval &&
-            GameManager.Instance.GetAdsData().isRemoveAds == false)
+             Gley.MobileAds.API.CanShowAds())
         {
             return true;
         }
