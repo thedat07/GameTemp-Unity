@@ -36,5 +36,7 @@ public class MainGameController : Controller
         GameManager.Instance.GetSettingPresenter().PlayMusic();
 
         yield return new WaitForEndOfFrame();
+
+        Manager.RunScene(DGameController.SCENE_NAME);
     }
 }

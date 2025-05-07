@@ -73,9 +73,12 @@ namespace SS.View
 
         public static void PopToRootScene()
         {
-            if (m_ControllerStack.Count > 2)
+            if (m_ControllerStack.Count > 1)
             {
-                RemovePreviousController(m_ControllerStack.Peek());
+                for (int i = 1; i < m_ControllerStack.Count; i++)
+                {
+                    RemovePreviousController(m_ControllerStack.Peek());
+                }
             }
 
             PopScene();

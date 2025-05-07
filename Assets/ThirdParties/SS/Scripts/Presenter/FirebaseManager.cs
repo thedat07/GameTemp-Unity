@@ -17,49 +17,58 @@ enum VerifyFirebase
 
 public class FirebaseManager : MonoBehaviour
 {
+    public bool active;
+
     public static string FirebaseID;
-    public bool FirebaseInitialized => _firebaseInitialized;
+
     public UnityEvent OnInitSuccess;
+
     public UnityEvent OnInitFail;
+
     private bool _firebaseInitialized = false;
+
     private VerifyFirebase firebaseReady = VerifyFirebase.Verifying;
 
-    public bool IsDone() => firebaseReady == VerifyFirebase.Done;
+    public bool IsDone() => active ? firebaseReady == VerifyFirebase.Done : false;
 
     public void InitInfo(UnityAction onInitSuccess, UnityAction onInitFail)
     {
-        OnInitSuccess = new UnityEvent();
-
-        OnInitSuccess.AddListener(() => { onInitSuccess?.Invoke(); });
-
-        OnInitFail = new UnityEvent();
-
-        OnInitFail.AddListener(() => { onInitFail?.Invoke(); });
-
-        try
+        if (active)
         {
-            FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+            OnInitSuccess = new UnityEvent();
+
+            OnInitSuccess.AddListener(() => { onInitSuccess?.Invoke(); });
+
+            OnInitFail = new UnityEvent();
+
+            OnInitFail.AddListener(() => { onInitFail?.Invoke(); });
+
+            try
             {
-                DependencyStatus dependencyStatus = task.Result;
-                if (dependencyStatus == Firebase.DependencyStatus.Available)
+                FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
                 {
-                    UnityEngine.Console.LogSuccess("Firebase", "Firebase is ready for use.");
-                    firebaseReady = VerifyFirebase.Done;
-                }
-                else
-                {
-                    UnityEngine.Console.LogError("Firebase", "Firebase is not ready for use.");
-                    firebaseReady = VerifyFirebase.Error;
-                    UnityEngine.Console.LogError("Firebase", "firebase Ready  Error");
-                }
-            });
+                    DependencyStatus dependencyStatus = task.Result;
+                    if (dependencyStatus == Firebase.DependencyStatus.Available)
+                    {
+                        UnityEngine.Console.LogSuccess("Firebase", "Firebase is ready for use.");
+                        firebaseReady = VerifyFirebase.Done;
+                    }
+                    else
+                    {
+                        UnityEngine.Console.LogError("Firebase", "Firebase is not ready for use.");
+                        firebaseReady = VerifyFirebase.Error;
+                        UnityEngine.Console.LogError("Firebase", "firebase Ready  Error");
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                firebaseReady = VerifyFirebase.Error;
+                UnityEngine.Console.LogError("Firebase", "firebase Ready Error: " + e.ToString());
+            }
+
+            StartCoroutine(InitFirebase());
         }
-        catch (Exception e)
-        {
-            firebaseReady = VerifyFirebase.Error;
-            UnityEngine.Console.LogError("Firebase", "firebase Ready Error: " + e.ToString());
-        }
-        StartCoroutine(InitFirebase());
     }
 
     void InitializeFirebase()
@@ -67,7 +76,7 @@ public class FirebaseManager : MonoBehaviour
         try
         {
             _firebaseInitialized = true;
-         //   RemoteConfigController.FetchData();
+            //   RemoteConfigController.FetchData();
             FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
 
         }
