@@ -11,9 +11,6 @@ public class DLoadingController : Controller
 {
     public const string SCENE_NAME = "DLoading";
 
-    [SerializeField] private Image slider;
-    [SerializeField] private RectTransform sliderHead;
-
     public override string SceneName()
     {
         return SCENE_NAME;
@@ -22,7 +19,7 @@ public class DLoadingController : Controller
     public override void CreateShield() { }
 
     public override void HideUI() { }
-    
+
     [Header("Ref")]
     public string sceneName;
 
