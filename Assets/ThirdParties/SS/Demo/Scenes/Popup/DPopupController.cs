@@ -4,13 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using SS.View;
 
+public class DPopupData
+{
+    public string title;
+    public bool activeCloseFull;
+
+    public DPopupData(string title, bool activeCloseFull)
+    {
+        this.title = title;
+        this.activeCloseFull = activeCloseFull;
+    }
+}
+
 public class DPopupController : Controller
 {
     [SerializeField] Text m_Text;
 
+    [SerializeField] GameObject m_CloseFul;
+
     public const string SCENE_NAME = "DPopup";
 
-    string m_Data = string.Empty;
+    DPopupData m_Data;
 
     public override string SceneName()
     {
@@ -21,8 +35,9 @@ public class DPopupController : Controller
     {
         if (data != null)
         {
-            m_Data = data.ToString();
-            m_Text.text = m_Data;
+            m_Data = data as DPopupData;
+            m_Text.text = m_Data.title;
+            m_CloseFul.SetActive(m_Data.activeCloseFull);
         }
         Console.Log("Life cycle", data + " OnActive");
     }

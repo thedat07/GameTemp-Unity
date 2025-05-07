@@ -12,10 +12,34 @@ public class DTopController : Controller
         return SCENE_NAME;
     }
 
-    public void OnButtonTap()
+    public void OnButtonTap1()
     {
-        Manager.PushScene(DPopupController.SCENE_NAME, "Popup1", null, null, false);
-        Manager.PushScene(DPopupController.SCENE_NAME, "Popup2", null, null, false);
+        Manager.PushScene(DPopupController.SCENE_NAME, new DPopupData("Popup1", true), () =>
+        {
+            Console.Log("Life cycle", "On Show Popup1");
+        }, () =>
+        {
+            Console.Log("Life cycle", "On Hide Popup1");
+        }, false);
+    }
+
+    public void OnButtonTap2()
+    {
+        Manager.PushScene(DPopupController.SCENE_NAME, new DPopupData("Popup1", false), () =>
+        {
+            Console.Log("Life cycle", "On Show Popup1");
+        }, () =>
+        {
+            Console.Log("Life cycle", "On Hide Popup1");
+        }, true);
+
+        Manager.PushScene(DPopupController.SCENE_NAME, new DPopupData("Popup2", true), () =>
+        {
+            Console.Log("Life cycle", "On Show Popup2");
+        }, () =>
+        {
+            Console.Log("Life cycle", "On Hide Popup2");
+        }, false);
     }
 
     public void OnSelectTap()
