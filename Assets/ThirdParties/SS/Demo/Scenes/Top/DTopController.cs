@@ -14,8 +14,8 @@ public class DTopController : Controller
 
     public void OnButtonTap()
     {
-        Manager.PushScene(DPopupController.SCENE_NAME, "Popup1");
-        Manager.PushScene(DPopupController.SCENE_NAME, "Popup2");
+        Manager.PushScene(DPopupController.SCENE_NAME, "Popup1", null, null, false);
+        Manager.PushScene(DPopupController.SCENE_NAME, "Popup2", null, null, false);
     }
 
     public void OnSelectTap()
