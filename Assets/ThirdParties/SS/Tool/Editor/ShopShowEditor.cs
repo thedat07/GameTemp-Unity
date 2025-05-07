@@ -7,13 +7,11 @@ using System.Collections.Generic;
 
 public class ShopShowEditor : EditorWindow
 {
-    public static SoShop soShop;
+    public static SoDataRewards soShop;
 
-    Vector2 m_Scroll1;
     Vector2 m_Scroll2;
     Vector2 m_Scroll3;
 
-    private bool m_ShopView;
     private bool m_CointView;
     private bool m_AdsView;
 
@@ -28,7 +26,7 @@ public class ShopShowEditor : EditorWindow
         ClearMemory();
     }
 
-    public static void ShowWindow(SoShop so)
+    public static void ShowWindow(SoDataRewards so)
     {
         soShop = so;
         GetWindow<ShopShowEditor>("Shop View");
@@ -38,11 +36,10 @@ public class ShopShowEditor : EditorWindow
     {
         if (Application.isPlaying == false)
         {
-            soShop = (SoShop)EditorGUILayout.ObjectField("Shop", soShop, typeof(SoShop), true);
+            soShop = (SoDataRewards)EditorGUILayout.ObjectField("Shop", soShop, typeof(SoDataRewards), true);
 
             GUILayout.Space(5);
             EditorGUILayout.BeginHorizontal("box");
-            m_ShopView = EditorGUILayout.ToggleLeft("Shop View", m_ShopView);
             m_CointView = EditorGUILayout.ToggleLeft("Coint View", m_CointView);
             m_AdsView = EditorGUILayout.ToggleLeft("Ads View", m_AdsView);
             EditorGUILayout.EndHorizontal();
@@ -54,12 +51,6 @@ public class ShopShowEditor : EditorWindow
     {
         if (soShop)
         {
-            if (m_ShopView)
-            {
-                GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(5));
-                OnGUIShop();
-            }
-
             if (m_CointView)
             {
                 GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(5));
@@ -73,62 +64,6 @@ public class ShopShowEditor : EditorWindow
             }
         }
     }
-
-    void OnGUIShop()
-    {
-        if (GUILayout.Button("Add", GUILayout.Width(100)))
-        {
-            soShop.purchaseConfig.Add(new ItemShop());
-            SaveData();
-        }
-
-        if (soShop.purchaseConfig == null || soShop.purchaseConfig.Count == 0)
-        {
-            EditorGUILayout.LabelField("No purchase configurations available.");
-            return;
-        }
-
-        m_Scroll1 = EditorGUILayout.BeginScrollView(m_Scroll1);
-        int index = 0;
-        foreach (var item in soShop.purchaseConfig.ToList())
-        {
-            EditorGUILayout.BeginHorizontal("box");
-
-            ShopPack shopPack = item.pack;
-            ProductType productType = item.productType;
-
-            shopPack = (ShopPack)EditorGUILayout.EnumPopup("Pack:", shopPack);
-            if (shopPack != item.pack)
-            {
-                item.pack = shopPack;
-                SaveData();
-            }
-
-            productType = (ProductType)EditorGUILayout.EnumPopup("Product Type:", productType);
-            if (productType != item.productType)
-            {
-                item.productType = productType;
-                SaveData();
-            }
-
-            if (GUILayout.Button("View", GUILayout.Width(100)))
-            {
-                InfoPackEditor.ShowWindow(index);
-            }
-
-            index++;
-
-            if (GUILayout.Button("Remove", GUILayout.Width(100)))
-            {
-                soShop.purchaseConfig.Remove(item);
-                SaveData();
-            }
-
-            EditorGUILayout.EndHorizontal(); // Kết thúc Horizontal này là đủ
-        }
-        EditorGUILayout.EndScrollView(); // Đúng: Kết thúc ScrollView
-    }
-
 
     void OnGUICoint()
     {
@@ -249,18 +184,6 @@ public class ShopShowEditor : EditorWindow
             {
                 EditorUtility.SetDirty(soShop);
             }
-        }
-    }
-
-    public static void SaveData(ItemShop data, int index)
-    {
-        if (soShop)
-        {
-            List<ItemShop> purchaseConfig = new List<ItemShop>();
-            purchaseConfig.AddRange(soShop.purchaseConfig);
-            purchaseConfig[index] = data;
-            soShop.purchaseConfig = purchaseConfig;
-            EditorUtility.SetDirty(soShop);
         }
     }
 

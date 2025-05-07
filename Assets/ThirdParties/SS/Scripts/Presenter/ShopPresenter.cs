@@ -4,86 +4,98 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using SS.View;
+using Gley.EasyIAP;
 
 public class ShopPresenter : MonoBehaviour
 {
-    public SoShop soShop;
-
     public const string Key = "ShopPresenter";
 
-    public void Buy(ItemShop dataItemShop, UnityAction pass, UnityAction error, UnityAction callBack = null)
-    {
-        GameManager.Instance.GetIAPPresenter().BuyItem(dataItemShop, (() => { AddDataBuy(dataItemShop, callBack); pass?.Invoke(); }, () => { error?.Invoke(); }));
-    }
+    public SoDataRewards soDataRewards;
 
-    public void AddDataBuy(ItemShop dataItemShop, UnityAction callBack = null)
+    public void Init()
     {
-        if (dataItemShop.productType == UnityEngine.Purchasing.ProductType.Consumable)
-        {
-            var dataBuy = soShop.GetNameItemShop(dataItemShop.GetIDStore()).data;
-            if (dataBuy.Count > 0)
-            {
-                OnReward(dataBuy.ToList(), dataItemShop.GetIDStore(), null, callBack);
-            }
-        }
-        else
-        {
-            if (LibraryGame.LibraryGameSave.LoadShopData(dataItemShop.GetIDStore(), false) == false)
-            {
-                var dataBuy = soShop.GetNameItemShop(dataItemShop.GetIDStore()).data;
-                OnReward(dataBuy.ToList(), dataItemShop.GetIDStore(), null, callBack);
-                LibraryGame.LibraryGameSave.SaveShopData(dataItemShop.GetIDStore(), true);
-            }
-        }
-    }
+        Gley.EasyIAP.API.Initialize(InitializationComplete);
 
-    public void AddDataRestore(ItemShop dataItemShop)
-    {
-        if (LibraryGame.LibraryGameSave.LoadShopData(dataItemShop.GetIDStore(), false) == false)
+        void InitializationComplete(IAPOperationStatus status, string message)
         {
-            var dataBuy = soShop.GetNameItemShop(dataItemShop.GetIDStore()).data;
-            RestorePurchases(new PopupCongratulationRewardData(dataBuy.ToList(), "Restore"));
-            LibraryGame.LibraryGameSave.SaveShopData(dataItemShop.GetIDStore(), true);
-            TigerForge.EventManager.EmitEvent(Key);
-        }
-    }
-
-    public void AddDataRestore(string id)
-    {
-        ItemShop dataBuy = soShop.GetNameItemShop(id);
-        if (dataBuy != null)
-        {
-            if (dataBuy.productType == UnityEngine.Purchasing.ProductType.NonConsumable)
+            if (status == IAPOperationStatus.Success)
             {
-                AddDataRestore(dataBuy);
-            }
-        }
-    }
-
-    private void RestorePurchases(PopupCongratulationRewardData m_Data)
-    {
-        List<ItemShopData> dataConvert = Convert(m_Data);
-        if (dataConvert.Count > 0)
-        {
-            foreach (var item in dataConvert)
-            {
-                if (item.type == MasterDataType.NoAds)
+                // IAP was successfully initialized.
+                // For each non-consumable or subscription you should check if it is already bought.
+                // If a product is active, means it was bought -> grand the access.
+                // If remove ads was bought before, mark it as owned.
+                ShopProductNames[] shopProductNames = new ShopProductNames[] { };
+                foreach (var item in shopProductNames)
                 {
-                    GameManager.Instance.GetAdsPresenter().OnRemoveAds();
+                    if (API.IsActive(item))
+                    {
+                        if (API.GetValue(item).Any(x => x.type == MasterDataType.NoAds))
+                        {
+                            GameManager.Instance.GetAdsPresenter().OnRemoveAds();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.Log("IAP", "Error occurred: " + message);
+            }
+        }
+    }
+
+    public void BuyProduct(ShopProductNames shopProduct, UnityAction onSuccess = null, UnityAction onFail = null, UnityAction onCompleted = null)
+    {
+        Gley.EasyIAP.API.BuyProduct(shopProduct, ProductBought);
+
+        void ProductBought(IAPOperationStatus status, string message, StoreProduct product)
+        {
+            if (status == IAPOperationStatus.Success)
+            {
+                ProductType productType = Gley.EasyIAP.API.GetProductType(shopProduct);
+                if (productType == ProductType.Consumable)
+                {
+                    TypeConsumable();
                 }
                 else
                 {
-                    GameManager.Instance.GetMasterPresenter().AddData(item.vaule, item.type, m_Data.log);
+                    TypeNonConsumable();
+                }
+            }
+            else
+            {
+                onFail?.Invoke();
+            }
+
+            onCompleted?.Invoke();
+
+            void TypeConsumable()
+            {
+                SetVaule(product.value, "IAP");
+                onSuccess?.Invoke();
+                TigerForge.EventManager.EmitEvent(Key, 0.1f);
+            }
+
+            void TypeNonConsumable()
+            {
+                string productId = product.productName;
+                if (!HasReceivedReward(productId))
+                {
+                    TypeConsumable();
+                    MarkRewarded(productId);
+                }
+                else
+                {
+                    onFail?.Invoke();
                 }
             }
         }
     }
 
-    private List<ItemShopData> Convert(PopupCongratulationRewardData m_Data)
+    private List<ItemShopData> Convert(List<ItemShopData> itemShops)
     {
-        if (m_Data.data != null)
+        if (itemShops != null)
         {
-            var groupedByType = m_Data.data
+            var groupedByType = itemShops
              .GroupBy(item => item.type)
              .Select(group => new ItemShopData
              {
@@ -99,44 +111,58 @@ public class ShopPresenter : MonoBehaviour
         }
     }
 
-    private void OnReward(List<ItemShopData> data, string log = "", UnityAction action = null, UnityAction callback = null)
+    public void OnRestore()
     {
-        PopupCongratulationRewardData rewardData = new PopupCongratulationRewardData(data, log, action, false, callback);
-        rewardData.OnReward(1);
-        TigerForge.EventManager.EmitEvent(Key);
+        Gley.EasyIAP.API.RestorePurchases(ProductRestoredCallback, RestoreDone);
     }
 
-
-    public bool OnBuyCoin(CointPack cointPack, UnityAction onSuccess, UnityAction onFaill, string log)
+    // automatically called after one product is restored, is the same as the Buy Product callback
+    private void ProductRestoredCallback(IAPOperationStatus status, string message, StoreProduct product)
     {
-        CointShop cointShop = soShop.GetItemCoin(cointPack);
-
-        if (cointShop != null)
+        if (status == IAPOperationStatus.Success)
         {
-            GameManager.Instance.GetMasterPresenter().EditMoney(cointShop.vaule, () =>
+            ShopProductNames[] shopProductNames = new ShopProductNames[] { };
+            foreach (var item in shopProductNames)
             {
-                onSuccess?.Invoke();
-            }, () =>
-            {
-                onFaill?.Invoke();
-            }, log);
-
-            return true;
+                ShopProductNames productName = API.ConvertNameToShopProduct(product.productName);
+                if (item == productName)
+                {
+                    string productId = product.productName;
+                    if (!HasReceivedReward(productId))
+                    {
+                        SetVaule(product.value, "Restore");
+                        MarkRewarded(productId);
+                    }
+                }
+            }
+            //consumable products are not restored
         }
         else
         {
-            onFaill?.Invoke();
+            //an error occurred in the buying process, log the message for more details
+            Console.Log("IAP", "Restore product failed: " + message);
         }
-
-        return false;
     }
 
-    public bool IsBuy(string id)
+    private void RestoreDone()
     {
-        if (LibraryGame.LibraryGameSave.LoadShopData(id, false) == false)
-        {
-            return false;
-        }
-        return true;
+        Console.Log("IAP", "Restore done");
+        TigerForge.EventManager.EmitEvent(Key, 0.1f);
+    }
+
+    void SetVaule(List<ItemShopData> data, string log = "")
+    {
+        CongratulationRewardData rewardData = new CongratulationRewardData(Convert(data), log);
+        rewardData.OnReward(1);
+    }
+
+    private bool HasReceivedReward(string productId)
+    {
+        return ES3.Load<bool>("IAP_Rewarded_" + productId, "IAPData", defaultValue: false);
+    }
+
+    private void MarkRewarded(string productId)
+    {
+        ES3.Save("IAP_Rewarded_" + productId, true, "IAPData");
     }
 }

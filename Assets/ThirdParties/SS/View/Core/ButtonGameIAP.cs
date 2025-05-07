@@ -1,12 +1,8 @@
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine;
-using DG.Tweening;
-using LibraryGame;
-using UnityEngine.UI;
 using TMPro;
-using System.Linq;
-// using Castle.Core.Internal;
+using Gley.EasyIAP;
+using System.Collections.Generic;
 
 [System.Serializable]
 
@@ -31,7 +27,7 @@ public class InfoViewDataIAP
 {
     public InfoViewData[] textView;
 
-    public void Init(ItemShop itemShop)
+    public void Init(List<ItemShopData> data)
     {
         foreach (var item in textView)
         {
@@ -40,7 +36,7 @@ public class InfoViewDataIAP
 
         foreach (var item in textView)
         {
-            var getData = itemShop.data.Find(x => x.type == item.type);
+            var getData = data.Find(x => x.type == item.type);
             if (getData != null)
             {
                 item.Show(getData);
@@ -86,22 +82,18 @@ public class InfoViewDataIAP
 public class ButtonGameIAP : ButtonGame
 {
     [Header("Setting IAP")]
-    public ShopPack pack;
-    public SoShop soShop;
-
-    [Header("Ref")]
-    public InfoViewDataIAP infoViewDataIAP;
+    public ShopProductNames yourPorduct;
 
     [Header("Textprice")]
     public TextMeshProUGUI textPrice;
 
-    [Header("Info Button")]
-    public UnityEvent onCheck = new UnityEvent();
-    public UnityEvent callBackPopup = new UnityEvent();
+    [Header("View")]
+    public InfoViewDataIAP infoViewDataIAP;
 
-    protected ItemShop m_Data;
+    [Header("Event IAP")]
+    public UnityEvent OnSuccess; UnityEvent OnFail; UnityEvent OnCompleted;
 
-    private bool m_ActiveEvent;
+    protected List<ItemShopData> m_Data;
 
     protected override void StartButton()
     {
@@ -111,64 +103,92 @@ public class ButtonGameIAP : ButtonGame
 
         void Init()
         {
-            m_Data = soShop.GetItemShop(pack);
+            m_Data = Gley.EasyIAP.API.GetValue(yourPorduct);
             infoViewDataIAP.Init(m_Data);
             if (textPrice)
-                textPrice.text = m_Data.GetPrice();
+                textPrice.text = Gley.EasyIAP.API.GetPrice(yourPorduct).ToString();
 
-            this.interactable = m_Data.CanBuy();
-
-            onCheck?.Invoke();
+            this.interactable = Gley.EasyIAP.API.IsActive(yourPorduct);
         }
 
         void Event()
         {
             UpdateView();
+            GetType();
 
-            m_ActiveEvent = false;
-
-            if (m_Data.productType != UnityEngine.Purchasing.ProductType.Consumable)
+            void GetType()
             {
-                StartListening();
-            }
-            else
-            {
-                if (m_Data.data.Any(x => x.type == MasterDataType.NoAds))
+                ProductType productType = Gley.EasyIAP.API.GetProductType(yourPorduct);
+                switch (productType)
                 {
-                    StartListening();
-                }
-            }
+                    case ProductType.Consumable:
+                        //do something for consumable
+                        break;
 
-            void StartListening()
-            {
-                TigerForge.EventManager.StartListening(ShopPresenter.Key, UpdateView);
-                m_ActiveEvent = true;
+                    case ProductType.NonConsumable:
+                        TigerForge.EventManager.StartListening(ShopPresenter.Key, UpdateView);
+                        //do something for non-consumable
+                        break;
+
+                    case ProductType.Subscription:
+                        TigerForge.EventManager.StartListening(ShopPresenter.Key, UpdateView);
+                        //do something for subscription
+                        break;
+                }
             }
         }
     }
 
     protected override void DestroyButton()
     {
-        if (m_ActiveEvent)
+        GetType();
+
+        void GetType()
         {
-            TigerForge.EventManager.StopListening(ShopPresenter.Key, UpdateView);
+            ProductType productType = Gley.EasyIAP.API.GetProductType(yourPorduct);
+            switch (productType)
+            {
+                case ProductType.Consumable:
+                    //do something for consumable
+                    break;
+
+                case ProductType.NonConsumable:
+                    TigerForge.EventManager.StopListening(ShopPresenter.Key, UpdateView);
+                    //do something for non-consumable
+                    break;
+
+                case ProductType.Subscription:
+                    TigerForge.EventManager.StopListening(ShopPresenter.Key, UpdateView);
+                    //do something for subscription
+                    break;
+            }
         }
     }
 
     protected override void OnClick()
     {
-        GameManager.Instance.GetShopPresenter().Buy(m_Data,
-        () =>
+        onClick?.Invoke();
+
+        GameManager.Instance.GetShopPresenter().BuyProduct(yourPorduct, OnSuccessIAP, OnFailIAP, OnCompletedIAP);
+
+        void OnCompletedIAP()
         {
-            onClick?.Invoke();
-            this.interactable = m_Data.CanBuy();
-        },
-         () => { },
-         () => { callBackPopup?.Invoke(); });
+            OnCompleted?.Invoke();
+        }
+
+        void OnSuccessIAP()
+        {
+            OnSuccess?.Invoke();
+        }
+
+        void OnFailIAP()
+        {
+            OnFail?.Invoke();
+        }
     }
 
     public virtual void UpdateView()
     {
-        this.interactable = m_Data.CanBuy();
+        this.interactable = Gley.EasyIAP.API.IsActive(yourPorduct);
     }
 }

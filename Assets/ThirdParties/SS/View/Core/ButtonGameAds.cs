@@ -5,32 +5,44 @@ using DG.Tweening;
 using LibraryGame;
 using UnityEngine.UI;
 
-public class ButtonGameAds : ButtonGame
+public class ButtonAdsRewarded : ButtonGame
 {
-    [Header("Setting IAP")]
+    [Header("Setting")]
     public AdsPack pack;
-    public SoShop soShop;
 
-    [Header("Ref")]
+    [Header("View")]
     public InfoViewDataIAP infoViewData;
 
-    [Header("Setting")]
-    public UnityEvent onCompletedAds = new UnityEvent();
+    [Header("Event")]
+    public UnityEvent OnSuccess; UnityEvent OnFail; UnityEvent OnCompleted;
 
     protected AdsShop m_Data;
 
     protected override void StartButton()
     {
-        m_Data = soShop.GetAdsShop(pack);
+        m_Data = GameManager.Instance.GetShopPresenter().soDataRewards.GetAdsShop(pack);
         infoViewData.Init(m_Data);
     }
 
     protected override void OnClick()
     {
-        m_Data.SetData(() =>
-        {
-            onCompletedAds?.Invoke();
-        });
         onClick?.Invoke();
+
+        m_Data.SetData(OnSuccessWatch, OnFailWatch, OnCompletedWatch);
+
+        void OnCompletedWatch()
+        {
+            OnCompleted?.Invoke();
+        }
+
+        void OnSuccessWatch()
+        {
+            OnSuccess?.Invoke();
+        }
+
+        void OnFailWatch()
+        {
+            OnFail?.Invoke();
+        }
     }
 }

@@ -9,32 +9,39 @@ public class ButtonGameGold : ButtonGame
 {
     [Header("Setting IAP")]
     public CointPack pack;
-    public SoShop soShop;
 
-    [Header("Ref")]
+    [Header("View")]
     public InfoViewDataIAP infoViewData;
-
-    [Header("Setting")]
     public Text textPrice;
+
+    [Header("Event")]
+    public UnityEvent OnSucccess;
+    public UnityEvent OnFail;
 
     protected CointShop m_Data;
 
     protected override void StartButton()
     {
-        m_Data = soShop.GetItemCoin(pack);
+        m_Data = GameManager.Instance.GetShopPresenter().soDataRewards.GetItemCoin(pack);
         textPrice.text = string.Format("{0}", m_Data.vaule);
         infoViewData.Init(m_Data);
     }
 
     protected override void OnClick()
     {
-        GameManager.Instance.GetMasterPresenter().EditMoney(m_Data.vaule, () =>
+        onClick?.Invoke();
+
+        GameManager.Instance.GetMasterPresenter().AddMoney(m_Data.vaule, OnSucccessMoney, OnFailMoney, pack.ToString());
+
+        void OnSucccessMoney()
         {
             m_Data.SetData();
-            onClick?.Invoke();
-        }, () =>
+            OnSucccess?.Invoke();
+        }
+
+        void OnFailMoney()
         {
-            //  SS.View.Manager.Add(PopupInfoController.POPUPINFO_SCENE_NAME, new PopupInfoData("Not enough gold", null));
-        }, pack.ToString());
+            OnFail?.Invoke();
+        }
     }
 }

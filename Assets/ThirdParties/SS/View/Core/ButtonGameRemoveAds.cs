@@ -7,17 +7,17 @@ using UnityEngine.UI;
 
 public class ButtonGameRemoveAds : ButtonGameIAP
 {
-    public GameObject[] HideObject;
+    public GameObject[] objectActive;
 
     public override void UpdateView()
     {
-        bool canBuy = m_Data.CanBuy();
+        bool isActive = Gley.EasyIAP.API.IsActive(yourPorduct);
 
-        this.interactable = canBuy;
+        this.interactable = isActive;
         
-        foreach (var item in HideObject)
+        foreach (var item in objectActive)
         {
-            item.SetActive(canBuy);
+            item.SetActive(isActive);
         }
     }
 }

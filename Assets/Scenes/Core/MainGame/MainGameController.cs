@@ -14,6 +14,8 @@ public class MainGameController : Controller
 
     void Awake()
     {
+        Manager manager = new Manager();
+
 #if DEBUG
         Debug.unityLogger.logEnabled = true;
 #else
@@ -28,7 +30,7 @@ public class MainGameController : Controller
         Manager.MaskSceneName = PopupMaskController.POPUPTUTOR_SCENE_NAME;
 
         Manager.NoInternetSceneName = PopupNoInternetController.POPUPNOINTERNET_SCENE_NAME;
-     
+
         yield return new WaitForEndOfFrame();
 
         GameManager.Instance.GetSettingPresenter().PlayMusic();

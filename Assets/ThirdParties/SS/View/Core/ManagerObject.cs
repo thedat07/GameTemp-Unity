@@ -19,8 +19,6 @@ namespace SS.View
 
         public Camera UICamera => m_UiCamera;
 
-        public ParticleSystem effectRainbow;
-
         public void ShieldOff()
         {
             if (m_State == State.SHIELD_ON)
@@ -90,7 +88,7 @@ namespace SS.View
 
         public void PlayEffect()
         {
-            effectRainbow.Play();
+
         }
     }
 }

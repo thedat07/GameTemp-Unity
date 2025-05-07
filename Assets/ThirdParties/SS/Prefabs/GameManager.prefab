@@ -259,7 +259,6 @@ GameObject:
   - component: {fileID: 4248042350450664700}
   - component: {fileID: 1123811222295841888}
   - component: {fileID: 1842806919098612055}
-  - component: {fileID: 1576626653197936213}
   m_Layer: 0
   m_Name: 'AdsPresenter '
   m_TagString: Untagged
@@ -299,7 +298,8 @@ MonoBehaviour:
   adsDataNotSave:
     adShowedCount: 0
     adInterCount: 0
-  showPopupAds: 0
+  placementInter: 
+  placementReward: 
 --- !u!114 &1842806919098612055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,18 +310,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d77301e773a195341ac3c338da88e7d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1576626653197936213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6522335959525721056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbab37412a02b9546b20876df14a04f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6578075392098795611

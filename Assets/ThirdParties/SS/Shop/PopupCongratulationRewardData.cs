@@ -5,7 +5,7 @@ using SS.View;
 using System.Linq;
 using UnityEngine.Events;
 
-public class PopupCongratulationRewardData
+public class CongratulationRewardData
 {
     public List<ItemShopData> data;
     public string log;
@@ -13,7 +13,7 @@ public class PopupCongratulationRewardData
     public UnityAction actionAds;
     public bool ads;
 
-    public PopupCongratulationRewardData(List<ItemShopData> data, string log = "", UnityAction action = null, bool ads = true, UnityAction actionAds = null)
+    public CongratulationRewardData(List<ItemShopData> data, string log = "", UnityAction action = null, bool ads = true, UnityAction actionAds = null)
     {
         this.data = new List<ItemShopData>();
         this.data.AddRange(data);

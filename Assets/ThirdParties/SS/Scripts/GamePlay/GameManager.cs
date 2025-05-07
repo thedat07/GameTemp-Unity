@@ -19,7 +19,6 @@ public class GameManager : SingletonPersistent<GameManager>
     [SerializeField] MasterPresenter m_MasterPresenter;
     [SerializeField] StagePresenter m_StagePresenter;
     [SerializeField] QuestPresenter m_QuestPresenter;
-    [SerializeField] IAPPresenter m_IAPPresenter;
     [SerializeField] AdsPresenter m_AdsPresenter;
     [SerializeField] ShopPresenter m_ShopPresenter;
     [SerializeField] FirebaseManager m_ConfigController;
@@ -55,7 +54,6 @@ public class GameManager : SingletonPersistent<GameManager>
     public QuestPresenter GetQuestPresenter() => m_QuestPresenter;
 
     public ShopPresenter GetShopPresenter() => m_ShopPresenter;
-    public IAPPresenter GetIAPPresenter() => m_IAPPresenter;
     public AdsPresenter GetAdsPresenter() => m_AdsPresenter;
 
     public SettingData GetSettingData() => m_SettingData;

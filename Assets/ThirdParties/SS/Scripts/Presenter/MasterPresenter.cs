@@ -58,12 +58,12 @@ public class MasterPresenter : MonoBehaviour
         TigerForge.EventManager.EmitEvent(MasterData.Key);
     }
 
-    public void EditMoney(int vaule, UnityAction succcess, UnityAction fail, string log)
+    public void AddMoney(int vaule, UnityAction onSucccess, UnityAction onFail, string log)
     {
         int newMoney = m_Data.GetData(MasterDataType.Money) - vaule;
         if (newMoney < 0)
         {
-            fail?.Invoke();
+            onFail?.Invoke();
             FirebaseEvent.LogEvent("money_spend_fail",
              "level", GameManager.Instance.GetMasterData().GetData(MasterDataType.Stage).ToString(),
              "vaule", vaule.ToString(),
@@ -72,7 +72,7 @@ public class MasterPresenter : MonoBehaviour
         }
         else
         {
-            succcess?.Invoke();
+            onSucccess?.Invoke();
             AddData(-vaule, MasterDataType.Money);
             FirebaseEvent.LogEvent("money_spend_success",
             "level", GameManager.Instance.GetMasterData().GetData(MasterDataType.Stage).ToString(),
