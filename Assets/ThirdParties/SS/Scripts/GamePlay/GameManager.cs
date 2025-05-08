@@ -49,6 +49,8 @@ public class GameManager : SingletonPersistent<GameManager>
 
         m_ConfigController.InitInfo(null, null);
         m_FacebookController.Init();
+
+        m_ShopPresenter.Init();
     }
 
     public SettingPresenter GetSettingPresenter() => m_SettingPresenter;
