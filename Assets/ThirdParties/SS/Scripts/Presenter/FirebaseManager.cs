@@ -21,28 +21,16 @@ public class FirebaseManager : MonoBehaviour
 
     public static string FirebaseID;
 
-    public UnityEvent OnInitSuccess;
-
-    public UnityEvent OnInitFail;
-
     private bool _firebaseInitialized = false;
 
     private VerifyFirebase firebaseReady = VerifyFirebase.Verifying;
 
     public bool IsDone() => active ? firebaseReady == VerifyFirebase.Done : false;
 
-    public void InitInfo(UnityAction onInitSuccess, UnityAction onInitFail)
+    public void Init()
     {
         if (active)
         {
-            OnInitSuccess = new UnityEvent();
-
-            OnInitSuccess.AddListener(() => { onInitSuccess?.Invoke(); });
-
-            OnInitFail = new UnityEvent();
-
-            OnInitFail.AddListener(() => { onInitFail?.Invoke(); });
-
             try
             {
                 FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
@@ -85,11 +73,6 @@ public class FirebaseManager : MonoBehaviour
             UnityEngine.Console.LogError("Firebase", "Init Firebase Error: " + e.ToString());
             _firebaseInitialized = false;
         }
-
-        if (_firebaseInitialized)
-            OnInitSuccess?.Invoke();
-        else
-            OnInitFail?.Invoke();
     }
 
     IEnumerator InitFirebase()

@@ -47,7 +47,7 @@ public class GameManager : SingletonPersistent<GameManager>
         m_AdsPresenter.Init();
         m_QuestPresenter.Init();
 
-        m_ConfigController.InitInfo(null, null);
+        m_ConfigController.Init();
         m_FacebookController.Init();
 
         m_ShopPresenter.Init();
