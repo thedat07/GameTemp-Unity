@@ -419,9 +419,9 @@ MonoBehaviour:
   m_Canvas: {fileID: 183647586}
   m_Camera: {fileID: 2124946498}
   FullScreen: 0
+  HasShield: 1
+  UseCameraUI: 1
   Animation: {fileID: 0}
-  hasShield: 0
-  m_UICamera: 0
 --- !u!1 &2124946497
 GameObject:
   m_ObjectHideFlags: 0

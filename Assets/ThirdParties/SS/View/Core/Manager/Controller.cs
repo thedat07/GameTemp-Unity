@@ -172,7 +172,8 @@ namespace SS.View
 
             LibraryGame.Game.GetScale(GetCanvasScaler());
 
-            Canvas.ForceUpdateCanvases();
+            RectTransform rootRect = m_Canvas.GetComponent<RectTransform>();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rootRect);
         }
 
         public virtual void HideUI()

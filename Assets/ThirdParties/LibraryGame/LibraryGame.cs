@@ -199,7 +199,7 @@ namespace LibraryGame
         {
             float max = MathF.Max(sreen.y, sreen.x);
 
-            float maxDefault = MathF.Max(StaticData.ScreenGame.y, StaticData.ScreenGame.x);
+            float maxDefault = MathF.Max(SettingPresenter.ScreenGame.y, SettingPresenter.ScreenGame.x);
 
             return defaultScaleTable / (max / maxDefault);
         }
@@ -211,7 +211,7 @@ namespace LibraryGame
             float defaultSize = cam.orthographicSize;
 
             float ratio = width / height;
-            float ratioDefault = StaticData.ScreenGame.x / StaticData.ScreenGame.y;
+            float ratioDefault = SettingPresenter.ScreenGame.x / SettingPresenter.ScreenGame.y;
             if (ratio < ratioDefault)
             {
                 cam.orthographicSize = Mathf.Clamp(defaultSize / (ratio / ratioDefault), minCam, maxCam);
@@ -233,7 +233,7 @@ namespace LibraryGame
             {
                 Vector2 spriteOriginSize = target.sprite.rect.size;
                 float ratio = rt.sizeDelta.x;
-                float ratioDefault = StaticData.ScreenGame.x;
+                float ratioDefault = SettingPresenter.ScreenGame.x;
                 spriteOriginSize.x = (spriteOriginSize.x / (ratioDefault / ratio)) * scale;
                 target.rectTransform.DOSizeDelta(spriteOriginSize, time);
             }
@@ -356,7 +356,7 @@ namespace LibraryGame
             float width = (float)Screen.width;
 
             float ratio = width / height;
-            float ratioDefault = StaticData.ScreenGame.x / StaticData.ScreenGame.y;
+            float ratioDefault = SettingPresenter.ScreenGame.x / SettingPresenter.ScreenGame.y;
             if (ratio < ratioDefault)
             {
                 if (DeviceTypeChecker.GetDeviceType() == ENUM_Device_Type.Phone)
@@ -376,7 +376,7 @@ namespace LibraryGame
             float width = (float)Screen.width;
 
             float ratio = width / height;
-            float ratioDefault = StaticData.ScreenGame.x / StaticData.ScreenGame.y;
+            float ratioDefault = SettingPresenter.ScreenGame.x / SettingPresenter.ScreenGame.y;
             if (ratio < ratioDefault)
             {
                 if (DeviceTypeChecker.GetDeviceType() == ENUM_Device_Type.Phone)

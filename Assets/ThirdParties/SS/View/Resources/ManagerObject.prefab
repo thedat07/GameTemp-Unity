@@ -49,7 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiCamera: {fileID: 20002072657703004}
-  effectRainbow: {fileID: 0}
 --- !u!1 &1762299691572884
 GameObject:
   m_ObjectHideFlags: 0
