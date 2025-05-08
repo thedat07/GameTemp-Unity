@@ -38,7 +38,10 @@ MonoBehaviour:
     - CW.Common
     - DOTween.Modules
     - LeanCommon
+    - LeanGUI
     - LeanPool
+    - LeanTouch
+    - LeanTransition
     - MaxSdk.Scripts
     - Purchasing.Common
     - Tests

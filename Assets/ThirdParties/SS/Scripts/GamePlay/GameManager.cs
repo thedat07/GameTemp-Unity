@@ -57,7 +57,6 @@ public class GameManager : SingletonPersistent<GameManager>
     public MasterPresenter GetMasterPresenter() => m_MasterPresenter;
     public StagePresenter GetStagePresenter() => m_StagePresenter;
     public QuestPresenter GetQuestPresenter() => m_QuestPresenter;
-
     public ShopPresenter GetShopPresenter() => m_ShopPresenter;
     public AdsPresenter GetAdsPresenter() => m_AdsPresenter;
 

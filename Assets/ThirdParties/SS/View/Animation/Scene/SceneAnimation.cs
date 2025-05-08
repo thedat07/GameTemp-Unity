@@ -3,6 +3,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using Lean.Gui;
 
 namespace SS.View
 {
@@ -10,6 +11,8 @@ namespace SS.View
     public class SceneAnimation : BaseSS
     {
         CanvasGroup m_CanvasGroup;
+
+        LeanSafeArea m_LeanSafeArea;
 
         [SerializeField] Controller m_Controller;
 
@@ -83,6 +86,12 @@ namespace SS.View
                     HideBeforeShowing();
                 }
             }
+        }
+
+        public void UpdateSafeArea()
+        {
+            m_LeanSafeArea = gameObject.AddComponent<LeanSafeArea>();
+            m_LeanSafeArea.UpdateSafeArea();
         }
     }
 }

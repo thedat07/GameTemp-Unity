@@ -25,6 +25,7 @@ namespace SS.View
         public bool FullScreen;
         public bool HasShield = true;
         public bool UseCameraUI = true;
+        public bool SafeArea = true;
 
         [Header("Effect")]
         public SceneAnimation Animation;
@@ -159,6 +160,11 @@ namespace SS.View
 
         public void SetupCanvas(int sortingOrder)
         {
+            if (SafeArea)
+            {
+                Animation.UpdateSafeArea();
+            }
+
             if (m_Canvas == null)
             {
                 m_Canvas = transform.GetComponentInChildren<Canvas>(true);

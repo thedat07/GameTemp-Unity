@@ -154,9 +154,10 @@ MonoBehaviour:
   m_Canvas: {fileID: 8754637158026345134}
   m_Camera: {fileID: 0}
   FullScreen: 0
+  HasShield: 1
+  UseCameraUI: 1
+  SafeArea: 1
   Animation: {fileID: 8754637156297780078}
-  hasShield: 1
-  m_UICamera: 1
 --- !u!4 &1387961
 Transform:
   m_ObjectHideFlags: 0
