@@ -352,28 +352,27 @@ namespace LibraryGame
 
         public static void EditCanvasScaler(this CanvasScaler canvasScaler)
         {
-            float height = (float)Screen.height;
-            float width = (float)Screen.width;
+            float ratio = (float)Screen.width / Screen.height;
+            float defaultRatio = SettingPresenter.ScreenGame.x / SettingPresenter.ScreenGame.y;
 
-            float ratio = width / height;
-            
-            float ratioDefault = SettingPresenter.ScreenGame.x / SettingPresenter.ScreenGame.y;
-
-            if (ratio < ratioDefault)
+            if (ratio < defaultRatio)
             {
-                if (DeviceTypeChecker.GetDeviceType() == ENUM_Device_Type.Phone)
-                {
-                    canvasScaler.matchWidthOrHeight = Mathf.Clamp(1 - (1 / (ratio / ratioDefault)), 0, 1);
-                }
-                else
-                {
-                    canvasScaler.matchWidthOrHeight = Mathf.Clamp(1 / (ratio / ratioDefault), 0, 1);
-                }
-            }
+                float match = ratio / defaultRatio;
+                match = (DeviceTypeChecker.GetDeviceType() == ENUM_Device_Type.Phone)
+                    ? Mathf.Clamp(1 - (1 / match), 0, 1)
+                    : Mathf.Clamp(1 / match, 0, 1);
 
-            if (canvasScaler.TryGetComponent<RectTransform>(out RectTransform rootRect))
-            {
-                LayoutRebuilder.ForceRebuildLayoutImmediate(rootRect);
+                bool update = canvasScaler.matchWidthOrHeight != match;
+                
+                canvasScaler.matchWidthOrHeight = match;
+
+                if (update)
+                {
+                    if (canvasScaler.TryGetComponent<RectTransform>(out RectTransform rootRect))
+                    {
+                        LayoutRebuilder.ForceRebuildLayoutImmediate(rootRect);
+                    }
+                }
             }
         }
 
