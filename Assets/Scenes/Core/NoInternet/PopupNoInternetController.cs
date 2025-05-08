@@ -18,7 +18,6 @@ public class CheckInternet
         }
         else
         {
-            Console.Log("Internet", "Internet Available");
             return true;
         }
     }
@@ -32,11 +31,11 @@ public interface INoInternet
 
 public class PopupNoInternetController : Controller
 {
-    public const string POPUPNOINTERNET_SCENE_NAME = "PopupNoInternet";
+    public const string SCENE_NAME = "PopupNoInternet";
 
     public override string SceneName()
     {
-        return POPUPNOINTERNET_SCENE_NAME;
+        return SCENE_NAME;
     }
 
     public void OnShownInternet()

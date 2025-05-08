@@ -171,8 +171,8 @@ MonoBehaviour:
   m_Camera: {fileID: 0}
   FullScreen: 0
   Animation: {fileID: 0}
-  hasShield: 1
-  m_UICamera: 1
+  hasShield: 0
+  m_UICamera: 0
 --- !u!1 &1100774322
 GameObject:
   m_ObjectHideFlags: 0

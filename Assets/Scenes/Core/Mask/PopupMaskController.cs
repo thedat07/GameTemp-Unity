@@ -17,11 +17,11 @@ public interface IMask
 
 public class PopupMaskController : Controller, IMask
 {
-    public const string POPUPTUTOR_SCENE_NAME = "PopupMask";
+    public const string SCENE_NAME = "PopupMask";
 
     public override string SceneName()
     {
-        return POPUPTUTOR_SCENE_NAME;
+        return SCENE_NAME;
     }
 
     [Header("Mask")]

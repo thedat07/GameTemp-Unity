@@ -185,20 +185,33 @@ namespace SS.View
             var controller = GetController(scene);
 
             // Loading Scene
-            LoadingScene(80, MaskSceneName, ref m_MaskController);
-            LoadingScene(90, LoadingSceneName, ref m_LoadingController);
-            LoadingScene(100, NoInternetSceneName, ref m_NoInternetController);
-
-            void LoadingScene(int sorting, string sceneName, ref Controller controllerRef)
+            if (controller.SceneName() == MaskSceneName)
             {
-                if (controller.SceneName() == sceneName)
-                {
-                    controller.SetupCanvas(sorting);
-                    controllerRef = controller;
-                    controllerRef.gameObject.SetActive(false);
-                    GameObject.DontDestroyOnLoad(controllerRef.gameObject);
-                    return;
-                }
+                SettingController(ref m_MaskController, 80);
+                return;
+            }
+
+            if (controller.SceneName() == LoadingSceneName)
+            {
+                SettingController(ref m_LoadingController, 90);
+                return;
+            }
+
+            if (controller.SceneName() == NoInternetSceneName)
+            {
+                SettingController(ref m_NoInternetController, 100);
+                return;
+            }
+
+            void SettingController(ref Controller controllerRef, int sortingOrder)
+            {
+                controller.SetupCanvas(sortingOrder);
+                controllerRef = controller;
+                controllerRef.HasShield = false;
+                controllerRef.FullScreen = false;
+                controllerRef.UseCameraUI = true;
+                controllerRef.gameObject.SetActive(false);
+                GameObject.DontDestroyOnLoad(controllerRef.gameObject);
             }
 
             // Single Mode automatically destroy all scenes, so we have to clear the stack.
@@ -235,7 +248,7 @@ namespace SS.View
 
             // Setup controller
             controller.Data = data;
-            controller.hasShield = data.hasShield;
+            controller.HasShield = data.hasShield;
             controller.SetupCanvas(m_ControllerStack.Count - 1);
             controller.OnActive(data.data);
             controller.CreateShield();
@@ -285,19 +298,13 @@ namespace SS.View
             if (HasLoading())
             {
                 Manager.LoadingAnimation(true);
-                (m_LoadingController as DLoadingController).sceneName = sceneName;
-                Load();
+                m_LoadingController.StopAllCoroutines();
+                m_LoadingController.StartCoroutine(LoadYourAsyncScene(sceneName));
             }
             else
             {
                 SceneManager.LoadScene(m_MainSceneName, LoadSceneMode.Single);
             }
-        }
-
-        static void Load()
-        {
-            m_LoadingController.StopAllCoroutines();
-            m_LoadingController.StartCoroutine(LoadYourAsyncScene((m_LoadingController as DLoadingController).sceneName));
         }
 
         static IEnumerator LoadYourAsyncScene(string sceneName)

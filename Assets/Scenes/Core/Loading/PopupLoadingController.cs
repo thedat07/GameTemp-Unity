@@ -8,9 +8,9 @@ public interface ILoading
     void HideLoading();
 }
 
-public class DLoadingController : Controller, ILoading
+public class PopupLoadingController : Controller, ILoading
 {
-    public const string SCENE_NAME = "DLoading";
+    public const string SCENE_NAME = "PopupLoadingController";
 
     public override string SceneName()
     {
@@ -20,9 +20,6 @@ public class DLoadingController : Controller, ILoading
     public override void CreateShield() { }
 
     public override void HideUI() { }
-
-    [Header("Ref")]
-    public string sceneName;
 
     void Start()
     {

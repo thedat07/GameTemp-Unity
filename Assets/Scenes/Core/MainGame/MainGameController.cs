@@ -25,11 +25,11 @@ public class MainGameController : Controller
 
     IEnumerator Start()
     {
-        Manager.LoadingSceneName = DLoadingController.SCENE_NAME;
+        Manager.LoadingSceneName = PopupLoadingController.SCENE_NAME;
 
-        Manager.MaskSceneName = PopupMaskController.POPUPTUTOR_SCENE_NAME;
+        Manager.MaskSceneName = PopupMaskController.SCENE_NAME;
 
-        Manager.NoInternetSceneName = PopupNoInternetController.POPUPNOINTERNET_SCENE_NAME;
+        Manager.NoInternetSceneName = PopupNoInternetController.SCENE_NAME;
 
         yield return new WaitForEndOfFrame();
 

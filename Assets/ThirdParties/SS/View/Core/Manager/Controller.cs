@@ -15,21 +15,18 @@ namespace SS.View
 
     public abstract class Controller : MonoBehaviour, IController
     {
-        [SerializeField] protected Canvas m_Canvas;
+        protected GameObject m_Shield;
 
+        [Header("Info")]
+        [SerializeField] protected Canvas m_Canvas;
         [SerializeField] protected Camera m_Camera;
 
-        /// <summary>
-        /// When you popup a fullscreen view using SceneManager.Popup(), the system will automatically deactivate the view under it ( for better performance ).
-        /// When you close it using SceneManager.Close(), the view which was under it will be activated.
-        /// </summary>
-        [SerializeField]
+        [Header("Setting")]
         public bool FullScreen;
+        public bool HasShield = true;
+        public bool UseCameraUI = true;
 
-        /// <summary>
-        /// The animation.
-        /// </summary>
-        [SerializeField]
+        [Header("Effect")]
         public SceneAnimation Animation;
 
         /// <summary>
@@ -109,23 +106,21 @@ namespace SS.View
             }
         }
 
-        protected GameObject m_Shield;
-
-        public bool hasShield = true;
-
         public virtual void Show()
         {
-            Animation.StartShow();
+            if (Animation)
+                Animation.StartShow();
         }
 
         public virtual void Hide()
         {
-            Animation.StartHide();
+            if (Animation)
+                Animation.StartHide();
         }
 
         public virtual void CreateShield()
         {
-            if (m_Shield == null && m_Canvas.sortingOrder > 0 && hasShield)
+            if (m_Shield == null && m_Canvas.sortingOrder > 0 && HasShield)
             {
                 m_Shield = Instantiate(Resources.Load<GameObject>("Shield"));
 
@@ -162,8 +157,6 @@ namespace SS.View
             }
         }
 
-        [SerializeField] bool m_UICamera = true;
-
         public void SetupCanvas(int sortingOrder)
         {
             if (m_Canvas == null)
@@ -171,7 +164,7 @@ namespace SS.View
                 m_Canvas = transform.GetComponentInChildren<Canvas>(true);
             }
 
-            if (m_UICamera)
+            if (UseCameraUI)
             {
                 m_Canvas.sortingOrder = sortingOrder;
                 m_Canvas.worldCamera = Manager.Object.UICamera;
