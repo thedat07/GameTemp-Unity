@@ -22,7 +22,7 @@ namespace SS.View
         {
             if (m_CanvasGroup == null)
             {
-                m_CanvasGroup = gameObject.GetComponent<CanvasGroup>();
+                gameObject.TryGetComponent<CanvasGroup>(out m_CanvasGroup);
             }
             return m_CanvasGroup;
         }
@@ -86,12 +86,6 @@ namespace SS.View
                     HideBeforeShowing();
                 }
             }
-        }
-
-        public void UpdateSafeArea()
-        {
-            m_LeanSafeArea = gameObject.AddComponent<LeanSafeArea>();
-            m_LeanSafeArea.UpdateSafeArea();
         }
     }
 }

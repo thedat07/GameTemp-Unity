@@ -209,7 +209,6 @@ namespace SS.View
                 controllerRef.HasShield = false;
                 controllerRef.FullScreen = false;
                 controllerRef.UseCameraUI = true;
-                controllerRef.SafeArea = false;
                 controller.SetupCanvas(sortingOrder);
                 controllerRef.gameObject.SetActive(false);
                 GameObject.DontDestroyOnLoad(controllerRef.gameObject);

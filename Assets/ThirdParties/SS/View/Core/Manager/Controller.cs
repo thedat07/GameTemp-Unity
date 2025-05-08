@@ -25,7 +25,6 @@ namespace SS.View
         public bool FullScreen;
         public bool HasShield = true;
         public bool UseCameraUI = true;
-        public bool SafeArea = true;
 
         [Header("Effect")]
         public SceneAnimation Animation;
@@ -135,17 +134,19 @@ namespace SS.View
 
                 if (m_Shield)
                 {
-                    Animation.shield = m_Shield.GetComponent<Image>();
+                    m_Shield.TryGetComponent<Image>(out Animation.shield);
                 }
 
                 void SettingRectTransform()
                 {
-                    RectTransform rt = t.GetComponent<RectTransform>();
-                    rt.anchorMin = Vector2.zero;
-                    rt.anchorMax = Vector2.one;
-                    rt.pivot = new Vector2(0.5f, 0.5f);
-                    rt.offsetMax = new Vector2(2, 2);
-                    rt.offsetMin = new Vector2(-2, -2);
+                    if (t.TryGetComponent<RectTransform>(out RectTransform rt))
+                    {
+                        rt.anchorMin = Vector2.zero;
+                        rt.anchorMax = Vector2.one;
+                        rt.pivot = new Vector2(0.5f, 0.5f);
+                        rt.offsetMax = new Vector2(2, 2);
+                        rt.offsetMin = new Vector2(-2, -2);
+                    }
                 }
 
                 void SettingTransform()
@@ -160,11 +161,6 @@ namespace SS.View
 
         public void SetupCanvas(int sortingOrder)
         {
-            if (SafeArea)
-            {
-                Animation.UpdateSafeArea();
-            }
-
             if (m_Canvas == null)
             {
                 m_Canvas = transform.GetComponentInChildren<Canvas>(true);
@@ -176,10 +172,7 @@ namespace SS.View
                 m_Canvas.worldCamera = Manager.Object.UICamera;
             }
 
-            LibraryGame.Game.GetScale(GetCanvasScaler());
-
-            RectTransform rootRect = m_Canvas.GetComponent<RectTransform>();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(rootRect);
+            LibraryGame.Game.EditCanvasScaler(GetCanvasScaler());
         }
 
         public virtual void HideUI()
@@ -224,7 +217,7 @@ namespace SS.View
         {
             if (m_RectTransform == null)
             {
-                m_RectTransform = GetComponent<RectTransform>();
+                TryGetComponent<RectTransform>(out m_RectTransform);
             }
             return m_RectTransform;
         }
@@ -233,7 +226,7 @@ namespace SS.View
         {
             if (m_CanvasGroup == null)
             {
-                m_CanvasGroup = Animation.GetComponent<CanvasGroup>();
+                Animation.TryGetComponent<CanvasGroup>(out m_CanvasGroup);
             }
             return m_CanvasGroup;
         }
@@ -242,7 +235,7 @@ namespace SS.View
         {
             if (m_CanvasScaler == null)
             {
-                m_CanvasScaler = m_Canvas.GetComponent<CanvasScaler>();
+                m_Canvas.TryGetComponent<CanvasScaler>(out m_CanvasScaler);
             }
             return m_CanvasScaler;
         }

@@ -350,13 +350,15 @@ namespace LibraryGame
             target.text = string.Format("{0:N0} d", value);
         }
 
-        public static void GetScale(this CanvasScaler canvasScaler)
+        public static void EditCanvasScaler(this CanvasScaler canvasScaler)
         {
             float height = (float)Screen.height;
             float width = (float)Screen.width;
 
             float ratio = width / height;
+            
             float ratioDefault = SettingPresenter.ScreenGame.x / SettingPresenter.ScreenGame.y;
+
             if (ratio < ratioDefault)
             {
                 if (DeviceTypeChecker.GetDeviceType() == ENUM_Device_Type.Phone)
@@ -367,6 +369,11 @@ namespace LibraryGame
                 {
                     canvasScaler.matchWidthOrHeight = Mathf.Clamp(1 / (ratio / ratioDefault), 0, 1);
                 }
+            }
+
+            if (canvasScaler.TryGetComponent<RectTransform>(out RectTransform rootRect))
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate(rootRect);
             }
         }
 

@@ -23,8 +23,7 @@ public class PopupLoadingController : Controller, ILoading
 
     void Start()
     {
-        LibraryGame.Game.GetScale(GetCanvasScaler());
-        Canvas.ForceUpdateCanvases();
+        LibraryGame.Game.EditCanvasScaler(GetCanvasScaler());
     }
 
     public void ShowLoading()

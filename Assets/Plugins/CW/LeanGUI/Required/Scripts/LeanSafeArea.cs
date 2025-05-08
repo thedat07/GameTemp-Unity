@@ -13,14 +13,18 @@ namespace Lean.Gui
 	public class LeanSafeArea : UIBehaviour
 	{
 		/// <summary>Should you be able to drag horizontally?</summary>
-		public bool Horizontal { set { horizontal = value; } get { return horizontal; } } [SerializeField] private bool horizontal = true;
+		public bool Horizontal { set { horizontal = value; } get { return horizontal; } }
+		[SerializeField] private bool horizontal = true;
 
-		public Vector2 HorizontalRange { set { horizontalRange = value; } get { return horizontalRange; } } [Range(0.0f, 1.0f)] [SerializeField] private Vector2 horizontalRange = new Vector2(0.0f, 1.0f);
+		public Vector2 HorizontalRange { set { horizontalRange = value; } get { return horizontalRange; } }
+		[Range(0.0f, 1.0f)][SerializeField] private Vector2 horizontalRange = new Vector2(0.0f, 1.0f);
 
 		/// <summary>Should you be able to drag vertically?</summary>
-		public bool Vertical { set { vertical = value; } get { return vertical; } } [SerializeField] private bool vertical = true;
+		public bool Vertical { set { vertical = value; } get { return vertical; } }
+		[SerializeField] private bool vertical = true;
 
-		public Vector2 VerticalRange { set { verticalRange = value; } get { return verticalRange; } } [Range(0.0f, 1.0f)] [SerializeField] private Vector2 verticalRange = new Vector2(0.0f, 1.0f);
+		public Vector2 VerticalRange { set { verticalRange = value; } get { return verticalRange; } }
+		[Range(0.0f, 1.0f)][SerializeField] private Vector2 verticalRange = new Vector2(0.0f, 1.0f);
 
 		[System.NonSerialized]
 		private RectTransform cachedRectTransform;
@@ -34,15 +38,15 @@ namespace Lean.Gui
 		{
 			if (cachedRectTransformSet == false)
 			{
-				cachedRectTransform    = GetComponent<RectTransform>();
+				TryGetComponent<RectTransform>(out cachedRectTransform);
 				cachedRectTransformSet = true;
 			}
 
 			var safeRect = Screen.safeArea;
-			var screenW  = Screen.width;
-			var screenH  = Screen.height;
-			var safeMin  = safeRect.min;
-			var safeMax  = safeRect.max;
+			var screenW = Screen.width;
+			var screenH = Screen.height;
+			var safeMin = safeRect.min;
+			var safeMax = safeRect.max;
 
 			if (horizontal == false)
 			{
@@ -95,14 +99,14 @@ namespace Lean.Gui.Editor
 			if (Any(tgts, t => t.Horizontal == true))
 			{
 				BeginIndent();
-					DrawMinMax("horizontalRange", 0.0f, 1.0f, "", "Range");
+				DrawMinMax("horizontalRange", 0.0f, 1.0f, "", "Range");
 				EndIndent();
 			}
 			Draw("vertical", "Should you be able to drag vertically?");
 			if (Any(tgts, t => t.Vertical == true))
 			{
 				BeginIndent();
-					DrawMinMax("verticalRange", 0.0f, 1.0f, "", "Range");
+				DrawMinMax("verticalRange", 0.0f, 1.0f, "", "Range");
 				EndIndent();
 			}
 		}
