@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using SS.View;
+using Lean.Gui;
 
-public class ButtonBase : Selectable
+public class ButtonBase : LeanButton
 {
     protected Vector3 m_Scale;
 
@@ -28,8 +27,20 @@ public class ButtonBase : Selectable
         {
             if (m_ApplySettings)
                 ApplySettings();
+
+            OnClick.AddListener(PlayAudio);
+
+            OnClick.AddListener(PlayEffect);
+
+            OnClick.AddListener(OnClickEvent);
         }
     }
+
+    protected virtual void PlayAudio() { }
+
+    protected virtual void PlayEffect() { }
+
+    protected virtual void OnClickEvent() { }
 
     protected virtual void Update()
     {

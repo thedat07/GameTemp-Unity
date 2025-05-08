@@ -27,10 +27,8 @@ public class ButtonGameGold : ButtonGame
         infoViewData.Init(m_Data);
     }
 
-    protected override void OnClick()
+    protected override void OnClickEvent()
     {
-        onClick?.Invoke();
-
         GameManager.Instance.GetMasterPresenter().AddMoney(m_Data.vaule, OnSucccessMoney, OnFailMoney, pack.ToString());
 
         void OnSucccessMoney()

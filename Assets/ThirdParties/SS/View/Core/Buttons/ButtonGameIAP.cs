@@ -165,10 +165,8 @@ public class ButtonGameIAP : ButtonGame
         }
     }
 
-    protected override void OnClick()
+    protected override void OnClickEvent()
     {
-        onClick?.Invoke();
-
         GameManager.Instance.GetShopPresenter().BuyProduct(yourPorduct, OnSuccessIAP, OnFailIAP, OnCompletedIAP);
 
         void OnCompletedIAP()

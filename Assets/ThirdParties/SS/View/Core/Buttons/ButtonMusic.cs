@@ -5,50 +5,21 @@ using DG.Tweening;
 using LibraryGame;
 using UnityEngine.UI;
 
-public class ButtonMusic : Selectable, IPointerClickHandler
+public class ButtonMusic : ButtonGame
 {
-    public ObjectOnOff icon;
-
-    [Header("Setting")]
-    public TypeAudio typeAudio = TypeAudio.ButtonClick;
-    protected Vector3 m_Scale;
-
-    protected override void Start()
+    protected override void StartButton()
     {
-        base.Start();
-        if (Application.isPlaying)
-        {
-            m_Scale = transform.localScale;
-            UpdateView();
-        }
+        UpdateView();
     }
 
-    public virtual void OnPointerClick(PointerEventData eventData)
+    protected override void OnClickEvent()
     {
-        if (GameManager.Instance.HasMultipleTouches()) return;
-
-        if (eventData.button != PointerEventData.InputButton.Left)
-            return;
-
-        if (!IsActive() || !IsInteractable())
-            return;
-
         GameManager.Instance.GetSettingPresenter().SetMusic();
         UpdateView();
-
-        interactable = false;
-        PlayAudio();
-        transform.DoResetDefault();
-        transform.DOPunchScale(m_Scale * 0.05f, 0.25f).OnComplete(() => { interactable = true; }).SetLink(gameObject, LinkBehaviour.KillOnDestroy);
-    }
-
-    public void PlayAudio()
-    {
-        GameManager.Instance.GetSettingPresenter().PlaySound(typeAudio);
     }
 
     private void UpdateView()
     {
-        icon.Set(GameManager.Instance.GetSettingData().music);
+
     }
 }

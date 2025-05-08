@@ -24,10 +24,8 @@ public class ButtonAdsRewarded : ButtonGame
         infoViewData.Init(m_Data);
     }
 
-    protected override void OnClick()
+    protected override void OnClickEvent()
     {
-        onClick?.Invoke();
-
         m_Data.SetData(OnSuccessWatch, OnFailWatch, OnCompletedWatch);
 
         void OnCompletedWatch()
