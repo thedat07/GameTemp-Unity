@@ -12,6 +12,7 @@ public class ButtonGameCoin : ButtonGame
     [Header("Event")]
     public UnityEvent OnSucccess;
     public UnityEvent OnFail;
+    public UnityEvent OnCompleted;
 
     protected CointShop m_Data;
 
@@ -24,7 +25,7 @@ public class ButtonGameCoin : ButtonGame
 
     protected override void OnClickEvent()
     {
-        GameManager.Instance.GetMasterPresenter().AddMoney(m_Data.vaule, OnSucccessMoney, OnFailMoney, pack.ToString());
+        GameManager.Instance.GetMasterPresenter().AddMoney(m_Data.vaule, pack.ToString(), OnSucccessMoney, OnFailMoney, OnCompletedMoney);
 
         void OnSucccessMoney()
         {
@@ -35,6 +36,11 @@ public class ButtonGameCoin : ButtonGame
         void OnFailMoney()
         {
             OnFail?.Invoke();
+        }
+
+        void OnCompletedMoney()
+        {
+            OnCompleted?.Invoke();
         }
     }
 }
@@ -57,7 +63,7 @@ namespace Lean.Gui.Editor
 
             Draw("textPrice", "");
 
-            Draw("infoViewData", "View Info");
+            Draw("infoViewRoot", "View Info");
         }
 
         protected override void DrawSelectableEvents(bool showUnusedEvents)
@@ -74,6 +80,11 @@ namespace Lean.Gui.Editor
             if (showUnusedEvents == true || Any(tgts, t => t.OnClick.GetPersistentEventCount() > 0))
             {
                 Draw("OnFail");
+            }
+
+            if (showUnusedEvents == true || Any(tgts, t => t.OnClick.GetPersistentEventCount() > 0))
+            {
+                Draw("OnCompleted");
             }
         }
     }

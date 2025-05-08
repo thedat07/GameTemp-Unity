@@ -132,7 +132,7 @@ namespace Lean.Gui.Editor
 
             Draw("textPrice", "Get decimal product price denominated in the local currency");
 
-            Draw("infoViewDataIAP", "View Info");
+            Draw("infoViewRoot", "View Info");
         }
 
         protected override void DrawSelectableEvents(bool showUnusedEvents)
