@@ -70,10 +70,10 @@ namespace Lean.Gui
 			cachedRectTransform.anchorMax = new Vector2(safeMax.x / screenW, safeMax.y / screenH);
 		}
 
-		protected virtual void Update()
-		{
-			UpdateSafeArea();
-		}
+		// protected virtual void Update()
+		// {
+		// 	UpdateSafeArea();
+		// }
 	}
 }
 
