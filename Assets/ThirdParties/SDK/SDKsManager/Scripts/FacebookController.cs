@@ -37,7 +37,7 @@ public class FacebookController : MonoBehaviour
         }
         catch (Exception e)
         {
-            UnityEngine.Console.LogException(e);
+            UnityEngine.Console.Log("FB", e);
         }
 #endif
 

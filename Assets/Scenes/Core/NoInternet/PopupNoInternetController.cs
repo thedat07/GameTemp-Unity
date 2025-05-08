@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SS.View;
+using com.cyborgAssets.inspectorButtonPro;
 
 [System.Serializable]
 public class CheckInternet
 {
     public NetworkReachability network;
-
-    public float timeReset;
 
     public bool IsInternet()
     {
@@ -25,6 +24,12 @@ public class CheckInternet
     }
 }
 
+
+public interface INoInternet
+{
+    void OnShownInternet();
+}
+
 public class PopupNoInternetController : Controller
 {
     public const string POPUPNOINTERNET_SCENE_NAME = "PopupNoInternet";
@@ -39,6 +44,7 @@ public class PopupNoInternetController : Controller
         gameObject.SetActive(true);
     }
 
+    [ProButton]
     public void OnTryConnect()
     {
         if (GameManager.Instance.checkInternet.IsInternet())

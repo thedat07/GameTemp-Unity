@@ -43,7 +43,6 @@ namespace SS.View
             }
         }
 
-
         public static string NoInternetSceneName
         {
             set
@@ -121,7 +120,7 @@ namespace SS.View
         #region Internet
         public static void ShowNoInternet()
         {
-            m_NoInternetController.OnShown();
+            (m_NoInternetController as INoInternet).OnShownInternet();
         }
         #endregion
 

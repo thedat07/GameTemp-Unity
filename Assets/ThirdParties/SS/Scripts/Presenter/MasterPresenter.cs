@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using SS.View;
-
+using System.Collections;
 
 public class MasterPresenter : MonoBehaviour
 {
@@ -12,10 +12,30 @@ public class MasterPresenter : MonoBehaviour
 
     public bool IsTest = false;
 
+    private IEnumerator m_Coroutine;
+
     public void Init()
     {
         IsTest = false;
         m_Data = GameManager.Instance.GetMasterData();
+    }
+
+    void Start()
+    {
+        m_Coroutine = Wait(5.0f);
+        StartCoroutine(m_Coroutine);
+    }
+
+    private IEnumerator Wait(float waitTime)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(waitTime);
+            if (GameManager.Instance.checkInternet.IsInternet() == false)
+            {
+                Manager.ShowNoInternet();
+            }
+        }
     }
 
     public void AddData(int vaule, MasterDataType type, string log = "")
