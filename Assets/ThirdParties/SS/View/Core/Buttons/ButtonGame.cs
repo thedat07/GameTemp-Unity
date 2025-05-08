@@ -7,6 +7,9 @@ public class ButtonGame : ButtonBase
     [Header("Audio")]
     public TypeAudio typeAudio = TypeAudio.ButtonClick;
 
+    [Header("Audio")]
+    public bool activeEffect = true;
+
     protected override void PlayAudio()
     {
         GameManager.Instance.GetSettingPresenter().PlaySound(typeAudio);
@@ -14,8 +17,11 @@ public class ButtonGame : ButtonBase
 
     protected override void PlayEffect()
     {
-        transform.DoResetDefault();
-        transform.DOPunchScale(m_Scale * 0.05f, 0.25f).SetLink(gameObject, LinkBehaviour.KillOnDestroy);
+        if (activeEffect)
+        {
+            transform.DoResetDefault();
+            transform.DOPunchScale(m_Scale * 0.05f, 0.25f).SetLink(gameObject, LinkBehaviour.KillOnDestroy);
+        }
     }
 }
 
@@ -27,13 +33,15 @@ namespace Lean.Gui.Editor
 
     [CanEditMultipleObjects]
     [CustomEditor(typeof(TARGET))]
-    public class ButtonGame_Editor : LeanButton_Editor
+    public class ButtonGame_Editor : ButtonBase_Editor
     {
         protected override void DrawSelectableSettings()
         {
             base.DrawSelectableSettings();
 
             Draw("typeAudio", "Audio Click");
+
+            Draw("activeEffect", "Effect Default");
         }
     }
 }
