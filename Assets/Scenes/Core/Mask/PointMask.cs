@@ -8,7 +8,9 @@ using DG.Tweening;
 public class PointMask : MonoBehaviour
 {
     public Transform point;
+    
     public Image image;
+
     [SerializeField] RectTransform m_RectTransform;
 
     RectTransform m_RectTransformMasking;
@@ -37,13 +39,19 @@ public class PointMask : MonoBehaviour
     {
         this.point = point;
         this.m_Popup = popup;
-        image.sprite = sprite;
-        image.ReSize();
-        Vector3 scaleFrom = Vector3.one * scale * 5;
-        Vector3 scaleTo = Vector3.one * scale;
-        image.transform.DOScale(scaleTo, 0.5f).From(scaleFrom).SetEase(Ease.InOutSine).SetLink(gameObject, LinkBehaviour.KillOnDestroy);
-        image.transform.rotation = point.rotation;
+
+        SettingImage();
+
         UpdateView();
+
+        void SettingImage()
+        {
+            image.sprite = sprite;
+            image.ReSize();
+            Vector3 scaleTo = Vector3.one * scale;
+            image.transform.localScale = scaleTo;
+            image.transform.rotation = point.rotation;
+        }
     }
 
     void UpdateView()

@@ -12,7 +12,7 @@ namespace SS.View
         protected static Controller m_LoadingController;
 
         protected static string m_MaskSceneName;
-        protected static Controller m_TuotiralController;
+        protected static Controller m_MaskController;
 
         protected static string m_NoInternetSceneName;
         protected static Controller m_NoInternetController;
@@ -57,7 +57,7 @@ namespace SS.View
             }
         }
 
-        public static bool HasTut() => m_TuotiralController != null;
+        public static bool HasMask() => m_MaskController != null;
 
         public static bool HasLoading() => m_LoadingController != null;
 
@@ -75,57 +75,46 @@ namespace SS.View
         }
 
         #region Loading
-        public static void LoadingAnimation(bool active, object data = null)
+        public static void LoadingAnimation(bool active)
         {
             if (m_LoadingController != null)
             {
                 if (active)
                 {
-                    (m_LoadingController as DLoadingController).OnShow();
+                    (m_LoadingController as ILoading).ShowLoading();
                 }
                 else
                 {
-                    (m_LoadingController as DLoadingController).OnHide();
+                    (m_LoadingController as ILoading).HideLoading();
                 }
             }
-        }
-
-        public static void UpdateTextLoading(string text, float vaule)
-        {
-          //  (m_LoadingController as DLoadingController).DoVaule(0.5f, vaule, null);
         }
         #endregion
 
         #region Mask
         public static void ShowMask(PopupMaskData data)
         {
-            if (m_TuotiralController != null)
-            {
-                (m_TuotiralController as PopupMaskController).OnShow(data);
-            }
+            if (HasMask())
+                (m_MaskController as IMask).ShowMask(data);
         }
 
         public static void ShowMask(List<PopupMaskData> datas)
         {
-            if (m_TuotiralController != null)
-            {
-                (m_TuotiralController as PopupMaskController).OnShow(datas);
-            }
+            if (HasMask())
+                (m_MaskController as IMask).ShowMask(datas);
         }
 
-        public static bool UpdateMask()
+        public static bool UpdateMaskStep()
         {
-            if (m_TuotiralController != null)
-            {
-                return (m_TuotiralController as PopupMaskController).UpdateStep();
-            }
+            if (HasMask())
+                return (m_MaskController as IMask).UpdateMaskStep();
             return false;
         }
 
         public static void HideMask()
         {
-            if (m_TuotiralController != null)
-                (m_TuotiralController as PopupMaskController).OnHide();
+            if (HasMask())
+                (m_MaskController as IMask).HideMask();
         }
         #endregion
 
@@ -197,31 +186,20 @@ namespace SS.View
             var controller = GetController(scene);
 
             // Loading Scene
-            if (controller.SceneName() == LoadingSceneName)
-            {
-                controller.SetupCanvas(90);
-                m_LoadingController = controller;
-                m_LoadingController.gameObject.SetActive(false);
-                GameObject.DontDestroyOnLoad(m_LoadingController.gameObject);
-                return;
-            }
+            LoadingScene(80, MaskSceneName, ref m_MaskController);
+            LoadingScene(90, LoadingSceneName, ref m_LoadingController);
+            LoadingScene(100, NoInternetSceneName, ref m_NoInternetController);
 
-            if (controller.SceneName() == NoInternetSceneName)
+            void LoadingScene(int sorting, string sceneName, ref Controller controllerRef)
             {
-                controller.SetupCanvas(100);
-                m_NoInternetController = controller;
-                m_NoInternetController.gameObject.SetActive(false);
-                GameObject.DontDestroyOnLoad(m_NoInternetController.gameObject);
-                return;
-            }
-
-            if (controller.SceneName() == MaskSceneName)
-            {
-                controller.SetupCanvas(80);
-                m_TuotiralController = controller;
-                m_TuotiralController.gameObject.SetActive(false);
-                GameObject.DontDestroyOnLoad(m_TuotiralController.gameObject);
-                return;
+                if (controller.SceneName() == sceneName)
+                {
+                    controller.SetupCanvas(sorting);
+                    controllerRef = controller;
+                    controllerRef.gameObject.SetActive(false);
+                    GameObject.DontDestroyOnLoad(controllerRef.gameObject);
+                    return;
+                }
             }
 
             // Single Mode automatically destroy all scenes, so we have to clear the stack.
@@ -307,9 +285,6 @@ namespace SS.View
         {
             if (HasLoading())
             {
-                // if (sceneName == HomeGameController.HOMEGAME_SCENE_NAME)
-                //     GameManager.Instance.GetAdsPresenter().ShowInterstitial(null, "");
-
                 Manager.LoadingAnimation(true);
                 (m_LoadingController as DLoadingController).sceneName = sceneName;
                 Load();
@@ -328,9 +303,7 @@ namespace SS.View
 
         static IEnumerator LoadYourAsyncScene(string sceneName)
         {
-            Manager.UpdateTextLoading("UnZip", 0.8f);
-
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(0.5f);
 
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
 
@@ -338,6 +311,8 @@ namespace SS.View
             {
                 yield return new WaitForEndOfFrame();
             }
+
+            Manager.LoadingAnimation(false);
         }
         #endregion
     }

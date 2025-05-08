@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 using SS.View;
-using UnityEngine.UI;
 using DG.Tweening;
-using TMPro;
 
-public class DLoadingController : Controller
+public interface ILoading
+{
+    void ShowLoading();
+    void HideLoading();
+}
+
+public class DLoadingController : Controller, ILoading
 {
     public const string SCENE_NAME = "DLoading";
 
@@ -29,14 +30,14 @@ public class DLoadingController : Controller
         Canvas.ForceUpdateCanvases();
     }
 
-    public void OnShow()
+    public void ShowLoading()
     {
         DOTween.KillAll();
 
         gameObject.SetActive(true);
     }
 
-    public void OnHide()
+    public void HideLoading()
     {
         gameObject.SetActive(false);
     }

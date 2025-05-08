@@ -7,7 +7,15 @@ using Lean.Pool;
 using System.Collections.Generic;
 using TMPro;
 
-public class PopupMaskController : Controller
+public interface IMask
+{
+    void ShowMask(PopupMaskData data);
+    void ShowMask(List<PopupMaskData> datas);
+    bool UpdateMaskStep();
+    void HideMask();
+}
+
+public class PopupMaskController : Controller, IMask
 {
     public const string POPUPTUTOR_SCENE_NAME = "PopupMask";
 
@@ -29,13 +37,10 @@ public class PopupMaskController : Controller
     public GameObject hand;
     public Image mask;
 
+    int m_Step;
     Camera m_Cam;
-
-    private List<PointMask> pointMasks;
-
-    private List<PopupMaskData> PopupMaskDatas;
-
-    private int m_Step;
+    List<PointMask> m_PointMasks;
+    List<PopupMaskData> m_PopupMaskDatas;
 
     public float GetSize()
     {
@@ -58,21 +63,40 @@ public class PopupMaskController : Controller
         }
     }
 
-    public void OnShow(PopupMaskData data)
+    public void ShowMask(PopupMaskData data)
     {
         ClearMask();
         OnShow();
-        PopupMaskDatas = new List<PopupMaskData>();
         View(data);
     }
 
-    public void OnShow(List<PopupMaskData> datas)
+    public void ShowMask(List<PopupMaskData> datas)
     {
         ClearMask();
         OnShow();
-        PopupMaskDatas.AddRange(datas);
+        m_PopupMaskDatas.AddRange(datas);
         m_Step = 0;
-        View(PopupMaskDatas[m_Step]);
+        View(m_PopupMaskDatas[m_Step]);
+    }
+
+    public void HideMask()
+    {
+        canvasMask.alpha = 0;
+        gameObject.SetActive(false);
+        ClearMask();
+    }
+
+    public bool UpdateMaskStep()
+    {
+        point.DespawnAll();
+        m_PointMasks = new List<PointMask>();
+        m_Step++;
+        if (m_Step < m_PopupMaskDatas.Count)
+        {
+            View(m_PopupMaskDatas[m_Step]);
+            return true;
+        }
+        return false;
     }
 
     private void View(PopupMaskData data)
@@ -96,19 +120,6 @@ public class PopupMaskController : Controller
         ShowHand(data.showHand, data.flipHand);
     }
 
-    public bool UpdateStep()
-    {
-        point.DespawnAll();
-        pointMasks = new List<PointMask>();
-        m_Step++;
-        if (m_Step < PopupMaskDatas.Count)
-        {
-            View(PopupMaskDatas[m_Step]);
-            return true;
-        }
-        return false;
-    }
-
     void UpdateText(string text = "")
     {
         if (text == "")
@@ -125,8 +136,8 @@ public class PopupMaskController : Controller
     void ClearMask()
     {
         point.DespawnAll();
-        pointMasks = new List<PointMask>();
-        PopupMaskDatas = new List<PopupMaskData>();
+        m_PointMasks = new List<PointMask>();
+        m_PopupMaskDatas = new List<PopupMaskData>();
     }
 
     void ShowHand(bool show, bool flipHand)
@@ -134,10 +145,10 @@ public class PopupMaskController : Controller
         hand.SetActive(show);
         if (show == true)
         {
-            if (pointMasks != null && pointMasks.Count > 0)
+            if (m_PointMasks != null && m_PointMasks.Count > 0)
             {
-                hand.transform.position = pointMasks[0].transform.position;
-                hand.transform.DOScale(new Vector3(!flipHand ? 1 : -1, 1, 1), 0.25f).SetEase(Ease.OutBack).SetLink(gameObject, LinkBehaviour.KillOnDisable).From(0);
+                hand.transform.position = m_PointMasks[0].transform.position;
+                hand.SetActive(true);
             }
             else
             {
@@ -149,16 +160,7 @@ public class PopupMaskController : Controller
     void OnShow()
     {
         gameObject.SetActive(true);
-        canvasMask.DOFade(1, 0.2f).From(0).SetEase(Ease.Flash).SetLink(gameObject, LinkBehaviour.KillOnDestroy);
-    }
-
-    public void OnHide()
-    {
-        canvasMask.DOFade(0, 0.2f).From(1).SetEase(Ease.Flash).SetLink(gameObject, LinkBehaviour.KillOnDestroy).OnComplete(() =>
-        {
-            ClearMask();
-            gameObject.SetActive(false);
-        });
+        canvasMask.alpha = 1;
     }
 
     public void SetMaskUI(Sprite sprite, Transform pointSpawn, float scale)
@@ -166,7 +168,7 @@ public class PopupMaskController : Controller
         var pointMask = point.Spawn(contentPoint).GetComponent<PointMask>();
         pointMask.Init(pointSpawn, this, sprite, scale);
         pointMask.transform.localScale = Vector3.one;
-        pointMasks.Add(pointMask);
+        m_PointMasks.Add(pointMask);
     }
 
 
@@ -179,14 +181,14 @@ public class PopupMaskController : Controller
             return false;
         }
 
-        foreach (var area in pointMasks)
+        foreach (var area in m_PointMasks)
         {
             if (area != null)
             {
                 bool isInside = RectTransformUtility.RectangleContainsScreenPoint(
-                                area.GetRectMasking(),       // RectTransform bạn muốn kiểm tra
-                                screenPoint,         // Vector2 screen point
-                                camera               // Camera (thường là camera UI hoặc Camera.main)
+                                area.GetRectMasking(),
+                                screenPoint,
+                                camera
                             );
 
                 if (isInside)
@@ -197,7 +199,5 @@ public class PopupMaskController : Controller
         }
 
         return false;
-
-
     }
 }

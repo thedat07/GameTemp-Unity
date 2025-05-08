@@ -20,7 +20,7 @@ public class PopupMaskData
     public bool flipHand;
     public SettingCamTutor settingCam;
     public UnityAction callback;
-    public float mask = 0.7843137f;
+    public float mask = 0.78f;
 
     public PopupMaskData(
         string info, List<(Sprite, Transform, float)> lstInfo,
