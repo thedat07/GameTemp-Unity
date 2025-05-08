@@ -158,3 +158,8 @@ public class SettingPresenter : MonoBehaviour
         // #endif
     }
 }
+
+public enum TypeAudio
+{
+    ButtonClick = -1,
+}

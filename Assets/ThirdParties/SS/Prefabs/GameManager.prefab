@@ -431,23 +431,7 @@ MonoBehaviour:
   colorMultiplier: 1
   fadeDuration: 0.1
   audioClick: {fileID: 8300000, guid: 2c4d2a1f630ac994c9ce01718fdcf840, type: 3}
-  LstAudio:
-  - {fileID: 8300000, guid: f12f11cb30327e24c8f88c53a8a1686a, type: 3}
-  - {fileID: 8300000, guid: 2f94e5e4c737aa64f9865bf259dac4f2, type: 3}
-  - {fileID: 8300000, guid: 4ee726d1538e8b94985309c8df43e043, type: 3}
-  - {fileID: 8300000, guid: 08389ebcb42a93349bc14ffa63e78dee, type: 3}
-  - {fileID: 8300000, guid: 3e634d815cafd3b4d942558f407af67f, type: 3}
-  - {fileID: 8300000, guid: 4420fd96770ed0e4bb892ae484d5eb6c, type: 3}
-  - {fileID: 8300000, guid: 6df1983ef81f23b48a4bf00f8e2630a0, type: 3}
-  - {fileID: 8300000, guid: 27036bcf2c97f8b4089a91f033b4b43c, type: 3}
-  - {fileID: 8300000, guid: e0a49fac16bbc5340a7908fc789bdf4c, type: 3}
-  - {fileID: 8300000, guid: 5a3c7c180e8761547b6664087659d3ed, type: 3}
-  - {fileID: 8300000, guid: dab4d1e0b7947444abb60616844d70a4, type: 3}
-  - {fileID: 8300000, guid: 2e9415441cd05df4092746a7e397b2bc, type: 3}
-  - {fileID: 8300000, guid: 7cc5528dfc73c1e44bb36596aaebda99, type: 3}
-  - {fileID: 8300000, guid: acfc3737ed27f9d41ada8c279d168c59, type: 3}
-  - {fileID: 8300000, guid: 3775636dcf2e8c74688fe4435939d5ad, type: 3}
-  - {fileID: 8300000, guid: 07d2d0c429fc23c46b4d6f084e321c86, type: 3}
+  LstAudio: []
   audioBGRef: {fileID: 8300000, guid: 7fc19969d7b6bd843ab819ab943f943a, type: 3}
   autoKillMode: 0
   useSafeMode: 0

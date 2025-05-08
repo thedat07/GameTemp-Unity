@@ -12,7 +12,7 @@ public class MasterDataSubject : MonoBehaviour, IView
 {
     protected MasterData m_MasterData;
 
-    protected virtual void Start()
+    void Start()
     {
         m_MasterData = GameManager.Instance.GetMasterData();
         TigerForge.EventManager.StartListening(MasterData.Key, OnNotify);
@@ -25,7 +25,7 @@ public class MasterDataSubject : MonoBehaviour, IView
 
     }
 
-    public virtual void OnNotify()
+    void OnNotify()
     {
         UpdateView();
     }
@@ -35,8 +35,14 @@ public class MasterDataSubject : MonoBehaviour, IView
 
     }
 
-    protected virtual void OnDestroy()
+    void OnDestroy()
     {
+        Destroy();
         TigerForge.EventManager.StopListening(MasterData.Key, OnNotify);
+    }
+
+    protected virtual void Destroy()
+    {
+
     }
 }
