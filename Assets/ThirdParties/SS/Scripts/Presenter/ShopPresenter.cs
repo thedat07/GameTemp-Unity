@@ -12,6 +12,8 @@ public class ShopPresenter : MonoBehaviour
 
     public SoDataRewards soDataRewards;
 
+    public LoadingController loadingController;
+
     public void Init()
     {
         Gley.EasyIAP.API.Initialize(InitializationComplete);
@@ -45,6 +47,8 @@ public class ShopPresenter : MonoBehaviour
 
     public void BuyProduct(ShopProductNames shopProduct, UnityAction onSuccess = null, UnityAction onFail = null, UnityAction onCompleted = null)
     {
+        loadingController.OnShow();
+
         Gley.EasyIAP.API.BuyProduct(shopProduct, ProductBought);
 
         void ProductBought(IAPOperationStatus status, string message, StoreProduct product)
@@ -67,6 +71,8 @@ public class ShopPresenter : MonoBehaviour
             }
 
             onCompleted?.Invoke();
+
+            loadingController.OnHide();
 
             void TypeConsumable()
             {
@@ -113,6 +119,7 @@ public class ShopPresenter : MonoBehaviour
 
     public void OnRestore()
     {
+        loadingController.OnShow();
         Gley.EasyIAP.API.RestorePurchases(ProductRestoredCallback, RestoreDone);
     }
 
@@ -147,6 +154,7 @@ public class ShopPresenter : MonoBehaviour
     private void RestoreDone()
     {
         Console.Log("IAP", "Restore done");
+        loadingController.OnHide();
         TigerForge.EventManager.EmitEvent(Key, 0.1f);
     }
 

@@ -171,7 +171,6 @@ public class PopupMaskController : Controller, IMask
         m_PointMasks.Add(pointMask);
     }
 
-
     public bool IsPointAllowed(Vector2 screenPoint, Camera camera)
     {
         if (
