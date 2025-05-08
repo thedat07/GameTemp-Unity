@@ -4,94 +4,17 @@ using TMPro;
 using Gley.EasyIAP;
 using System.Collections.Generic;
 
-[System.Serializable]
-
-public class InfoViewData
-{
-    public MasterDataType type;
-    public GameObject view;
-    public InfoShopTextView textView;
-
-    public void Show(ItemShopData data)
-    {
-        if (this.type == data.type)
-        {
-            view.SetActive(true);
-            textView.View(data);
-        }
-    }
-}
-
-[System.Serializable]
-public class InfoViewDataIAP
-{
-    public InfoViewData[] textView;
-
-    public void Init(List<ItemShopData> data)
-    {
-        foreach (var item in textView)
-        {
-            item.view.SetActive(false);
-        }
-
-        foreach (var item in textView)
-        {
-            var getData = data.Find(x => x.type == item.type);
-            if (getData != null)
-            {
-                item.Show(getData);
-            }
-        }
-    }
-
-    public void Init(CointShop itemShop)
-    {
-        foreach (var item in textView)
-        {
-            item.view.SetActive(false);
-        }
-
-        foreach (var item in textView)
-        {
-            var getData = itemShop.data.Find(x => x.type == item.type);
-            if (getData != null)
-            {
-                item.Show(getData);
-            }
-        }
-    }
-
-    public void Init(AdsShop itemShop)
-    {
-        foreach (var item in textView)
-        {
-            item.view.SetActive(false);
-        }
-
-        foreach (var item in textView)
-        {
-            var getData = itemShop.data.Find(x => x.type == item.type);
-            if (getData != null)
-            {
-                item.Show(getData);
-            }
-        }
-    }
-}
-
 public class ButtonGameIAP : ButtonGame
 {
-    [Header("Setting IAP")]
+    [Header("Setting")]
     public ShopProductNames yourPorduct;
-
-    [Header("Textprice")]
     public TextMeshProUGUI textPrice;
+    public InfoViewRoot infoViewRoot;
 
-    [Header("View")]
-    public InfoViewDataIAP infoViewDataIAP;
-
-    [Header("Event IAP")]
-    public UnityEvent OnSuccess; UnityEvent OnFail; UnityEvent OnCompleted;
+    [Header("Event")]
+    public UnityEvent OnSuccess;
+    public UnityEvent OnFail;
+    public UnityEvent OnCompleted;
 
     protected List<ItemShopData> m_Data;
 
@@ -104,7 +27,7 @@ public class ButtonGameIAP : ButtonGame
         void Init()
         {
             m_Data = Gley.EasyIAP.API.GetValue(yourPorduct);
-            infoViewDataIAP.Init(m_Data);
+            infoViewRoot.Init(m_Data);
             if (textPrice)
                 textPrice.text = Gley.EasyIAP.API.GetPrice(yourPorduct).ToString();
 
@@ -190,3 +113,49 @@ public class ButtonGameIAP : ButtonGame
         this.interactable = Gley.EasyIAP.API.IsActive(yourPorduct);
     }
 }
+
+#if UNITY_EDITOR
+namespace Lean.Gui.Editor
+{
+    using UnityEditor;
+    using TARGET = ButtonGameIAP;
+
+    [CanEditMultipleObjects]
+    [CustomEditor(typeof(TARGET))]
+    public class ButtonGameIAP_Editor : ButtonGame_Editor
+    {
+        protected override void DrawSelectableSettings()
+        {
+            base.DrawSelectableSettings();
+
+            Draw("yourPorduct", "");
+
+            Draw("textPrice", "Get decimal product price denominated in the local currency");
+
+            Draw("infoViewDataIAP", "View Info");
+        }
+
+        protected override void DrawSelectableEvents(bool showUnusedEvents)
+        {
+            TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
+            base.DrawSelectableEvents(showUnusedEvents);
+
+            if (showUnusedEvents == true || Any(tgts, t => t.OnDown.GetPersistentEventCount() > 0))
+            {
+                Draw("OnSuccess");
+            }
+
+            if (showUnusedEvents == true || Any(tgts, t => t.OnClick.GetPersistentEventCount() > 0))
+            {
+                Draw("OnFail");
+            }
+
+            if (showUnusedEvents == true || Any(tgts, t => t.OnClick.GetPersistentEventCount() > 0))
+            {
+                Draw("OnCompleted");
+            }
+        }
+    }
+}
+#endif

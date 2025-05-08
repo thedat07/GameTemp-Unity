@@ -1,12 +1,6 @@
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine;
 using DG.Tweening;
 using LibraryGame;
-using UnityEngine.UI;
-using System;
-using System.Collections;
-using UnityEngine.Serialization;
 
 public class ButtonGame : ButtonBase
 {
@@ -24,3 +18,23 @@ public class ButtonGame : ButtonBase
         transform.DOPunchScale(m_Scale * 0.05f, 0.25f).SetLink(gameObject, LinkBehaviour.KillOnDestroy);
     }
 }
+
+#if UNITY_EDITOR
+namespace Lean.Gui.Editor
+{
+    using UnityEditor;
+    using TARGET = ButtonGame;
+
+    [CanEditMultipleObjects]
+    [CustomEditor(typeof(TARGET))]
+    public class ButtonGame_Editor : LeanButton_Editor
+    {
+        protected override void DrawSelectableSettings()
+        {
+            base.DrawSelectableSettings();
+
+            Draw("typeAudio", "Audio Click");
+        }
+    }
+}
+#endif

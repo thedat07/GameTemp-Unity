@@ -1,10 +1,3 @@
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using UnityEngine;
-using DG.Tweening;
-using LibraryGame;
-using UnityEngine.UI;
-
 public class ButtonMusic : ButtonGame
 {
     protected override void StartButton()
@@ -23,3 +16,18 @@ public class ButtonMusic : ButtonGame
 
     }
 }
+
+#if UNITY_EDITOR
+namespace Lean.Gui.Editor
+{
+    using UnityEditor;
+    using TARGET = ButtonMusic;
+
+    [CanEditMultipleObjects]
+    [CustomEditor(typeof(TARGET))]
+    public class ButtonMusic_Editor : ButtonGame_Editor
+    {
+
+    }
+}
+#endif

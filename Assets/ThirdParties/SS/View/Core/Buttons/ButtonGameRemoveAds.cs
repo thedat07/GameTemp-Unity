@@ -1,9 +1,4 @@
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine;
-using DG.Tweening;
-using LibraryGame;
-using UnityEngine.UI;
 
 public class ButtonGameRemoveAds : ButtonGameIAP
 {
@@ -14,10 +9,30 @@ public class ButtonGameRemoveAds : ButtonGameIAP
         bool isActive = Gley.EasyIAP.API.IsActive(yourPorduct);
 
         this.interactable = isActive;
-        
+
         foreach (var item in objectActive)
         {
             item.SetActive(isActive);
         }
     }
 }
+
+#if UNITY_EDITOR
+namespace Lean.Gui.Editor
+{
+    using UnityEditor;
+    using TARGET = ButtonGameRemoveAds;
+
+    [CanEditMultipleObjects]
+    [CustomEditor(typeof(TARGET))]
+    public class ButtonGameRemoveAds_Editor : ButtonGameIAP_Editor
+    {
+        protected override void DrawSelectableSettings()
+        {
+            base.DrawSelectableSettings();
+
+            Draw("objectActive", "Object Hide When Remove Ads");
+        }
+    }
+}
+#endif
