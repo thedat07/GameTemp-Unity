@@ -64,14 +64,4 @@ public class GameManager : SingletonPersistent<GameManager>
     public MasterData GetMasterData() => m_MasterData;
     public QuestData GetQuestData() => m_QuestData;
     public AdsData GetAdsData() => m_AdsData;
-
-    public bool HasSingleTouch()
-    {
-        return Input.touchCount == 1;
-    }
-
-    public bool HasMultipleTouches()
-    {
-        return Input.touchCount > 1;
-    }
 }
