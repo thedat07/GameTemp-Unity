@@ -23,7 +23,6 @@ public class CheckInternet
     }
 }
 
-
 public interface INoInternet
 {
     void OnShownInternet();
