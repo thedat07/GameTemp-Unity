@@ -999,7 +999,7 @@ namespace Gley.MobileAds.Internal
 
                     FirebaseEvent.LogAnalytics(eventName, impressionParameters);
 
-                    FacebookController.instance.LogEvent(eventName);
+                    FacebookEvent.LogEvent(eventName);
                 }
             }
         }

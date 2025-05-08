@@ -3,7 +3,6 @@ using DesignPatterns;
 using UnityEngine;
 using LibraryGame;
 
-[System.Serializable]
 public class SettingData
 {
     public const string Key = "keySettingData";

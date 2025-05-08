@@ -1,134 +1,61 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Facebook.Unity;
-using System;
 
 public class FacebookController : MonoBehaviour
 {
-    public static FacebookController instance;
+    public bool active;
 
-    void Awake()
+    private VerifyFirebase facebookBaseReady = VerifyFirebase.Verifying;
+
+    public bool IsDone() => active ? facebookBaseReady == VerifyFirebase.Done : false;
+
+    public void Init()
     {
-        if (instance == null)
+        if (active)
         {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-        DontDestroyOnLoad(gameObject);
+            facebookBaseReady = VerifyFirebase.Verifying;
 
-#if !TESTMODE
-
-        try
-        {
             if (!FB.IsInitialized)
             {
+                // Initialize the Facebook SDK
                 FB.Init(InitCallback, OnHideUnity);
             }
             else
             {
+                // Already initialized, signal an app activation App Event
                 FB.ActivateApp();
             }
-
-            FB.Mobile.SetAdvertiserTrackingEnabled(true);
-
         }
-        catch (Exception e)
-        {
-            UnityEngine.Console.Log("FB", e);
-        }
-#endif
-
     }
 
     private void InitCallback()
     {
-
-#if !TESTMODE
-        try
+        if (FB.IsInitialized)
         {
-            if (FB.IsInitialized)
-            {
-                FB.ActivateApp();
-            }
-            else
-            {
-                UnityEngine.Console.Log("Facebook", "Failed to Initialize the Facebook SDK");
-            }
+            // Signal an app activation App Event
+            FB.ActivateApp();
+            // Continue with Facebook SDK
+            // ...
+            facebookBaseReady = VerifyFirebase.Done;
         }
-        catch (Exception e)
+        else
         {
-            UnityEngine.Console.LogException(e);
+            Console.Log("FB", "Failed to Initialize the Facebook SDK");
+            facebookBaseReady = VerifyFirebase.Error;
         }
-#endif
     }
 
     private void OnHideUnity(bool isGameShown)
     {
         if (!isGameShown)
         {
+            // Pause the game - we will need to hide
             Time.timeScale = 0;
         }
         else
         {
+            // Resume the game - we're getting focus again
             Time.timeScale = 1;
         }
-    }
-
-    public void LogEvent(string eventName, string paramName, string paramValue, string paramName2, string paramValue2)
-    {
-#if !TESTMODE
-        try
-        {
-            Dictionary<string, object> p = new Dictionary<string, object>();
-            p.Add(paramName, paramValue);
-            p.Add(paramName2, paramValue2);
-            FB.LogAppEvent(
-                eventName,
-                parameters: p
-            );
-        }
-        catch (Exception e)
-        {
-            UnityEngine.Console.LogException(e);
-        }
-#endif
-    }
-
-    public void LogEvent(string eventName, string paramName, string paramValue)
-    {
-#if !TESTMODE
-        try
-        {
-            Dictionary<string, object> p = new Dictionary<string, object>();
-            p.Add(paramName, paramValue);
-            FB.LogAppEvent(
-                eventName,
-                parameters: p
-            );
-        }
-        catch (Exception e)
-        {
-            UnityEngine.Console.LogException(e);
-        }
-#endif
-    }
-
-    public void LogEvent(string eventName)
-    {
-#if !TESTMODE
-        try
-        {
-            FB.LogAppEvent(
-                eventName
-            );
-        }
-        catch (Exception e)
-        {
-            UnityEngine.Console.LogException(e);
-        }
-#endif
     }
 }

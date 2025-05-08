@@ -22,8 +22,10 @@ public class GameManager : SingletonPersistent<GameManager>
     [SerializeField] AdsPresenter m_AdsPresenter;
     [SerializeField] ShopPresenter m_ShopPresenter;
     [SerializeField] FirebaseManager m_ConfigController;
+    [SerializeField] FacebookController m_FacebookController;
 
     public bool IsDoneFirebase() => m_ConfigController.IsDone();
+    public bool IsDoneFacebook() => m_FacebookController.IsDone();
 
     public CheckInternet checkInternet;
 
@@ -34,8 +36,6 @@ public class GameManager : SingletonPersistent<GameManager>
 
     public void Init()
     {
-        m_ConfigController.InitInfo(null, null);
-
         m_MasterData = new MasterData();
         m_SettingData = new SettingData();
         m_QuestData = new QuestData();
@@ -44,8 +44,11 @@ public class GameManager : SingletonPersistent<GameManager>
         m_SettingPresenter.Init();
         m_MasterPresenter.Init();
         m_StagePresenter.Init();
-        m_QuestPresenter.Init();
         m_AdsPresenter.Init();
+        m_QuestPresenter.Init();
+
+        m_ConfigController.InitInfo(null, null);
+        m_FacebookController.Init();
     }
 
     public SettingPresenter GetSettingPresenter() => m_SettingPresenter;

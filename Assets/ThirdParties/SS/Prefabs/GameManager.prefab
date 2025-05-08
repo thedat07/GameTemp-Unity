@@ -158,6 +158,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03649f05b297d2f4290ddc5b4fdf99ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1984101821534126128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7491169574099259155}
+  - component: {fileID: 307888051757308321}
+  m_Layer: 0
+  m_Name: Facebook
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7491169574099259155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984101821534126128}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6578075392098795589}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &307888051757308321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984101821534126128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d77301e773a195341ac3c338da88e7d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 0
 --- !u!1 &2188151218020035319
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +305,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4248042350450664700}
   - component: {fileID: 1123811222295841888}
-  - component: {fileID: 1842806919098612055}
   m_Layer: 0
   m_Name: 'AdsPresenter '
   m_TagString: Untagged
@@ -301,18 +345,6 @@ MonoBehaviour:
     adInterCount: 0
   placementInter: 
   placementReward: 
---- !u!114 &1842806919098612055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6522335959525721056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77301e773a195341ac3c338da88e7d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6578075392098795611
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +382,7 @@ Transform:
   - {fileID: 8372216982088750356}
   - {fileID: 4248042350450664700}
   - {fileID: 8109761260490126998}
+  - {fileID: 7491169574099259155}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6578075392098795610
@@ -372,9 +405,9 @@ MonoBehaviour:
   m_AdsPresenter: {fileID: 1123811222295841888}
   m_ShopPresenter: {fileID: 6495066347722601384}
   m_ConfigController: {fileID: 1561823362190096716}
+  m_FacebookController: {fileID: 307888051757308321}
   checkInternet:
     network: 0
-    timeReset: 0
 --- !u!1 &6578075393011312100
 GameObject:
   m_ObjectHideFlags: 0

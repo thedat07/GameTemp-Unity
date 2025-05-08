@@ -4,7 +4,6 @@ using DesignPatterns;
 using LibraryGame;
 using UnityEngine.Events;
 
-[System.Serializable]
 public class AdsData
 {
     public const string Key = "keyAdsData";
