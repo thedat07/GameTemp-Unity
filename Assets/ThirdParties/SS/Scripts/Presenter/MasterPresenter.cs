@@ -10,9 +10,13 @@ public class MasterPresenter : MonoBehaviour
 {
     private MasterData m_Data;
 
+    public SoTextGame soTextGame;
+
     public bool IsTest = false;
 
     private IEnumerator m_Coroutine;
+
+    public string GetText(int index) => soTextGame.GetText(index);
 
     public void Init()
     {

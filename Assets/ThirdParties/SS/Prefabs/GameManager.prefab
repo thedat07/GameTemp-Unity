@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b3256e5038b8c4dab6ca055369257c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soTextGame: {fileID: 11400000, guid: 2330df4fe6a80d141a718c1dab60355c, type: 2}
   IsTest: 0
 --- !u!1 &4459521400542019806
 GameObject:
@@ -454,6 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a1bd013f586b047ad2c9c2fb12fae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soSetting: {fileID: 11400000, guid: 63c6592c1c20ca141aebed76768ad8e2, type: 2}
   audioMusic: {fileID: 934685459}
   audioSound: {fileID: 803633295}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
