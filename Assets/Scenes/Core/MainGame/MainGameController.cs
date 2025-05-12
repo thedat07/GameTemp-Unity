@@ -12,17 +12,6 @@ public class MainGameController : Controller
         return MAIN_GAME;
     }
 
-    void Awake()
-    {
-        Manager manager = new Manager();
-
-#if DEBUG
-        Debug.unityLogger.logEnabled = true;
-#else
-        Debug.unityLogger.logEnabled = false;
-#endif
-    }
-
     IEnumerator Start()
     {
         Manager.LoadingSceneName = PopupLoadingController.SCENE_NAME;

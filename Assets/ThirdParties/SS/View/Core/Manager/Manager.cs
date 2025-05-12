@@ -184,6 +184,9 @@ namespace Directory
             // Get Controller
             var controller = GetController(scene);
 
+            if (controller == null)
+                return;
+
             // Loading Scene
             if (controller.SceneName() == MaskSceneName)
             {
