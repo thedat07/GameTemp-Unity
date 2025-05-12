@@ -13,95 +13,143 @@ namespace LibraryGame
         public const string keyFileShopData = "FileShopData";
         public const string keyFileHomeData = "FileHomeData";
 
-        public static T Load<T>(string key, T defaultValue, string filePath = "FileGame")
+        // ========== Generic ==========
+
+        /// <summary>GET: Lấy dữ liệu từ file</summary>
+        public static T Get<T>(string key, T defaultValue, string filePath = "FileGame")
         {
             if (!ES3.KeyExists(key, filePath))
-                ES3.Save(key, defaultValue, filePath);
+                Post(key, defaultValue, filePath); // POST nếu chưa tồn tại
 
             return ES3.Load(key, filePath, defaultValue);
         }
 
-        public static void Save<T>(string key, T value, string filePath = "FileGame")
+        /// <summary>POST: Tạo dữ liệu nếu chưa tồn tại</summary>
+        public static void Post<T>(string key, T value, string filePath = "FileGame")
+        {
+            if (!ES3.KeyExists(key, filePath))
+                ES3.Save(key, value, filePath);
+        }
+
+        /// <summary>PUT: Ghi đè dữ liệu</summary>
+        public static void Put<T>(string key, T value, string filePath = "FileGame")
         {
             ES3.Save(key, value, filePath);
         }
 
-        /// <summary>Save & Load Master Data</summary>
-        public static T LoadMasterData<T>(MasterDataType type, string key, T defaultValue)
+        /// <summary>DELETE: Xóa dữ liệu</summary>
+        public static void Delete(string key, string filePath = "FileGame")
         {
-            return Load<T>(string.Format("{0}_{1}", type, key), defaultValue, keyFileMasterData);
+            if (ES3.KeyExists(key, filePath))
+                ES3.DeleteKey(key, filePath);
         }
 
-        public static void SaveMasterData<T>(MasterDataType type, string key, T value)
+        // ========== MASTER DATA ==========
+
+        public static T GetMaster<T>(MasterDataType type, string key, T defaultValue)
         {
-            Save<T>(string.Format("{0}_{1}", type, key), value, keyFileMasterData);
+            return Get<T>($"{type}_{key}", defaultValue, keyFileMasterData);
         }
 
-        /// <summary>Save & Load Setting Data</summary>
-        public static T LoadSettingData<T>(string key, T defaultValue)
+        public static void PutMaster<T>(MasterDataType type, string key, T value)
         {
-            return Load<T>(key, defaultValue, keyFileSettingData);
+            Put<T>($"{type}_{key}", value, keyFileMasterData);
         }
 
-        public static void SaveSettingData<T>(string key, T value)
+        public static void DeleteMaster(MasterDataType type, string key)
         {
-            Save<T>(key, value, keyFileSettingData);
+            Delete($"{type}_{key}", keyFileMasterData);
         }
 
-        /// <summary>Save & Load Ads Data</summary>
-        public static T LoadAdsData<T>(string key, T defaultValue)
+        // ========== SETTING DATA ==========
+
+        public static T GetSetting<T>(string key, T defaultValue)
         {
-            return Load<T>(key, defaultValue, keyFileAdsData);
+            return Get<T>(key, defaultValue, keyFileSettingData);
         }
 
-        public static void SaveAdsData<T>(string key, T value)
+        public static void PutSetting<T>(string key, T value)
         {
-            Save<T>(key, value, keyFileAdsData);
+            Put<T>(key, value, keyFileSettingData);
         }
 
-        /// <summary>Save & Load Quest Data</summary>
-        public static T LoadQuestData<T>(TypeQuest type, string key, T defaultValue)
+        public static void DeleteSetting(string key)
         {
-            return Load<T>(string.Format("{0}_{1}", type, key), defaultValue, keyFileQuestData);
+            Delete(key, keyFileSettingData);
         }
 
-        public static ListES3<T> LoadQuestDataList<T>(TypeQuest type, string key, int levelUnlock = 0)
-        {
-            var info = GetInfoQuest(type, key);
-            var listES3 = new ListES3<T>(info, levelUnlock); // internally loads from ES3 if key exists
-            return listES3;
+        // ========== ADS DATA ==========
 
-            (string, string) GetInfoQuest(TypeQuest t, string k)
-            {
-                return ($"{t}_{k}", keyFileQuestData);
-            }
+        public static T GetAds<T>(string key, T defaultValue)
+        {
+            return Get<T>(key, defaultValue, keyFileAdsData);
         }
 
-        public static void SaveQuestData<T>(TypeQuest type, string key, T value)
+        public static void PutAds<T>(string key, T value)
         {
-            Save<T>(string.Format("{0}_{1}", type, key), value, keyFileQuestData);
+            Put<T>(key, value, keyFileAdsData);
         }
 
-        /// <summary>Save & Load Shop Data</summary>
-        public static T LoadShopData<T>(string key, T defaultValue)
+        public static void DeleteAds(string key)
         {
-            return Load<T>(key, defaultValue, keyFileShopData);
+            Delete(key, keyFileAdsData);
         }
 
-        public static void SaveShopData<T>(string key, T value)
+        // ========== QUEST DATA ==========
+
+        public static T GetQuest<T>(TypeQuest type, string key, T defaultValue)
         {
-            Save<T>(key, value, keyFileShopData);
+            return Get<T>($"{type}_{key}", defaultValue, keyFileQuestData);
         }
 
-        /// <summary>Save & Load Home Data</summary>
-        public static T LoadHomeData<T>(string key, T defaultValue)
+        public static void PutQuest<T>(TypeQuest type, string key, T value)
         {
-            return Load<T>(key, defaultValue, keyFileHomeData);
+            Put<T>($"{type}_{key}", value, keyFileQuestData);
         }
 
-        public static void SaveHomeData<T>(string key, T value)
+        public static void DeleteQuest(TypeQuest type, string key)
         {
-            Save<T>(key, value, keyFileHomeData);
+            Delete($"{type}_{key}", keyFileQuestData);
+        }
+
+        public static ListES3<T> GetQuestList<T>(TypeQuest type, string key, int levelUnlock = 0)
+        {
+            var info = ($"{type}_{key}", keyFileQuestData);
+            return new ListES3<T>(info, levelUnlock);
+        }
+
+        // ========== SHOP DATA ==========
+
+        public static T GetShop<T>(string key, T defaultValue)
+        {
+            return Get<T>(key, defaultValue, keyFileShopData);
+        }
+
+        public static void PutShop<T>(string key, T value)
+        {
+            Put<T>(key, value, keyFileShopData);
+        }
+
+        public static void DeleteShop(string key)
+        {
+            Delete(key, keyFileShopData);
+        }
+
+        // ========== HOME DATA ==========
+
+        public static T GetHome<T>(string key, T defaultValue)
+        {
+            return Get<T>(key, defaultValue, keyFileHomeData);
+        }
+
+        public static void PutHome<T>(string key, T value)
+        {
+            Put<T>(key, value, keyFileHomeData);
+        }
+
+        public static void DeleteHome(string key)
+        {
+            Delete(key, keyFileHomeData);
         }
     }
 }

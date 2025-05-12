@@ -43,8 +43,8 @@ public class SettingPresenter : MonoBehaviour, IInitializable
 
     public void SetSound()
     {
-        m_SettingData.sound = !m_SettingData.sound;
-        if (m_SettingData.music == false)
+        m_SettingData.Sound = !m_SettingData.Sound;
+        if (m_SettingData.Music == false)
         {
             audioSound.DespawnAll();
         }
@@ -53,8 +53,8 @@ public class SettingPresenter : MonoBehaviour, IInitializable
 
     public void SetMusic()
     {
-        m_SettingData.music = !m_SettingData.music;
-        if (m_SettingData.music == false)
+        m_SettingData.Music = !m_SettingData.Music;
+        if (m_SettingData.Music == false)
         {
             audioMusic.DespawnAll();
         }
@@ -67,13 +67,13 @@ public class SettingPresenter : MonoBehaviour, IInitializable
 
     public void SetVibration()
     {
-        m_SettingData.vibration = !m_SettingData.vibration;
+        m_SettingData.Vibration = !m_SettingData.Vibration;
         TigerForge.EventManager.EmitEvent(SettingData.Key);
     }
 
     public void PlaySound(AudioClip clip)
     {
-        if (m_SettingData.sound == true && clip != null)
+        if (m_SettingData.Sound == true && clip != null)
         {
             if (audioSound.Spawn(transform).TryGetComponent<AudioSource>(out AudioSource audio))
             {
@@ -84,7 +84,7 @@ public class SettingPresenter : MonoBehaviour, IInitializable
 
     public void PlaySound(TypeAudio type)
     {
-        if (m_SettingData.sound == true)
+        if (m_SettingData.Sound == true)
         {
             if (audioSound.Spawn(transform).TryGetComponent<AudioSource>(out AudioSource audio))
             {
@@ -104,7 +104,7 @@ public class SettingPresenter : MonoBehaviour, IInitializable
 
     public void PlayMusic()
     {
-        if (m_SettingData.music == true)
+        if (m_SettingData.Music == true)
         {
             audioMusic.DespawnAll();
             if (audioMusic.Spawn(transform).TryGetComponent<AudioSource>(out AudioSource audio))
@@ -140,7 +140,7 @@ public class SettingPresenter : MonoBehaviour, IInitializable
 
     public void TapPopVibrate()
     {
-        //         if (!m_SettingData.vibration) return;
+        //         if (!m_SettingData.Vibration) return;
         // #if UNITY_ANDROID
         //         Vibration.VibratePop();
         // #endif
@@ -152,7 +152,7 @@ public class SettingPresenter : MonoBehaviour, IInitializable
 
     public void TapPeekVibrate()
     {
-        //         if (!m_SettingData.vibration) return;
+        //         if (!m_SettingData.Vibration) return;
         // #if UNITY_ANDROID
         //         Vibration.VibratePeek();
         // #endif

@@ -7,16 +7,26 @@ using UnityEngine.Events;
 public class AdsData
 {
     public const string Key = "keyAdsData";
+    private const string KeyRemoveAds = "remove";
+    private const bool DefaultRemoveAds = false;
 
+    public AdsData() { }
+
+    /// <summary>
+    /// GET/PUT: Trạng thái đã mua gỡ quảng cáo
+    /// </summary>
     public bool IsRemoveShowAds
     {
-        get { return LibraryGameSave.LoadAdsData("remove", false); }
-        set { LibraryGameSave.SaveAdsData("remove", value); }
+        get => LibraryGameSave.GetAds(KeyRemoveAds, DefaultRemoveAds);
+        set => LibraryGameSave.PutAds(KeyRemoveAds, value);
     }
 
-    public AdsData()
+    /// <summary>
+    /// DELETE: Đặt lại trạng thái quảng cáo
+    /// </summary>
+    public void Reset()
     {
-
+        LibraryGameSave.PutAds(KeyRemoveAds, DefaultRemoveAds);
     }
 }
 

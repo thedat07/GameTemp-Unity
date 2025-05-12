@@ -1,5 +1,4 @@
 using System;
-using DesignPatterns;
 using UnityEngine;
 using LibraryGame;
 
@@ -7,26 +6,53 @@ public class SettingData
 {
     public const string Key = "keySettingData";
 
-    public bool sound
+    // Các key lưu trữ
+    private const string KeySound = "sound";
+    private const string KeyVibration = "vibration";
+    private const string KeyMusic = "music";
+
+    // Giá trị mặc định
+    private const bool DefaultSound = true;
+    private const bool DefaultVibration = true;
+    private const bool DefaultMusic = true;
+
+    // Constructor
+    public SettingData() { }
+
+    /// <summary>
+    /// GET/PUT: Âm thanh
+    /// </summary>
+    public bool Sound
     {
-        get { return LibraryGameSave.LoadSettingData("sound", true); }
-        set { LibraryGameSave.SaveSettingData("sound", value); }
+        get => LibraryGameSave.GetSetting(KeySound, DefaultSound);
+        set => LibraryGameSave.PutSetting(KeySound, value);
     }
 
-    public bool vibration
+    /// <summary>
+    /// GET/PUT: Rung
+    /// </summary>
+    public bool Vibration
     {
-        get { return LibraryGameSave.LoadSettingData("vibration", true); }
-        set { LibraryGameSave.SaveSettingData("vibration", value); }
+        get => LibraryGameSave.GetSetting(KeyVibration, DefaultVibration);
+        set => LibraryGameSave.PutSetting(KeyVibration, value);
     }
 
-    public bool music
+    /// <summary>
+    /// GET/PUT: Nhạc nền
+    /// </summary>
+    public bool Music
     {
-        get { return LibraryGameSave.LoadSettingData("music", true); }
-        set { LibraryGameSave.SaveSettingData("music", value); }
+        get => LibraryGameSave.GetSetting(KeyMusic, DefaultMusic);
+        set => LibraryGameSave.PutSetting(KeyMusic, value);
     }
 
-    public SettingData()
+    /// <summary>
+    /// RESET: Trả tất cả về mặc định
+    /// </summary>
+    public void ResetToDefault()
     {
-
+        Sound = DefaultSound;
+        Vibration = DefaultVibration;
+        Music = DefaultMusic;
     }
 }

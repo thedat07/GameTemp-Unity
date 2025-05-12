@@ -6,44 +6,60 @@ using UnityEngine;
 [System.Serializable]
 public class MasterDataBase
 {
-    // Giá trị mặc định khi khởi tạo, chỉ dùng nếu không có dữ liệu lưu trước đó
-    protected int m_value;
+    // Giá trị mặc định khi khởi tạo (dùng nếu chưa có dữ liệu lưu)
+    protected int m_DefaultValue;
 
-    // Kiểu dữ liệu Master tương ứng (dùng để xác định khóa khi lưu)
-    public MasterDataType type;
+    // Kiểu dữ liệu Master tương ứng (dùng làm key lưu trữ)
+    public MasterDataType m_Type;
 
-    // Hàm khởi tạo
-    public MasterDataBase(int value, MasterDataType type)
+    // Constructor
+    public MasterDataBase(int defaultValue, MasterDataType type)
     {
-        this.type = type;
-        this.m_value = value;
+        this.m_Type = type;
+        this.m_DefaultValue = defaultValue;
     }
 
-    // GET - Lấy giá trị hiện tại từ hệ thống lưu trữ
+    /// <summary>
+    /// GET: Lấy giá trị hiện tại từ hệ thống lưu
+    /// </summary>
     public int Get()
     {
-        return LibraryGameSave.LoadMasterData(type, "value", m_value);
+        return LibraryGameSave.GetMaster(m_Type, "value", m_DefaultValue);
     }
 
-    // POST - Cộng thêm vào giá trị hiện tại
+    /// <summary>
+    /// POST: Cộng thêm vào giá trị hiện tại
+    /// </summary>
     public virtual void Post(int amount)
     {
-        // Tính giá trị mới bằng cách cộng thêm và giới hạn trong phạm vi hợp lệ
         int newValue = Mathf.Clamp(Get() + amount, 0, int.MaxValue);
-        Put(newValue); // Gọi hàm PUT để lưu giá trị mới
+        Put(newValue);
     }
 
-    // PUT - Gán giá trị mới trực tiếp
+    /// <summary>
+    /// PUT: Gán giá trị mới trực tiếp
+    /// </summary>
     public virtual void Put(int newValue)
     {
-        // Đảm bảo giá trị hợp lệ trước khi lưu
         newValue = Mathf.Clamp(newValue, 0, int.MaxValue);
-        LibraryGameSave.SaveMasterData(type, "value", newValue);
+        LibraryGameSave.PutMaster(m_Type, "value", newValue);
     }
 
-    // DELETE - Đặt lại giá trị về 0 (tuỳ chọn thêm cho trường hợp cần reset)
+    /// <summary>
+    /// DELETE: Reset giá trị về 0
+    /// </summary>
     public virtual void Delete()
     {
-        LibraryGameSave.SaveMasterData(type, "value", 0);
+        LibraryGameSave.PutMaster(m_Type, "value", 0);
     }
+
+    /// <summary>
+    /// GET: Trả về kiểu dữ liệu Master
+    /// </summary>
+    public MasterDataType GetDataType() => m_Type;
+
+    /// <summary>
+    /// GET: Trả về giá trị mặc định
+    /// </summary>
+    public int GetDefaultValue() => m_DefaultValue;
 }

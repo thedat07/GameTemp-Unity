@@ -20,44 +20,72 @@ public class InfoQuest
         this.m_LevelUnlock = levelUnlock;
     }
 
-    // Kiểm tra điều kiện mở khóa nhiệm vụ
-    protected virtual bool UnLock()
+    /// <summary>
+    /// Kiểm tra điều kiện mở khóa nhiệm vụ (so sánh stage hiện tại)
+    /// </summary>
+    protected virtual bool CanUnlock()
     {
-        return GameManager.Instance.GetMasterData().dataStage.Get() >= m_MaxValue;
+        return GameManager.Instance.GetMasterData().dataStage.Get() >= m_LevelUnlock;
     }
 
-    // GET: Lấy giá trị hiện tại
+    /// <summary>
+    /// GET: Lấy giá trị hiện tại
+    /// </summary>
     public int Get()
     {
-        return LibraryGameSave.LoadQuestData(m_Type, "value", 0);
+        return LibraryGameSave.GetQuest(m_Type, "value", 0);
     }
 
-    // POST: Cộng thêm giá trị (nếu đã mở khóa)
+    /// <summary>
+    /// POST: Cộng thêm giá trị (chỉ nếu đã mở khóa)
+    /// </summary>
     public virtual void Post(int amount)
     {
-        if (UnLock())
-        {
-            int newValue = Mathf.Clamp(Get() + amount, 0, m_MaxValue);
-            Put(newValue);
-        }
+        if (!CanUnlock()) return;
+
+        int newValue = Mathf.Clamp(Get() + amount, 0, m_MaxValue);
+        Put(newValue);
     }
 
-    // PUT: Gán giá trị mới (với giới hạn min/max)
+    /// <summary>
+    /// PUT: Gán giá trị mới (có kiểm tra min/max)
+    /// </summary>
     public virtual void Put(int value)
     {
         value = Mathf.Clamp(value, 0, m_MaxValue);
-        LibraryGameSave.SaveQuestData(m_Type, "value", value);
+        LibraryGameSave.PutQuest(m_Type, "value", value);
     }
 
-    // DELETE: Reset nhiệm vụ về 0
+    /// <summary>
+    /// DELETE: Reset nhiệm vụ về 0
+    /// </summary>
     public virtual void Delete()
     {
-        LibraryGameSave.SaveQuestData(m_Type, "value", 0);
+        LibraryGameSave.DeleteQuest(m_Type, "value");
     }
 
-    // GET: Giá trị tối đa
+    /// <summary>
+    /// GET: Giá trị tối đa
+    /// </summary>
     public virtual int GetMax() => m_MaxValue;
 
-    // PUT: Cập nhật giá trị tối đa
+    /// <summary>
+    /// PUT: Cập nhật giá trị tối đa
+    /// </summary>
     public virtual void SetMax(int value) => m_MaxValue = value;
+
+    /// <summary>
+    /// GET: Lấy level yêu cầu mở khóa
+    /// </summary>
+    public int GetUnlockLevel() => m_LevelUnlock;
+
+    /// <summary>
+    /// PUT: Cập nhật level yêu cầu mở khóa
+    /// </summary>
+    public void SetUnlockLevel(int level) => m_LevelUnlock = level;
+
+    /// <summary>
+    /// GET: Loại nhiệm vụ
+    /// </summary>
+    public TypeQuest GetQuestType() => m_Type;
 }
