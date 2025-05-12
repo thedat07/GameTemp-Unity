@@ -61,61 +61,61 @@ namespace UnityEngine
         [Conditional("DEBUG")]
         public static void LogWarning(object message)
         {
-            Debug.LogWarning(FormatMessage(warningColor, message));
+            Debug.Log(FormatMessage(warningColor, message));
         }
 
         [Conditional("DEBUG")]
         public static void LogWarning(string category, object message)
         {
-            Debug.LogWarning(FormatMessageWithCategory(warningColor, category, message));
+            Debug.Log(FormatMessageWithCategory(warningColor, category, message));
         }
 
         [Conditional("DEBUG")]
         public static void LogWarningFormat(string format, params object[] args)
         {
-            Debug.LogWarningFormat(FormatMessage(warningColor, string.Format(format, args)));
+            Debug.LogFormat(FormatMessage(warningColor, string.Format(format, args)));
         }
 
         [Conditional("DEBUG")]
         public static void LogWarningFormat(string category, string format, params object[] args)
         {
-            Debug.LogWarningFormat(FormatMessageWithCategory(warningColor, category, string.Format(format, args)));
+            Debug.LogFormat(FormatMessageWithCategory(warningColor, category, string.Format(format, args)));
         }
 
         [Conditional("DEBUG")]
         public static void LogError(object message)
         {
-            Debug.LogError(FormatMessage(errorColor, message));
+            Debug.Log(FormatMessage(errorColor, message));
         }
 
         [Conditional("DEBUG")]
         public static void LogError(string category, object message)
         {
-            Debug.LogError(FormatMessageWithCategory(errorColor, category, message));
+            Debug.Log(FormatMessageWithCategory(errorColor, category, message));
         }
 
         [Conditional("DEBUG")]
         public static void LogErrorFormat(string format, params object[] args)
         {
-            Debug.LogErrorFormat(FormatMessage(errorColor, string.Format(format, args)));
+            Debug.LogFormat(FormatMessage(errorColor, string.Format(format, args)));
         }
 
         [Conditional("DEBUG")]
         public static void LogErrorFormat(string category, string format, params object[] args)
         {
-            Debug.LogErrorFormat(FormatMessageWithCategory(errorColor, category, string.Format(format, args)));
+            Debug.LogFormat(FormatMessageWithCategory(errorColor, category, string.Format(format, args)));
         }
 
         [Conditional("DEBUG")]
         public static void LogException(Exception exception)
         {
-            Debug.LogError(FormatMessage(errorColor, exception.Message));
+            Debug.Log(FormatMessage(errorColor, exception.Message));
         }
 
         [Conditional("DEBUG")]
         public static void LogException(string category, Exception exception)
         {
-            Debug.LogError(FormatMessageWithCategory(errorColor, category, exception.Message));
+            Debug.Log(FormatMessageWithCategory(errorColor, category, exception.Message));
         }
 
         private static string FormatMessage(string color, object message)
