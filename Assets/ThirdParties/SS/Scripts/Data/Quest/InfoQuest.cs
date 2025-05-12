@@ -13,7 +13,7 @@ public class InfoQuest
     protected TypeQuest m_Type;
 
     // Constructor
-    public InfoQuest(TypeQuest type, int maxValue, int levelUnlock = int.MaxValue)
+    public InfoQuest(TypeQuest type, int maxValue, int levelUnlock = 0)
     {
         this.m_Type = type;
         this.m_MaxValue = maxValue;
