@@ -18,77 +18,60 @@ public class InfoViewData
             textView.View(data);
         }
     }
+
+    public void Hide()
+    {
+        view.SetActive(false);
+    }
 }
 
 [System.Serializable]
 public class InfoViewRoot
 {
     public InfoViewData[] textView;
-
     public InfoView[] infoViews;
 
-    private List<InfoViewData> infoViewDatas = new List<InfoViewData>();
+    private List<InfoViewData> infoViewDatas;
 
     private void Set()
     {
-        infoViewDatas = new List<InfoViewData>();
-        infoViewDatas.AddRange(this.textView);
-        infoViewDatas.AddRange(this.infoViews.Select(x => x.infoViewData));
+        if (infoViewDatas == null)
+        {
+            infoViewDatas = new List<InfoViewData>();
+            infoViewDatas.AddRange(this.textView);
+            infoViewDatas.AddRange(this.infoViews.Select(x => x.infoViewData));
+        }
     }
 
     public void Init(List<ItemShopData> data)
     {
         Set();
-
-        foreach (var item in infoViewDatas)
-        {
-            item.view.SetActive(false);
-        }
-
-        foreach (var item in infoViewDatas)
-        {
-            var getData = data.Find(x => x.type == item.type);
-            if (getData != null)
-            {
-                item.Show(getData);
-            }
-        }
+        UpdateView(data);
     }
 
     public void Init(CointShop itemShop)
     {
-        Set();
-
-        foreach (var item in infoViewDatas)
-        {
-            item.view.SetActive(false);
-        }
-
-        foreach (var item in infoViewDatas)
-        {
-            var getData = itemShop.data.Find(x => x.type == item.type);
-            if (getData != null)
-            {
-                item.Show(getData);
-            }
-        }
+        Init(itemShop.data);
     }
 
     public void Init(AdsShop itemShop)
     {
-        Set();
+        Init(itemShop.data);
+    }
 
+    private void UpdateView(List<ItemShopData> dataList)
+    {
         foreach (var item in infoViewDatas)
         {
-            item.view.SetActive(false);
+            item.Hide();
         }
 
         foreach (var item in infoViewDatas)
         {
-            var getData = itemShop.data.Find(x => x.type == item.type);
-            if (getData != null)
+            var match = dataList.Find(x => x.type == item.type);
+            if (match != null)
             {
-                item.Show(getData);
+                item.Show(match);
             }
         }
     }
