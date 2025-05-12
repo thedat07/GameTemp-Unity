@@ -12,8 +12,21 @@ public class MainGameController : Controller
         return MAIN_GAME;
     }
 
+    void Awake()
+    {
+        Manager manager = new Manager();
+
+#if DEBUG
+        Debug.unityLogger.logEnabled = true;
+#else
+        Debug.unityLogger.logEnabled = false;
+#endif
+    }
+
     IEnumerator Start()
     {
+        Manager.SceneAnimationDuration = 0.15f;
+
         Manager.LoadingSceneName = PopupLoadingController.SCENE_NAME;
 
         Manager.MaskSceneName = PopupMaskController.SCENE_NAME;

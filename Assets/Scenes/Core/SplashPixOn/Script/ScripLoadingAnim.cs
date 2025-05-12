@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Directory;
 using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,7 +19,6 @@ public class ScripLoadingAnim : MonoBehaviour
 
     private void Awake()
     {
-        Manager manager = new  Manager();
         isLoadedSceneOfGame = false;
         DontDestroyOnLoad(gameObject);
         objectScence.gameObject.SetActive(true);
@@ -52,7 +50,6 @@ public class ScripLoadingAnim : MonoBehaviour
         var trackEntry = skelGraphic.AnimationState.SetAnimation(0, animIdleStart, false);
         trackEntry.Complete += entry => PlayAnimationIdle();
     }
-
     public void PlayAnimationIdleEnd()
     {
         if (isLoadedSceneOfGame) return;
@@ -60,7 +57,6 @@ public class ScripLoadingAnim : MonoBehaviour
         var trackEntry = skelGraphic.AnimationState.SetAnimation(0, animIdleEnd, false);
         trackEntry.Complete += entry => PlayAnimationIdleEnd();
     }
-
     // dien anim cua logo
     public void PlayAnimationAction()
     {
@@ -69,7 +65,6 @@ public class ScripLoadingAnim : MonoBehaviour
         var trackEntry = skelGraphic.AnimationState.SetAnimation(0, animAction, false);
         trackEntry.Complete += entry => LoadSceneIngame();
     }
-
     void LoadSceneIngame()
     {
         PlayAnimationIdleEnd();
