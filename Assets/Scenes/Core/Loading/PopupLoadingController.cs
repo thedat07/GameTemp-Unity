@@ -10,7 +10,7 @@ public interface ILoading
 
 public class PopupLoadingController : Controller, ILoading
 {
-    public const string SCENE_NAME = "PopupLoadingController";
+    public const string SCENE_NAME = "PopupLoading";
 
     public override string SceneName()
     {
@@ -23,10 +23,7 @@ public class PopupLoadingController : Controller, ILoading
 
     void Start()
     {
-        if (LibraryGame.Game.EditCanvasScaler(GetCanvasScaler()))
-        {
-            Canvas.ForceUpdateCanvases();
-        }
+        LibraryGame.Game.EditCanvasScaler(GetCanvasScaler());
     }
 
     public void ShowLoading()

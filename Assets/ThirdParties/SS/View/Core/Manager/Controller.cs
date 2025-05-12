@@ -172,10 +172,7 @@ namespace Directory
                 m_Canvas.worldCamera = Manager.Object.UICamera;
             }
 
-            if (LibraryGame.Game.EditCanvasScaler(GetCanvasScaler()))
-            {
-                Canvas.ForceUpdateCanvases();
-            }
+            LibraryGame.Game.EditCanvasScaler(GetCanvasScaler());
         }
 
         public virtual void HideUI()

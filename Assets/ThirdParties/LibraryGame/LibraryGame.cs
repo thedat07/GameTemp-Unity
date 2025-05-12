@@ -120,29 +120,45 @@ namespace LibraryGame
             }
         }
 
-        public static bool EditCanvasScaler(this CanvasScaler canvasScaler)
+        public static void EditCanvasScaler(this CanvasScaler canvasScaler)
         {
-            float ratio = (float)Screen.width / Screen.height;
-            float defaultRatio = SettingPresenter.ScreenGame.x / SettingPresenter.ScreenGame.y;
-
-            if (ratio < defaultRatio)
+            if (Update())
             {
-                float match = ratio / defaultRatio;
-                match = (DeviceTypeChecker.GetDeviceType() == ENUM_Device_Type.Phone)
-                    ? Mathf.Clamp(1 - (1 / match), 0, 1)
-                    : Mathf.Clamp(1 / match, 0, 1);
-
-                bool update = canvasScaler.matchWidthOrHeight != match;
-
-                canvasScaler.matchWidthOrHeight = match;
-
-                if (update)
-                {
-                    return true;
-                }
+                UnityEngine.Canvas.ForceUpdateCanvases();
             }
 
-            return false;
+            bool Update()
+            {
+                float ratio = (float)Screen.width / Screen.height;
+                float defaultRatio = SettingPresenter.ScreenGame.x / SettingPresenter.ScreenGame.y;
+
+                // Không cần update nếu màn hình rộng hơn hoặc bằng chuẩn
+                if (ratio >= defaultRatio)
+                    return false;
+
+                // Nếu là Phone: ưu tiên chiều cao khi màn hình dài hơn
+                // Nếu là Tablet/khác: ưu tiên chiều rộng hơn
+                float match;
+                if (DeviceTypeChecker.GetDeviceType() == ENUM_Device_Type.Phone)
+                {
+                    // match gần 1 nếu màn hình dài hơn (hẹp hơn chuẩn)
+                    match = Mathf.Clamp01(1f - (ratio / defaultRatio));
+                }
+                else
+                {
+                    // match gần 0 nếu màn hình rộng hơn (hẹp hơn chuẩn)
+                    match = Mathf.Clamp01(ratio / defaultRatio);
+                }
+
+                bool update = !Mathf.Approximately(canvasScaler.matchWidthOrHeight, match);
+                if (update)
+                {
+                    canvasScaler.matchWidthOrHeight = match;
+                    return true;
+                }
+
+                return false;
+            }
         }
 
         public static float GetScaleScreen()

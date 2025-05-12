@@ -12,6 +12,23 @@ public class DGameController : Controller
         return SCENE_NAME;
     }
 
+    void Start()
+    {
+        Console.Log("Life cycle", SceneName() + " Start");
+
+        StartCoroutine(OnStart());
+    }
+
+    void OnEnable()
+    {
+        Console.Log("Life cycle", SceneName() + " OnEnable");
+    }
+
+    void Awake()
+    {
+        Console.Log("Life cycle", SceneName() + " Awake");
+    }
+
     public override void OnActive(object data = null)
     {
         Console.Log("Life cycle", SceneName() + " OnActive");
@@ -27,12 +44,22 @@ public class DGameController : Controller
         Console.Log("Life cycle", SceneName() + " OnHidden");
     }
 
+    void OnDisable()
+    {
+        Console.Log("Life cycle", SceneName() + " OnDisable");
+    }
+
+    void OnDestroy()
+    {
+        Console.Log("Life cycle", SceneName() + " OnDestroy");
+    }
+
     public void OnButtonTap()
     {
         Manager.PushScene(DTopController.SCENE_NAME);
     }
 
-    IEnumerator Start()
+    IEnumerator OnStart()
     {
         yield return new WaitForSeconds(1f);
 

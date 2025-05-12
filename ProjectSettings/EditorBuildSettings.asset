@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Core/Mask/PopupMask.unity
     guid: 6ede02bb9db32c247b7af51ad1e91271
   - enabled: 1
-    path: Assets/Scenes/Core/Loading/PopupLoadingController.unity
+    path: Assets/Scenes/Core/Loading/PopupLoading.unity
     guid: 25f342e2e2656462992f0a79298b6b1c
   - enabled: 1
     path: Assets/Scenes/Core/NoInternet/PopupNoInternet.unity
