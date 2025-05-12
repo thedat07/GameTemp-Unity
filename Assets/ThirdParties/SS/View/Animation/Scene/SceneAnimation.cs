@@ -12,8 +12,6 @@ namespace Directory
     {
         CanvasGroup m_CanvasGroup;
 
-        LeanSafeArea m_LeanSafeArea;
-
         [SerializeField] Controller m_Controller;
 
         public Image shield;
