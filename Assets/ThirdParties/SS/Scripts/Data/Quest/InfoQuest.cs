@@ -45,18 +45,3 @@ public class InfoQuest
         }
     }
 }
-
-public class InfoQuestTime
-{
-    public bool isResetTime;
-
-    public InfoQuestTime(bool isResetTime)
-    {
-        this.isResetTime = isResetTime;
-    }
-
-    public InfoQuestTime()
-    {
-        this.isResetTime = false;
-    }
-}

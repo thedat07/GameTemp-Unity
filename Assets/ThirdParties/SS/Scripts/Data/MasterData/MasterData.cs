@@ -30,6 +30,8 @@ public class MasterData
     {
         int result = type switch
         {
+            MasterDataType.Stage => dataStage.value,
+            MasterDataType.Money => dataMoney.value,
             _ => 0
         };
         return result;
