@@ -23,7 +23,7 @@ public class ScripLoadingAnim : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         objectScence.gameObject.SetActive(true);
         FadedShowAnim();
-        SS.View.Manager.SceneAnimationDuration = 0.15f;
+        Directory.Manager.SceneAnimationDuration = 0.15f;
     }
 
     void FadedShowAnim()
