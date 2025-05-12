@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
-using UnityEngine.Purchasing;
 using TMPro;
-using com.cyborgAssets.inspectorButtonPro;
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SoDataRewards", order = 1)]
 public class SoDataRewards : ScriptableObject
@@ -23,7 +20,6 @@ public class SoDataRewards : ScriptableObject
         return adsConfig.Find(x => x.pack == pack);
     }
 }
-
 
 [System.Serializable]
 public class ItemShopData
@@ -114,7 +110,6 @@ public class InfoShopTextView
 {
     public TextMeshProUGUI text;
     public bool abbrevation = false;
-    public bool isCoint = false;
     public bool isPlus = false;
 
     public void View(ItemShopData itemShop)
@@ -128,27 +123,13 @@ public class InfoShopTextView
         {
             if (itemShop.type == MasterDataType.Money)
             {
-                if (isCoint)
+                if (abbrevation)
                 {
-                    if (abbrevation)
-                    {
-                        text.text = string.Format("{0} coins", AbbrevationUtility.AbbreviateNumber(itemShop.vaule));
-                    }
-                    else
-                    {
-                        text.text = string.Format("{0} coins", itemShop.vaule);
-                    }
+                    text.text = string.Format("{0}", AbbrevationUtility.AbbreviateNumber(itemShop.vaule));
                 }
                 else
                 {
-                    if (abbrevation)
-                    {
-                        text.text = string.Format("{0}", AbbrevationUtility.AbbreviateNumber(itemShop.vaule));
-                    }
-                    else
-                    {
-                        text.text = string.Format("{0}", itemShop.vaule);
-                    }
+                    text.text = string.Format("{0}", itemShop.vaule);
                 }
 
             }
