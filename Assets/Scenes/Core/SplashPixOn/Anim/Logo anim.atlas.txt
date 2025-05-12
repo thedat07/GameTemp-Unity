@@ -1,0 +1,48 @@
+
+Logo anim.png
+size: 1332,292
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1
+  rotate: false
+  xy: 735, 68
+  size: 76, 76
+  orig: 78, 78
+  offset: 1, 1
+  index: -1
+2
+  rotate: false
+  xy: 636, 47
+  size: 97, 97
+  orig: 99, 100
+  offset: 1, 2
+  index: -1
+all
+  rotate: false
+  xy: 2, 146
+  size: 890, 142
+  orig: 890, 142
+  offset: 0, 0
+  index: -1
+face
+  rotate: false
+  xy: 894, 46
+  size: 437, 244
+  orig: 437, 244
+  offset: 0, 0
+  index: -1
+n
+  rotate: false
+  xy: 439, 2
+  size: 195, 142
+  orig: 195, 142
+  offset: 0, 0
+  index: -1
+pix
+  rotate: false
+  xy: 2, 4
+  size: 435, 140
+  orig: 435, 140
+  offset: 0, 0
+  index: -1
