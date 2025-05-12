@@ -28,7 +28,7 @@ public class InfoViewData
 [System.Serializable]
 public class InfoViewRoot
 {
-    public InfoViewData[] textView;
+    //public InfoViewData[] textView;
     public InfoView[] infoViews;
 
     private List<InfoViewData> infoViewDatas;
@@ -38,7 +38,7 @@ public class InfoViewRoot
         if (infoViewDatas == null)
         {
             infoViewDatas = new List<InfoViewData>();
-            infoViewDatas.AddRange(this.textView);
+            //  infoViewDatas.AddRange(this.textView);
             infoViewDatas.AddRange(this.infoViews.Select(x => x.infoViewData));
         }
     }
