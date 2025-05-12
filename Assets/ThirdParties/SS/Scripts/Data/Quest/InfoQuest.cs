@@ -10,12 +10,12 @@ public class InfoQuest
     protected int m_MaxValue;
 
     // Kiểu nhiệm vụ
-    public TypeQuest type;
+    protected TypeQuest m_Type;
 
     // Constructor
     public InfoQuest(TypeQuest type, int maxValue, int levelUnlock = int.MaxValue)
     {
-        this.type = type;
+        this.m_Type = type;
         this.m_MaxValue = maxValue;
         this.m_LevelUnlock = levelUnlock;
     }
@@ -29,7 +29,7 @@ public class InfoQuest
     // GET: Lấy giá trị hiện tại
     public int Get()
     {
-        return LibraryGameSave.LoadQuestData(type, "value", 0);
+        return LibraryGameSave.LoadQuestData(m_Type, "value", 0);
     }
 
     // POST: Cộng thêm giá trị (nếu đã mở khóa)
@@ -46,13 +46,13 @@ public class InfoQuest
     public virtual void Put(int value)
     {
         value = Mathf.Clamp(value, 0, m_MaxValue);
-        LibraryGameSave.SaveQuestData(type, "value", value);
+        LibraryGameSave.SaveQuestData(m_Type, "value", value);
     }
 
     // DELETE: Reset nhiệm vụ về 0
     public virtual void Delete()
     {
-        LibraryGameSave.SaveQuestData(type, "value", 0);
+        LibraryGameSave.SaveQuestData(m_Type, "value", 0);
     }
 
     // GET: Giá trị tối đa
