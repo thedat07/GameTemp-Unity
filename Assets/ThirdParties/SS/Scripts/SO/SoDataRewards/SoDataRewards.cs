@@ -60,7 +60,7 @@ public class CointShop
                 dataReward.AddRange(data);
 
                 CongratulationRewardData rewardData = new CongratulationRewardData(data, pack.ToString());
-                rewardData.OnReward(1);
+                rewardData.OnReward();
             }
         }
     }
@@ -102,7 +102,7 @@ public class AdsShop
                     dataReward.AddRange(data);
 
                     CongratulationRewardData rewardData = new CongratulationRewardData(data, pack.ToString());
-                    rewardData.OnReward(1);
+                    rewardData.OnReward();
                 }
             }
         }

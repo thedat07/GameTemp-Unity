@@ -161,7 +161,7 @@ public class ShopPresenter : MonoBehaviour, IInitializable
     void SetVaule(List<ItemShopData> data, string log = "")
     {
         CongratulationRewardData rewardData = new CongratulationRewardData(Convert(data), log);
-        rewardData.OnReward(1);
+        rewardData.OnReward();
     }
 
     private bool HasReceivedReward(string productId)

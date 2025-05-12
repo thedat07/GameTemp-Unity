@@ -7,22 +7,18 @@ public class CongratulationRewardData
 {
     public List<ItemShopData> data;
     public string log;
-    public UnityAction action;
-    public UnityAction actionAds;
-    public bool ads;
+    public UnityAction callback;
 
-    public CongratulationRewardData(List<ItemShopData> data, string log = "", UnityAction action = null, bool ads = true, UnityAction actionAds = null)
+    public CongratulationRewardData(List<ItemShopData> data, string log = "", UnityAction callback = null)
     {
         this.data = new List<ItemShopData>();
         this.data.AddRange(data);
 
         this.log = log;
-        this.action = action;
-        this.ads = ads;
-        this.actionAds = actionAds;
+        this.callback = callback;
     }
 
-    public void OnReward(int xData, bool callback = false)
+    public void OnReward(int xData = 1)
     {
         List<ItemShopData> dataConvert = Convert();
 
@@ -41,8 +37,9 @@ public class CongratulationRewardData
                 }
             }
             Manager.Object.PlayEffect();
-            action?.Invoke();
         }
+
+        callback?.Invoke();
     }
 
     private List<ItemShopData> Convert()
