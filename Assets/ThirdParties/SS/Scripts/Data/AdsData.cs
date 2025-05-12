@@ -27,22 +27,25 @@ public class AdsDataNotSave
     public int adInterCount = 0;
     private float lastAdTime = 0f;
 
-    public bool CheckAndShowAd()
+    /// <summary>
+    /// Kiểm tra xem có thể hiện quảng cáo interstitial không.
+    /// </summary>
+    public bool CanShowInterstitialAd()
     {
         int currentLevel = GameManager.Instance.GetMasterData().GetData(MasterDataType.Stage);
         float adInterval = StaticData.InterTimestep;
         int minLevelForAds = StaticData.LevelStartShowingInter;
 
-        if (currentLevel >= minLevelForAds &&
-            Time.time >= lastAdTime + adInterval &&
-             Gley.MobileAds.API.CanShowAds())
-        {
-            return true;
-        }
+        bool hasReachedMinLevel = currentLevel >= minLevelForAds;
+        bool isAdCooldownOver = Time.time >= lastAdTime + adInterval;
+        bool canAdBeShown = Gley.MobileAds.API.CanShowAds();
 
-        return false;
+        return hasReachedMinLevel && isAdCooldownOver && canAdBeShown;
     }
 
+    /// <summary>
+    /// Cập nhật thời gian hiển thị quảng cáo gần nhất.
+    /// </summary>
     public void UpdateLastAdTime()
     {
         lastAdTime = Time.time;

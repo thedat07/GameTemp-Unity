@@ -62,8 +62,11 @@ public class AdsPresenter : MonoBehaviour, IInitializable
 
     public void ShowInterstitial(string placement)
     {
-        placementInter = placement;
-        Gley.MobileAds.API.ShowInterstitial();
+        if (adsDataNotSave.CanShowInterstitialAd())
+        {
+            placementInter = placement;
+            Gley.MobileAds.API.ShowInterstitial();
+        }
     }
 
     public void ShowRewardedVideo(string placement, UnityAction onSuccess = null, UnityAction onFail = null, UnityAction onCompleted = null)
