@@ -407,8 +407,6 @@ MonoBehaviour:
   m_ShopPresenter: {fileID: 6495066347722601384}
   m_ConfigController: {fileID: 1561823362190096716}
   m_FacebookController: {fileID: 307888051757308321}
-  checkInternet:
-    network: 0
 --- !u!1 &6578075393011312100
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,6 +637,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b128bfa2203b2a49944e1c0b2591542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objLoadingPanel: {fileID: 7516876729464855930}
+  objLoadingIcon: {fileID: 7516876728816953120}
 --- !u!1 &7516876729464855930
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,12 +840,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
-  OnInitSuccess:
-    m_PersistentCalls:
-      m_Calls: []
-  OnInitFail:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &9139572092643364356
 GameObject:
   m_ObjectHideFlags: 0

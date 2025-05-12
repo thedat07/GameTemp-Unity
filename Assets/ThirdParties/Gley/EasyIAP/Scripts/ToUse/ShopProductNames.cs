@@ -7,6 +7,7 @@ namespace Gley.EasyIAP
 {
 	public enum ShopProductNames
 	{
+		test,
 	}
 }
 #endif

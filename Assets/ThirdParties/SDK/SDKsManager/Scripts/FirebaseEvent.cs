@@ -130,7 +130,7 @@ public class FirebaseEvent
     {
         if (GameManager.Instance.IsDoneFirebase() == false)
         {
-            UnityEngine.Console.LogError("Firebase", "Firebase is Error");
+            UnityEngine.Console.Log("Firebase", "Firebase is Error");
         }
         else
         {

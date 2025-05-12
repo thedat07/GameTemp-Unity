@@ -2,9 +2,9 @@
 
 public class LoadingController : MonoBehaviour
 {
-    private GameObject objLoadingPanel;
+    public GameObject objLoadingPanel;
 
-    private Transform objLoadingIcon;
+    public Transform objLoadingIcon;
 
     private float rotateSpeed = 2;
 

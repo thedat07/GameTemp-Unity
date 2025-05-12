@@ -29,7 +29,7 @@ public class ShopShowEditor : EditorWindow
     public static void ShowWindow(SoDataRewards so)
     {
         soShop = so;
-        GetWindow<ShopShowEditor>("Shop View");
+        GetWindow<ShopShowEditor>("Shop Data");
     }
 
     private void OnGUI()

@@ -45,13 +45,21 @@ public class MasterPresenter : MonoBehaviour, IInitializable
                 break;
         };
 
-        FirebaseEvent.LogEvent("rw_data_game",
-        "level", GameManager.Instance.GetMasterData().GetData(MasterDataType.Stage).ToString(),
-        "type_data", type.ToString(),
-        "vaule", vaule.ToString(),
-        "log", log.ToString()
-        );
+        Log();
+
         TigerForge.EventManager.EmitEvent(MasterData.Key);
+
+        void Log()
+        {
+            UnityEngine.Console.Log("AddData", string.Format("{0}: {1}", type.ToString(), vaule));
+
+            FirebaseEvent.LogEvent("rw_data_game",
+            "level", GameManager.Instance.GetMasterData().GetData(MasterDataType.Stage).ToString(),
+            "type_data", type.ToString(),
+            "vaule", vaule.ToString(),
+            "log", log.ToString()
+            );
+        }
     }
 
     public void SetValue(int vaule, MasterDataType type)

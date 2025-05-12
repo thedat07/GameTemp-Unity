@@ -21,4 +21,18 @@ MonoBehaviour:
   useForIos: 0
   useForMac: 0
   useForWindows: 0
-  shopProducts: []
+  shopProducts:
+  - productName: test
+    productType: 0
+    idGooglePlay: test.com.vn
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - vaule: 100
+      type: 1
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
