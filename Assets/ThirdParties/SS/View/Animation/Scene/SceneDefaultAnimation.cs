@@ -66,7 +66,7 @@ namespace Directory
             {
                 if (m_RectTransform == null)
                 {
-                    m_RectTransform = GetComponent<RectTransform>();
+                    TryGetComponent<RectTransform>(out m_RectTransform);
                 }
 
                 return m_RectTransform;
@@ -92,7 +92,7 @@ namespace Directory
                     {
                         if (p.GetComponent<Canvas>() != null)
                         {
-                            m_CanvasRectTransform = p.GetComponent<RectTransform>();
+                            p.TryGetComponent<RectTransform>(out m_CanvasRectTransform);
                             break;
                         }
                         p = p.parent;
