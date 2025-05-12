@@ -25,7 +25,7 @@ public class ButtonGameCoin : ButtonGame
 
     protected override void OnClickEvent()
     {
-        GameManager.Instance.GetMasterPresenter().AddMoney(m_Data.vaule, pack.ToString(), OnSucccessMoney, OnFailMoney, OnCompletedMoney);
+        GameManager.Instance.GetMasterPresenter().SetMoney(m_Data.vaule, pack.ToString(), OnSucccessMoney, OnFailMoney, OnCompletedMoney);
 
         void OnSucccessMoney()
         {

@@ -67,7 +67,7 @@ public class MasterPresenter : MonoBehaviour, IInitializable
         TigerForge.EventManager.EmitEvent(MasterData.Key);
     }
 
-    public void AddMoney(int vaule, string log, UnityAction onSucccess, UnityAction onFail, UnityAction onCompleted)
+    public void SetMoney(int vaule, string log, UnityAction onSucccess, UnityAction onFail, UnityAction onCompleted)
     {
         int newMoney = m_Data.GetData(MasterDataType.Money) - vaule;
         if (newMoney < 0)
