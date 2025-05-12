@@ -13,7 +13,7 @@ public class ScripLoadingAnim : MonoBehaviour
     [SerializeField, SpineAnimation(dataField = "skelGraphic")] string animIdleStart = "Idle";
     [SerializeField, SpineAnimation(dataField = "skelGraphic")] string animIdleEnd = "Idle";
     [SerializeField, SpineAnimation(dataField = "skelGraphic")] string animAction = "Action";
-    [SerializeField] float timeFadedIn = 2f, timeFadeOut = 1f;
+    [SerializeField] float timeFadedIn = 2f;
     public string SceneStartOfGame = "MainGame";
     public Animation animationHide;
 
