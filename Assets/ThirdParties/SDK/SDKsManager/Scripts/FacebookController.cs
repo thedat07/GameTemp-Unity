@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Facebook.Unity;
 
-public class FacebookController : MonoBehaviour
+public class FacebookController : MonoBehaviour, IInitializable
 {
     public bool active;
 
@@ -9,7 +9,7 @@ public class FacebookController : MonoBehaviour
 
     public bool IsDone() => active ? facebookBaseReady == VerifyFirebase.Done : false;
 
-    public void Init()
+    public void Initialize()
     {
         if (active)
         {

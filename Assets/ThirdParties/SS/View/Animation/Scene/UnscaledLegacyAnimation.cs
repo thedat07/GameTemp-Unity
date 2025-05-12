@@ -3,7 +3,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace SS.View
+namespace Directory
 {
     public class UnscaledLegacyAnimation : MonoBehaviour
     {

@@ -6,7 +6,7 @@ using DesignPatterns;
 using DG.Tweening;
 using com.cyborgAssets.inspectorButtonPro;
 
-namespace SS.View
+namespace Directory
 {
     public interface IController
     {
@@ -172,7 +172,10 @@ namespace SS.View
                 m_Canvas.worldCamera = Manager.Object.UICamera;
             }
 
-            LibraryGame.Game.EditCanvasScaler(GetCanvasScaler());
+            if (LibraryGame.Game.EditCanvasScaler(GetCanvasScaler()))
+            {
+                Canvas.ForceUpdateCanvases();
+            }
         }
 
         public virtual void HideUI()

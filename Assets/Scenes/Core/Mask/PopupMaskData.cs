@@ -1,14 +1,6 @@
 
 using UnityEngine;
-using SS.View;
-using UnityEngine.UI;
-using DG.Tweening;
-using Lean.Pool;
 using System.Collections.Generic;
-using TMPro;
-using System.Globalization;
-using System.Linq;
-using Coffee.UISoftMask;
 using UnityEngine.Events;
 
 public class PopupMaskData

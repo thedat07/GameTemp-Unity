@@ -132,7 +132,7 @@ public class InfoShopTextView
                 {
                     if (abbrevation)
                     {
-                        text.text = string.Format("{0} coins", LibraryGame.AbbrevationUtility.AbbreviateNumber(itemShop.vaule));
+                        text.text = string.Format("{0} coins", AbbrevationUtility.AbbreviateNumber(itemShop.vaule));
                     }
                     else
                     {
@@ -143,7 +143,7 @@ public class InfoShopTextView
                 {
                     if (abbrevation)
                     {
-                        text.text = string.Format("{0}", LibraryGame.AbbrevationUtility.AbbreviateNumber(itemShop.vaule));
+                        text.text = string.Format("{0}", AbbrevationUtility.AbbreviateNumber(itemShop.vaule));
                     }
                     else
                     {

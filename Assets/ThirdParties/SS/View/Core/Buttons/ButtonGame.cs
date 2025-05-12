@@ -10,18 +10,26 @@ public class ButtonGame : ButtonBase
     [Header("Audio")]
     public bool activeEffect = true;
 
+    /// <summary>
+    /// Phát âm thanh khi nhấn nút.
+    /// </summary>
     protected override void PlayAudio()
     {
-        GameManager.Instance.GetSettingPresenter().PlaySound(typeAudio);
+        GameManager.Instance
+                   .GetSettingPresenter()
+                   .PlaySound(typeAudio);
     }
 
+    /// <summary>
+    /// Tạo hiệu ứng scale khi click nếu được bật.
+    /// </summary>
     protected override void PlayEffect()
     {
-        if (activeEffect)
-        {
-            transform.DoResetDefault();
-            transform.DOPunchScale(m_Scale * 0.05f, 0.25f).SetLink(gameObject, LinkBehaviour.KillOnDestroy);
-        }
+        if (!activeEffect) return;
+
+        transform.DoResetDefault(); // Reset về trạng thái gốc nếu có animation trước đó
+        transform.DOPunchScale(m_Scale * 0.05f, 0.25f)
+                 .SetLink(gameObject, LinkBehaviour.KillOnDestroy);
     }
 }
 
@@ -39,9 +47,9 @@ namespace Lean.Gui.Editor
         {
             base.DrawSelectableSettings();
 
-            Draw("typeAudio", "Audio Click");
+            Draw("typeAudio", "Loại âm thanh phát khi nhấn nút.k");
 
-            Draw("activeEffect", "Effect Default");
+            Draw("activeEffect", "Bật/tắt hiệu ứng scale khi click.");
         }
     }
 }

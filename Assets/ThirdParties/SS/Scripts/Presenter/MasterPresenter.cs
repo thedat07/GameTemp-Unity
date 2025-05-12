@@ -3,10 +3,10 @@ using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using SS.View;
+using Directory;
 using System.Collections;
 
-public class MasterPresenter : MonoBehaviour
+public class MasterPresenter : MonoBehaviour, IInitializable
 {
     private MasterData m_Data;
 
@@ -18,7 +18,7 @@ public class MasterPresenter : MonoBehaviour
 
     public string GetText(int index) => soTextGame.GetText(index);
 
-    public void Init()
+    public void Initialize()
     {
         IsTest = false;
         m_Data = GameManager.Instance.GetMasterData();
@@ -26,20 +26,7 @@ public class MasterPresenter : MonoBehaviour
 
     void Start()
     {
-        m_Coroutine = Wait(5.0f);
-        StartCoroutine(m_Coroutine);
-    }
-
-    private IEnumerator Wait(float waitTime)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(waitTime);
-            if (GameManager.Instance.checkInternet.IsInternet() == false)
-            {
-                Manager.ShowNoInternet();
-            }
-        }
+        GameManager.Instance.checkInternet.CustomUpdate();
     }
 
     public void AddData(int vaule, MasterDataType type, string log = "")

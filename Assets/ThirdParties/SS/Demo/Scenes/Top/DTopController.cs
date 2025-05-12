@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SS.View;
+using Directory;
+using com.cyborgAssets.inspectorButtonPro;
 
 public class DTopController : Controller
 {
@@ -12,6 +13,7 @@ public class DTopController : Controller
         return SCENE_NAME;
     }
 
+    [ProButton]
     public void OnButtonTap1()
     {
         Manager.PushScene(DPopupController.SCENE_NAME, new DPopupData("Popup1", true), () =>
@@ -23,6 +25,7 @@ public class DTopController : Controller
         }, false);
     }
 
+    [ProButton]
     public void OnButtonTap2()
     {
         Manager.PushScene(DPopupController.SCENE_NAME, new DPopupData("Popup1", false), () =>
@@ -42,6 +45,7 @@ public class DTopController : Controller
         }, false);
     }
 
+    [ProButton]
     public void OnSelectTap()
     {
         Manager.PushScene(DSelectController.DSELECT_SCENE_NAME);

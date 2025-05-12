@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SS.View
+namespace Directory
 {
     public class ManagerObject : BaseSS
     {

@@ -59,11 +59,11 @@ namespace Lean.Gui.Editor
         {
             base.DrawSelectableSettings();
 
-            Draw("pack", "");
+            Draw("pack", "Gói bán coin được liên kết với nút.");
 
-            Draw("textPrice", "");
+            Draw("textPrice", "Giá bán coin");
 
-            Draw("infoViewRoot", "View Info");
+            Draw("infoViewRoot", "UI hiển thị thông tin phần thưởng.");
         }
 
         protected override void DrawSelectableEvents(bool showUnusedEvents)
@@ -74,17 +74,17 @@ namespace Lean.Gui.Editor
 
             if (showUnusedEvents == true || Any(tgts, t => t.OnDown.GetPersistentEventCount() > 0))
             {
-                Draw("OnSuccess");
+                Draw("OnSuccess", "Sự kiện được gọi khi người chơi mua thành công.");
             }
 
             if (showUnusedEvents == true || Any(tgts, t => t.OnClick.GetPersistentEventCount() > 0))
             {
-                Draw("OnFail");
+                Draw("OnFail", "Sự kiện được gọi khi mua bị hủy hoặc lỗi.");
             }
 
             if (showUnusedEvents == true || Any(tgts, t => t.OnClick.GetPersistentEventCount() > 0))
             {
-                Draw("OnCompleted");
+                Draw("OnCompleted", "Sự kiện được gọi khi mua kết thúc (bất kể thành công hay thất bại).");
             }
         }
     }

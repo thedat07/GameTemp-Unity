@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
-using SS.View;
+using Directory;
 using UnityEngine.Events;
 
 enum VerifyFirebase
@@ -15,7 +15,7 @@ enum VerifyFirebase
     Error
 }
 
-public class FirebaseManager : MonoBehaviour
+public class FirebaseManager : MonoBehaviour, IInitializable
 {
     public bool active;
 
@@ -27,7 +27,7 @@ public class FirebaseManager : MonoBehaviour
 
     public bool IsDone() => active ? firebaseReady == VerifyFirebase.Done : false;
 
-    public void Init()
+    public void Initialize()
     {
         if (active)
         {

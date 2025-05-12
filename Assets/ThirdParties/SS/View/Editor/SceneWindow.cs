@@ -1,12 +1,9 @@
-﻿// This code is part of the SS-Scene library, released by Anh Pham (anhpt.csit@gmail.com).
-
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
-using System.IO;
 using System;
 using System.Collections.Generic;
 
-namespace SS.View
+namespace Directory
 {
     public class SceneWindow : EditorWindow
     {
@@ -199,7 +196,19 @@ namespace SS.View
 
         void CreateController()
         {
-            string targetRelativePath = System.IO.Path.Combine(sceneDirectoryPath, sceneName + "/" + sceneName + "Controller.cs");
+            string baseScenePath = System.IO.Path.Combine(sceneDirectoryPath, sceneName);
+            string scriptsFolder = System.IO.Path.Combine(baseScenePath, "Scripts");
+            string prefabsFolder = System.IO.Path.Combine(baseScenePath, "Prefabs");
+
+            // Tạo các thư mục nếu chưa tồn tại
+            if (!System.IO.Directory.Exists(scriptsFolder))
+                System.IO.Directory.CreateDirectory(scriptsFolder);
+
+            if (!System.IO.Directory.Exists(prefabsFolder))
+                System.IO.Directory.CreateDirectory(prefabsFolder);
+
+            // Tạo Controller trong thư mục Scripts
+            string targetRelativePath = System.IO.Path.Combine(scriptsFolder, sceneName + "Controller.cs");
             string targetFullPath = SS.IO.File.Copy("TemplateController.cs", targetRelativePath);
 
             SS.IO.File.ReplaceFileContent(targetFullPath, "TEMPLATE_SCENE_NAME", sceneName.ToUpper() + "_SCENE_NAME");

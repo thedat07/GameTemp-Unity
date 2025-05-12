@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using SS.View;
+using Directory;
 using Gley.EasyIAP;
 
-public class ShopPresenter : MonoBehaviour
+public class ShopPresenter : MonoBehaviour, IInitializable
 {
     public const string Key = "ShopPresenter";
 
@@ -14,7 +14,7 @@ public class ShopPresenter : MonoBehaviour
 
     public LoadingController loadingController;
 
-    public void Init()
+    public void Initialize()
     {
         Gley.EasyIAP.API.Initialize(InitializationComplete);
 

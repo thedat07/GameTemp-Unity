@@ -1,7 +1,6 @@
 ﻿// This code is part of the SS-Scene library, released by Anh Pham (anhpt.csit@gmail.com).
 
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

@@ -4,19 +4,19 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class QuestPresenter : MonoBehaviour
+public class QuestPresenter : MonoBehaviour, IInitializable, IUpdatable
 {
     public const string KeyUpdate = "QuestUpdate";
 
     private QuestData m_Data;
 
-    public void Init()
+    public void Initialize()
     {
         m_Data = GameManager.Instance.GetQuestData();
-        InvokeRepeating(nameof(UpdateQuest), 1, 1);
+        InvokeRepeating(nameof(CustomUpdate), 1, 1);
     }
 
-    private void UpdateQuest()
+    public void CustomUpdate()
     {
         TigerForge.EventManager.EmitEvent(KeyUpdate);
     }

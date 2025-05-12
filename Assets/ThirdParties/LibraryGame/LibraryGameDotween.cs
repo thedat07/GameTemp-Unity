@@ -20,7 +20,7 @@ namespace LibraryGame
             if (!convert)
                 j = DOVirtual.Int(int.Parse(target.text), vaule, 0.5f, (x) => { target.text = string.Format("{0}", x); });
             else
-                j = DOVirtual.Int(int.Parse(target.text), vaule, 0.5f, (x) => { target.Number(x); });
+                j = DOVirtual.Int(int.Parse(target.text), vaule, 0.5f, (x) => { target.SetText(x); });
             return j;
         }
 
@@ -69,7 +69,6 @@ namespace LibraryGame
             }
         }
 
-
         public static Tweener DoVauleAbbreviateNumber(this Text target, int endValue, float duration, string fromat = "{0}")
         {
             return DOVirtual.Int(AbbrevationUtility.ConvertAbbreviatedToNumber(target.text), endValue, duration, (x) =>
@@ -83,6 +82,23 @@ namespace LibraryGame
             textMeshPro.DOKill();
             textMeshPro.color = flashColor;
             return textMeshPro.DOColor(defaultColor, 0.5f).SetEase(Ease.OutFlash).SetLink(textMeshPro.gameObject, LinkBehaviour.KillOnDestroy);
+        }
+
+        public static Tweener DoProgressVaule(this Slider target, float value)
+        {
+            target.DOKill();
+
+            if (value == 0)
+            {
+                target.fillRect.gameObject.SetActive(false);
+            }
+            else
+            {
+                target.fillRect.gameObject.SetActive(true);
+                return target.DOValue(Mathf.Clamp(value, target.maxValue / 200, target.maxValue), 0.2f);
+            }
+            
+            return null;
         }
     }
 }

@@ -45,7 +45,6 @@ MonoBehaviour:
     - MaxSdk.Scripts
     - Purchasing.Common
     - spine-unity
-    - spine-unity-examples
     - Tests
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0

@@ -1,10 +1,7 @@
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
 
-namespace SS.View
+namespace Directory
 {
     public class ManagerBase
     {

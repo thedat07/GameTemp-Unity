@@ -6,7 +6,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SS.View
+namespace Directory
 {
     public class BaseSS : MonoBehaviour
     {

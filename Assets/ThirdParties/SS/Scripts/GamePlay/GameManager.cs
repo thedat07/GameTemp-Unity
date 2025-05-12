@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DesignPatterns;
-using SS.View;
+using Directory;
 using UnityEngine.Events;
 
 public class GameManager : SingletonPersistent<GameManager>
@@ -31,6 +31,7 @@ public class GameManager : SingletonPersistent<GameManager>
 
     public override void Awake()
     {
+        checkInternet = new CheckInternet(new CheckInternetData(this));
         Init();
     }
 
@@ -41,16 +42,16 @@ public class GameManager : SingletonPersistent<GameManager>
         m_QuestData = new QuestData();
         m_AdsData = new AdsData();
 
-        m_SettingPresenter.Init();
-        m_MasterPresenter.Init();
-        m_StagePresenter.Init();
-        m_AdsPresenter.Init();
-        m_QuestPresenter.Init();
+        m_SettingPresenter.Initialize();
+        m_MasterPresenter.Initialize();
+        m_StagePresenter.Initialize();
+        m_AdsPresenter.Initialize();
+        m_QuestPresenter.Initialize();
 
-        m_ConfigController.Init();
-        m_FacebookController.Init();
+        m_ConfigController.Initialize();
+        m_FacebookController.Initialize();
 
-        m_ShopPresenter.Init();
+        m_ShopPresenter.Initialize();
     }
 
     public SettingPresenter GetSettingPresenter() => m_SettingPresenter;

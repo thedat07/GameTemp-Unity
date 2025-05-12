@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.Rendering.Universal;
 
-namespace SS.View
+namespace Directory
 {
     public class Manager : ManagerDirector
     {

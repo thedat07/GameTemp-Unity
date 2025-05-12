@@ -1,6 +1,6 @@
 
 using UnityEngine;
-using SS.View;
+using Directory;
 using UnityEngine.UI;
 using DG.Tweening;
 using Lean.Pool;

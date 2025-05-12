@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using SS.View;
+using Directory;
 using System.Linq;
 using UnityEngine.Events;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Gley.MobileAds;
 
-public class AdsPresenter : MonoBehaviour
+public class AdsPresenter : MonoBehaviour, IInitializable
 {
     public AdsDataNotSave adsDataNotSave;
 
@@ -14,7 +14,7 @@ public class AdsPresenter : MonoBehaviour
     public string placementInter = "";
     public string placementReward = "";
 
-    public void Init()
+    public void Initialize()
     {
         m_AdsData = GameManager.Instance.GetAdsData();
         Gley.MobileAds.API.Initialize(OnInitialized);

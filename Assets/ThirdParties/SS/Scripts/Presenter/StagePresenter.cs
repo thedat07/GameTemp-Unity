@@ -19,11 +19,11 @@ public class StageFirebase
 }
 
 
-public class StagePresenter : MonoBehaviour
+public class StagePresenter : MonoBehaviour, IInitializable
 {
     private MasterData m_Data;
 
-    public void Init()
+    public void Initialize()
     {
         m_Data = GameManager.Instance.GetMasterData();
     }

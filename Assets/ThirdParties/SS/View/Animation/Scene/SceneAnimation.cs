@@ -5,7 +5,7 @@ using System.Collections;
 using UnityEngine.UI;
 using Lean.Gui;
 
-namespace SS.View
+namespace Directory
 {
     [ExecuteInEditMode]
     public class SceneAnimation : BaseSS

@@ -3,7 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 using Lean.Pool;
 
-public class SettingPresenter : MonoBehaviour
+public class SettingPresenter : MonoBehaviour, IInitializable
 {
     public static readonly Vector2 ScreenGame = new Vector2(1080f, 2160f);
 
@@ -35,7 +35,7 @@ public class SettingPresenter : MonoBehaviour
     public bool useSafeMode;
     public LogBehaviour logBehaviour;
 
-    public void Init()
+    public void Initialize()
     {
         DOTween.Init(autoKillMode, useSafeMode, logBehaviour);
         m_SettingData = GameManager.Instance.GetSettingData();

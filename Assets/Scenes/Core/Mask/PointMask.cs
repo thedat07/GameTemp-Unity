@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using LibraryGame;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class PointMask : MonoBehaviour
 {

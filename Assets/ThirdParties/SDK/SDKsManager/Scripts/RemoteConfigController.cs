@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SS.View
+namespace Directory
 {
     public class RemoteConfigController
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SS.View;
+using Directory;
 
 public class TemplateDataController : Controller
 {

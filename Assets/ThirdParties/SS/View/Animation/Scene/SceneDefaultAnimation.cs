@@ -1,10 +1,7 @@
-﻿// This code is part of the SS-Scene library, released by Anh Pham (anhpt.csit@gmail.com).
-
-using UnityEngine;
-using System.Collections;
+﻿using UnityEngine;
 using DG.Tweening;
 
-namespace SS.View
+namespace Directory
 {
     public class SceneDefaultAnimation : SceneAnimation
     {
