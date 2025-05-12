@@ -1,47 +1,63 @@
-using System;
-using System.Collections.Generic;
-using DesignPatterns;
 using UnityEngine;
 using LibraryGame;
 
-[System.Serializable]
 public class InfoQuest
 {
-    public int levelUnlock = 0;
+    // Level yêu cầu để mở khóa nhiệm vụ
+    protected int m_LevelUnlock = 0;
 
+    // Giá trị tối đa nhiệm vụ
     protected int m_MaxValue;
 
+    // Kiểu nhiệm vụ
     public TypeQuest type;
 
-    public InfoQuest(int maxValue, TypeQuest type)
+    // Constructor
+    public InfoQuest(TypeQuest type, int maxValue, int levelUnlock = int.MaxValue)
     {
         this.type = type;
         this.m_MaxValue = maxValue;
+        this.m_LevelUnlock = levelUnlock;
     }
 
+    // Kiểm tra điều kiện mở khóa nhiệm vụ
     protected virtual bool UnLock()
     {
-        return GameManager.Instance.GetMasterData().dataStage.value >= levelUnlock;
+        return GameManager.Instance.GetMasterData().dataStage.Get() >= m_MaxValue;
     }
 
-    public int vaule
+    // GET: Lấy giá trị hiện tại
+    public int Get()
     {
-        get { return LibraryGameSave.LoadQuestData(type, "vaule", 0); }
-        set { LibraryGameSave.SaveQuestData(type, "vaule", value); }
+        return LibraryGameSave.LoadQuestData(type, "value", 0);
     }
 
-    public virtual int maxValue
-    {
-        get { return m_MaxValue; }
-        set { m_MaxValue = value; }
-    }
-
-    public virtual void SetData(int vaule)
+    // POST: Cộng thêm giá trị (nếu đã mở khóa)
+    public virtual void Post(int amount)
     {
         if (UnLock())
         {
-            int newVaule = Mathf.Clamp(this.vaule += vaule, 0, maxValue);
-            this.vaule = newVaule;
+            int newValue = Mathf.Clamp(Get() + amount, 0, m_MaxValue);
+            Put(newValue);
         }
     }
+
+    // PUT: Gán giá trị mới (với giới hạn min/max)
+    public virtual void Put(int value)
+    {
+        value = Mathf.Clamp(value, 0, m_MaxValue);
+        LibraryGameSave.SaveQuestData(type, "value", value);
+    }
+
+    // DELETE: Reset nhiệm vụ về 0
+    public virtual void Delete()
+    {
+        LibraryGameSave.SaveQuestData(type, "value", 0);
+    }
+
+    // GET: Giá trị tối đa
+    public virtual int GetMax() => m_MaxValue;
+
+    // PUT: Cập nhật giá trị tối đa
+    public virtual void SetMax(int value) => m_MaxValue = value;
 }

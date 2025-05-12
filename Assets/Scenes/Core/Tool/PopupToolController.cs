@@ -76,7 +76,7 @@ public class PopupToolController : Controller
 
     public void AddMoney()
     {
-        GameManager.Instance.GetMasterPresenter().AddData(999999, MasterDataType.Money, SceneName());
+        GameManager.Instance.GetMasterPresenter().Post(999999, MasterDataType.Money, SceneName());
     }
 
     public void AddStar()
@@ -86,7 +86,7 @@ public class PopupToolController : Controller
 
     public void NextLevel()
     {
-        GameManager.Instance.GetMasterPresenter().AddData(1, MasterDataType.Stage);
+        GameManager.Instance.GetMasterPresenter().Post(1, MasterDataType.Stage);
         //
     }
 
@@ -97,7 +97,7 @@ public class PopupToolController : Controller
             int number;
             if (int.TryParse(inputField.text, out number))
             {
-                GameManager.Instance.GetMasterPresenter().SetValue(int.Parse(inputField.text), MasterDataType.Stage);
+                GameManager.Instance.GetMasterPresenter().Put(int.Parse(inputField.text), MasterDataType.Stage);
                 //  SS.View.Manager.RunScene(GamePlayController.GAMEPLAY_SCENE_NAME);
             }
         }

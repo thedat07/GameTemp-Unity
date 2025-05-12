@@ -14,7 +14,7 @@ public class QuestData
 
     private void Init()
     {
-     
+
     }
 
     public QuestData()

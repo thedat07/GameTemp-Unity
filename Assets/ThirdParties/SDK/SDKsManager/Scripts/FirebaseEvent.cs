@@ -78,7 +78,7 @@ public class FirebaseEvent
 
     public static void OnLevelPass()
     {
-        int level = GameManager.Instance.GetMasterData().dataStage.value;
+        int level = GameManager.Instance.GetMasterData().dataStage.Get();
         var listCountAvailableForEvent = new List<int> { 2, 3, 4, 5, 8, 10, 15, 20, 25, 30, 35 };
         if (listCountAvailableForEvent.Contains(level))
         {

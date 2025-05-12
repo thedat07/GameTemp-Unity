@@ -16,22 +16,22 @@ public class MasterData
 {
     public const string Key = "keyMasterData";
 
-    public StageData dataStage;
+    public MasterDataBase dataStage;
 
     public MasterDataBase dataMoney;
 
     public MasterData()
     {
-        dataStage = new StageData(1, MasterDataType.Stage);
-        dataMoney = new StageData(0, MasterDataType.Money);
+        dataStage = new MasterDataBase(1, MasterDataType.Stage);
+        dataMoney = new MasterDataBase(0, MasterDataType.Money);
     }
 
     public int GetData(MasterDataType type)
     {
         int result = type switch
         {
-            MasterDataType.Stage => dataStage.value,
-            MasterDataType.Money => dataMoney.value,
+            MasterDataType.Stage => dataStage.Get(),
+            MasterDataType.Money => dataMoney.Get(),
             _ => 0
         };
         return result;

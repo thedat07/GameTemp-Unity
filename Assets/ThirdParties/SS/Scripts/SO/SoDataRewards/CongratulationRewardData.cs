@@ -33,7 +33,7 @@ public class CongratulationRewardData
                 else
                 {
                     int newVaule = dataConvert[i].vaule * xData;
-                    GameManager.Instance.GetMasterPresenter().AddData(newVaule, dataConvert[i].type, log);
+                    GameManager.Instance.GetMasterPresenter().Post(newVaule, dataConvert[i].type, log);
                 }
             }
             Manager.Object.PlayEffect();

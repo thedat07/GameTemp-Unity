@@ -27,18 +27,18 @@ public class MasterPresenter : MonoBehaviour, IInitializable
         GameManager.Instance.checkInternet.CustomUpdate();
     }
 
-    public void AddData(int vaule, MasterDataType type, string log = "")
+    public void Post(int vaule, MasterDataType type, string log = "")
     {
         switch (type)
         {
             case MasterDataType.Stage:
                 {
-                    m_Data.dataStage.AddValue(vaule);
+                    m_Data.dataStage.Post(vaule);
                 }
                 break;
             case MasterDataType.Money:
                 {
-                    m_Data.dataMoney.AddValue(vaule);
+                    m_Data.dataMoney.Post(vaule);
                 }
                 break;
             default:
@@ -62,20 +62,20 @@ public class MasterPresenter : MonoBehaviour, IInitializable
         }
     }
 
-    public void SetValue(int vaule, MasterDataType type)
+    public void Put(int vaule, MasterDataType type)
     {
         switch (type)
         {
             case MasterDataType.Stage:
                 {
-                    m_Data.dataStage.SetValue(vaule);
+                    m_Data.dataStage.Put(vaule);
                 }
                 break;
         }
         TigerForge.EventManager.EmitEvent(MasterData.Key);
     }
 
-    public void SetMoney(int vaule, string log, UnityAction onSucccess, UnityAction onFail, UnityAction onCompleted)
+    public void PostMoney(int vaule, string log, UnityAction onSucccess, UnityAction onFail, UnityAction onCompleted)
     {
         int newMoney = m_Data.GetData(MasterDataType.Money) - vaule;
         if (newMoney < 0)
@@ -90,7 +90,7 @@ public class MasterPresenter : MonoBehaviour, IInitializable
         else
         {
             onSucccess?.Invoke();
-            AddData(-vaule, MasterDataType.Money);
+            Post(-vaule, MasterDataType.Money);
             FirebaseEvent.LogEvent("money_spend_success",
             "level", GameManager.Instance.GetMasterData().GetData(MasterDataType.Stage).ToString(),
             "vaule", vaule.ToString(),
