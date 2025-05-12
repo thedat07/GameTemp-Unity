@@ -14,8 +14,6 @@ public class MasterPresenter : MonoBehaviour, IInitializable
 
     public bool IsTest = false;
 
-    private IEnumerator m_Coroutine;
-
     public string GetText(int index) => soTextGame.GetText(index);
 
     public void Initialize()
