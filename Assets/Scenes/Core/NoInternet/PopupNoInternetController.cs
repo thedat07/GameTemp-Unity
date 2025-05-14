@@ -1,6 +1,5 @@
 using UnityEngine;
 using Directory;
-using com.cyborgAssets.inspectorButtonPro;
 using System.Collections;
 
 [System.Serializable]
@@ -88,7 +87,6 @@ public class PopupNoInternetController : Controller
         gameObject.SetActive(true);
     }
 
-    [ProButton]
     public void OnTryConnect()
     {
         if (GameManager.Instance.checkInternet.IsInternet())

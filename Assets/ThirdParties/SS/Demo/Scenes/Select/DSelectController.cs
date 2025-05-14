@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Directory;
-using com.cyborgAssets.inspectorButtonPro;
 
 public class DSelectController : Controller
 {
@@ -13,7 +10,6 @@ public class DSelectController : Controller
     return DSELECT_SCENE_NAME;
   }
 
-  [ProButton]
   public void OnGameButtonTap()
   {
     Manager.RunScene(DGameController.SCENE_NAME);

@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
-using DesignPatterns;
-using DG.Tweening;
-using com.cyborgAssets.inspectorButtonPro;
 
 namespace Directory
 {
@@ -69,7 +65,7 @@ namespace Directory
         /// This event is raised right after player pushs the ESC button on keyboard or Back button on android devices.
         /// You should assign this method to OnClick event of your Close Buttons.
         /// </summary>
-        [ProButton]
+        [Button]
         public virtual void OnKeyBack()
         {
             Manager.PopScene();

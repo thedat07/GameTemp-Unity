@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Directory;
-using com.cyborgAssets.inspectorButtonPro;
 
 public class DPopupData
 {
@@ -58,7 +57,6 @@ public class DPopupController : Controller
         Console.Log("Life cycle", m_Data + " OnReFocus");
     }
 
-    [ProButton]
     public void CloseTwice()
     {
         Manager.PopToRootScene();
