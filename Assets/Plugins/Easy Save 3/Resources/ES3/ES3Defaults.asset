@@ -43,6 +43,8 @@ MonoBehaviour:
     - LeanTouch
     - LeanTransition
     - MaxSdk.Scripts
+    - NaughtyAttributes.Core
+    - NaughtyAttributes.Test
     - Purchasing.Common
     - spine-unity
     - Tests

@@ -10,11 +10,9 @@ public class MasterPresenter : MonoBehaviour, IInitializable
 {
     private MasterData m_Data;
 
-    public SoTextGame soTextGame;
-
     public bool IsTest = false;
 
-    public string GetText(int index) => soTextGame.GetText(index);
+    public string GetText(Gley.Localization.WordIDs wordID) => Gley.Localization.API.GetText(wordID);
 
     public void Initialize()
     {
