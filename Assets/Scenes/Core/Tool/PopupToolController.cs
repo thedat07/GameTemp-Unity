@@ -113,6 +113,7 @@ public class PopupToolController : Controller
         GameManager.Instance.GetAdsPresenter().OnRemoveAds();
     }
 
+
     public void AddTimeInfinity()
     {
         //    GameManager.Instance.GetMasterPresenter().SetData((int)System.TimeSpan.FromMinutes(15).TotalSeconds, MasterDataType.LivesInfinity, SceneName());

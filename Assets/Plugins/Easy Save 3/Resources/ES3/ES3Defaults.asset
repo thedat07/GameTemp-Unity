@@ -38,6 +38,7 @@ MonoBehaviour:
     - Coffee.SoftMaskForUGUI
     - CW.Common
     - DOTween.Modules
+    - IngameDebugConsole.Runtime
     - LeanCommon
     - LeanGUI
     - LeanPool
