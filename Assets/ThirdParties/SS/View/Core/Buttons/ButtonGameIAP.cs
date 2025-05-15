@@ -9,7 +9,7 @@ public class ButtonGameIAP : ButtonGame
     [Header("Setting")]
     public ShopProductNames yourPorduct;
     public TextMeshProUGUI textPrice;
-    public InfoViewRoot infoViewRoot;
+    public InfoRewardViewRoot infoViewRoot;
 
     [Header("Event")]
     public UnityEvent OnSuccess;
@@ -27,7 +27,7 @@ public class ButtonGameIAP : ButtonGame
         void Init()
         {
             m_Data = Gley.EasyIAP.API.GetValue(yourPorduct);
-            infoViewRoot.Init(m_Data);
+            infoViewRoot.Initialize(new InfoRewardData(m_Data));
             if (textPrice)
                 textPrice.text = Gley.EasyIAP.API.GetPrice(yourPorduct).ToString();
 

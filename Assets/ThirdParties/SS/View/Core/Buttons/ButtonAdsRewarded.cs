@@ -4,12 +4,13 @@ using UnityEngine;
 /// <summary>
 /// Nút hiển thị quảng cáo rewarded và xử lý phần thưởng.
 /// </summary>
+/// 
 public class ButtonAdsRewarded : ButtonGame
 {
     [Header("Settings")]
     public EAdsPack pack;
 
-    public InfoViewRoot infoViewRoot;
+    public InfoRewardViewRoot infoViewRoot;
 
     [Header("Events")]
     public UnityEvent OnSuccess;
@@ -33,7 +34,7 @@ public class ButtonAdsRewarded : ButtonGame
                             .soDataRewards
                             .GetAdsShop(pack);
 
-        infoViewRoot.Init(m_Data);
+        infoViewRoot.Initialize(new InfoRewardData(m_Data));
     }
 
     /// <summary>

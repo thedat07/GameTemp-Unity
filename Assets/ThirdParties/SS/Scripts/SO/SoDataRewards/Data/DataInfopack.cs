@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.UI;
+using LibraryGame;
 
 [System.Serializable]
 public class CointInfoPack
@@ -63,7 +65,7 @@ public class AdsInfoPack
 }
 
 [System.Serializable]
-public class InfoShopTextView
+public class InfoTextView
 {
     public TextMeshProUGUI text;
     public bool abbrevation = false;
@@ -100,6 +102,26 @@ public class InfoShopTextView
                 {
                     text.text = string.Format("x{0}", itemShop.GetQuantity());
                 }
+            }
+        }
+    }
+}
+
+
+[System.Serializable]
+public class InfoIconView
+{
+    public Image icon;
+    public bool resize = false;
+
+    public void View(InventoryItem itemShop)
+    {
+        if (itemShop.GetIcon())
+        {
+            icon.sprite = itemShop.GetIcon();
+            if (resize)
+            {
+                icon.ReSize();
             }
         }
     }

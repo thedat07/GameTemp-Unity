@@ -1,83 +1,139 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
+/// <summary>
+/// Hiển thị dữ liệu một loại tài nguyên cụ thể (Coin, Gem,...).
+/// </summary>
 [System.Serializable]
 public class InfoViewData
 {
     public MasterDataType type;
-    public GameObject view;
-    public InfoShopTextView textView;
 
-    public void Show(InventoryItem data)
+    public GameObject content;
+
+    [Header("View")]
+    public InfoTextView textView;
+    public InfoIconView iconView;
+
+    public void Show(InventoryItem item)
     {
-        if (this.type == data.GetDataType())
-        {
-            view.SetActive(true);
-            textView.View(data);
-        }
+        if (content)
+            content.SetActive(true);
+            
+        textView.View(item);
+        iconView.View(item);
     }
 
     public void Hide()
     {
-        view.SetActive(false);
+        if (content)
+            content.SetActive(false);
     }
 }
 
-[System.Serializable]
-public class InfoViewRoot
+/// <summary>
+/// Dữ liệu đầu vào cho hệ thống hiển thị phần thưởng.
+/// </summary>
+public class InfoRewardData : Object
 {
-    //public InfoViewData[] textView;
-    public InfoView[] infoViews;
+    public List<InventoryItem> items;
 
-    private List<InfoViewData> infoViewDatas;
-
-    private void Set()
+    public InfoRewardData(List<InventoryItem> items)
     {
-        if (infoViewDatas == null)
-        {
-            infoViewDatas = new List<InfoViewData>();
-            //  infoViewDatas.AddRange(this.textView);
-            infoViewDatas.AddRange(this.infoViews.Select(x => x.infoViewData));
-        }
+        this.items = items ?? new List<InventoryItem>();
     }
 
-    public void Init(List<InventoryItem> data)
-    {
-        Set();
-        UpdateView(data);
-    }
+    public InfoRewardData(CointInfoPack coinPack) : this(coinPack.data) { }
 
-    public void Init(CointInfoPack itemShop)
-    {
-        Init(itemShop.data);
-    }
-
-    public void Init(AdsInfoPack itemShop)
-    {
-        Init(itemShop.data);
-    }
-
-    private void UpdateView(List<InventoryItem> dataList)
-    {
-        foreach (var item in infoViewDatas)
-        {
-            item.Hide();
-        }
-
-        foreach (var item in infoViewDatas)
-        {
-            var match = dataList.Find(x => x.GetDataType() == item.type);
-            if (match != null)
-            {
-                item.Show(match);
-            }
-        }
-    }
+    public InfoRewardData(AdsInfoPack adsPack) : this(adsPack.data) { }
 }
 
+/// <summary>
+/// Gắn vào GameObject trong scene, giữ tham chiếu đến view data.
+/// </summary>
 public class InfoView : MonoBehaviour
 {
     public InfoViewData infoViewData;
+}
+
+/// <summary>
+/// Thành phần quản lý và cập nhật các InfoView theo phần thưởng người chơi nhận.
+/// </summary>
+[System.Serializable]
+public class InfoRewardViewRoot : IInitializableData
+{
+    public InfoView[] infoViews;
+
+    // Tối ưu truy cập bằng từ điển
+    private Dictionary<MasterDataType, InfoViewData> viewDataMap;
+
+    /// <summary>
+    /// Khởi tạo cấu trúc ánh xạ nếu chưa có.
+    /// </summary>
+    private void SetupViews()
+    {
+        if (viewDataMap != null) return;
+
+        viewDataMap = new Dictionary<MasterDataType, InfoViewData>();
+
+        foreach (var view in infoViews)
+        {
+            if (view != null && view.infoViewData != null && !viewDataMap.ContainsKey(view.infoViewData.type))
+            {
+                viewDataMap[view.infoViewData.type] = view.infoViewData;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Khởi tạo giao diện hiển thị dữ liệu phần thưởng.
+    /// </summary>
+    public void Initialize(Object inputData)
+    {
+        SetupViews();
+
+        InfoRewardData rewardData = inputData as InfoRewardData;
+        if (rewardData != null)
+        {
+            UpdateViews(rewardData.items);
+        }
+    }
+
+
+    /// <summary>
+    /// Cập nhật view từ danh sách phần thưởng.
+    /// </summary>
+    private void UpdateViews(List<InventoryItem> items)
+    {
+        HideAllViews();
+
+        foreach (var item in items)
+        {
+            ShowMatchingItem(item);
+        }
+    }
+
+    /// <summary>
+    /// Ẩn toàn bộ view hiện tại.
+    /// </summary>
+    private void HideAllViews()
+    {
+        foreach (var viewData in viewDataMap.Values)
+        {
+            viewData.Hide();
+        }
+    }
+
+    /// <summary>
+    /// Hiển thị item nếu có view tương ứng.
+    /// </summary>
+    private void ShowMatchingItem(InventoryItem item)
+    {
+        var type = item.GetDataType();
+        if (viewDataMap.TryGetValue(type, out var viewData))
+        {
+            viewData.Show(item);
+        }
+    }
 }

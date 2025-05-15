@@ -6,7 +6,7 @@ public class ButtonGameCoin : ButtonGame
 {
     [Header("Setting")]
     public ECointPack pack;
-    public InfoViewRoot infoViewRoot;
+    public InfoRewardViewRoot infoViewRoot;
     public Text textPrice;
 
     [Header("Event")]
@@ -20,7 +20,7 @@ public class ButtonGameCoin : ButtonGame
     {
         m_Data = GameManager.Instance.GetShopPresenter().soDataRewards.GetItemCoin(pack);
         textPrice.text = string.Format("{0}", m_Data.price);
-        infoViewRoot.Init(m_Data);
+        infoViewRoot.Initialize(new InfoRewardData(m_Data));
     }
 
     protected override void OnClickEvent()

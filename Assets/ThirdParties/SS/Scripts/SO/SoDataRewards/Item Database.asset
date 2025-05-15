@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8828aa8b172bf0c4e9b68eee5a795057, type: 3}
   m_Name: Item Database
   m_EditorClassIdentifier: 
-  itemList: []
+  itemList:
+  - type: 13
+    displayName: 
+    icon: {fileID: 0}

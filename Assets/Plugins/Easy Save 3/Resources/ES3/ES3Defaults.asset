@@ -34,6 +34,7 @@ MonoBehaviour:
     - AppsFlyer
     - Assembly-CSharp
     - Assembly-CSharp-firstpass
+    - BrunoMikoski.AnimationSequencer
     - Coffee.SoftMaskForUGUI
     - CW.Common
     - DOTween.Modules
@@ -45,6 +46,7 @@ MonoBehaviour:
     - MaxSdk.Scripts
     - NaughtyAttributes.Core
     - NaughtyAttributes.Test
+    - PrimeTween.Runtime
     - Purchasing.Common
     - spine-unity
     - Tests
