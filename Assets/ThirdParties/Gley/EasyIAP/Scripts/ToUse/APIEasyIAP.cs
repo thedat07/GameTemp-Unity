@@ -101,7 +101,7 @@ namespace Gley.EasyIAP
         /// </summary>
         /// <param name="product">An enum member generated from Settings Window</param>
         /// <returns>The amount of in game currency received</returns>
-        public static List<ItemShopData> GetValue(ShopProductNames product)
+        public static List<InventoryItem> GetValue(ShopProductNames product)
         {
             return IAPManager.Instance.GetValue(product);
         }

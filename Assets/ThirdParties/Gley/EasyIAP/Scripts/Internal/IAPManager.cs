@@ -717,7 +717,7 @@ namespace Gley.EasyIAP.Internal
         /// </summary>
         /// <param name="product">store product</param>
         /// <returns>the amount of in game currency received</returns>
-        public List<ItemShopData> GetValue(ShopProductNames product)
+        public List<InventoryItem> GetValue(ShopProductNames product)
         {
             if (IsInitialized())
             {
@@ -726,7 +726,7 @@ namespace Gley.EasyIAP.Internal
             else
             {
                 Debug.LogError("Not Initialized -> Call Gley.EasyIAP.API.Initialize() before anything else");
-                return new List<ItemShopData>();
+                return new List<InventoryItem>();
             }
         }
 

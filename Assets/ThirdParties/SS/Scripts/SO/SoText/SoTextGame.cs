@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SoTextGame", order = 1)]
+[CreateAssetMenu(fileName = "Data", menuName = "Game/SoTextGame", order = 1)]
 public class SoTextGame : ScriptableObject
 {
     [TextArea]

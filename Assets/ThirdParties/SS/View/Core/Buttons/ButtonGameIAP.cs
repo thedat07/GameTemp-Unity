@@ -16,7 +16,7 @@ public class ButtonGameIAP : ButtonGame
     public UnityEvent OnFail;
     public UnityEvent OnCompleted;
 
-    protected List<ItemShopData> m_Data;
+    protected List<InventoryItem> m_Data;
 
     protected override void StartButton()
     {

@@ -247,7 +247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b3256e5038b8c4dab6ca055369257c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soTextGame: {fileID: 11400000, guid: 2330df4fe6a80d141a718c1dab60355c, type: 2}
   IsTest: 0
 --- !u!1 &4459521400542019806
 GameObject:
@@ -294,6 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67defeddeebdf3b4e8c711bc6219c7a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDatabase: {fileID: 11400000, guid: f97e18c8c691fae45a3484e07f2876e0, type: 2}
   soDataRewards: {fileID: 11400000, guid: 9b6cfd01ab211d449990909b81b25e32, type: 2}
   loadingController: {fileID: 7516876729224600104}
 --- !u!1 &6522335959525721056
@@ -453,7 +453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a1bd013f586b047ad2c9c2fb12fae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soSetting: {fileID: 11400000, guid: 63c6592c1c20ca141aebed76768ad8e2, type: 2}
   audioMusic: {fileID: 934685459}
   audioSound: {fileID: 803633295}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -513,6 +512,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac91ac9384a80143997c9197d469384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryItem:
+    enableMyInt: 1
+    m_ItemData:
+      type: 13
+      displayName: 
+      icon: {fileID: 0}
+    m_Quantity: 0
 --- !u!1 &7516876728816953121
 GameObject:
   m_ObjectHideFlags: 0

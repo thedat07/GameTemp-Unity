@@ -10,9 +10,9 @@ public class InfoViewData
     public GameObject view;
     public InfoShopTextView textView;
 
-    public void Show(ItemShopData data)
+    public void Show(InventoryItem data)
     {
-        if (this.type == data.type)
+        if (this.type == data.GetDataType())
         {
             view.SetActive(true);
             textView.View(data);
@@ -43,23 +43,23 @@ public class InfoViewRoot
         }
     }
 
-    public void Init(List<ItemShopData> data)
+    public void Init(List<InventoryItem> data)
     {
         Set();
         UpdateView(data);
     }
 
-    public void Init(CointShop itemShop)
+    public void Init(CointInfoPack itemShop)
     {
         Init(itemShop.data);
     }
 
-    public void Init(AdsShop itemShop)
+    public void Init(AdsInfoPack itemShop)
     {
         Init(itemShop.data);
     }
 
-    private void UpdateView(List<ItemShopData> dataList)
+    private void UpdateView(List<InventoryItem> dataList)
     {
         foreach (var item in infoViewDatas)
         {
@@ -68,7 +68,7 @@ public class InfoViewRoot
 
         foreach (var item in infoViewDatas)
         {
-            var match = dataList.Find(x => x.type == item.type);
+            var match = dataList.Find(x => x.GetDataType() == item.type);
             if (match != null)
             {
                 item.Show(match);

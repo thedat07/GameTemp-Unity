@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class ButtonGameCoin : ButtonGame
 {
     [Header("Setting")]
-    public CointPack pack;
+    public ECointPack pack;
     public InfoViewRoot infoViewRoot;
     public Text textPrice;
 
@@ -14,18 +14,18 @@ public class ButtonGameCoin : ButtonGame
     public UnityEvent OnFail;
     public UnityEvent OnCompleted;
 
-    protected CointShop m_Data;
+    protected CointInfoPack m_Data;
 
     protected override void StartButton()
     {
         m_Data = GameManager.Instance.GetShopPresenter().soDataRewards.GetItemCoin(pack);
-        textPrice.text = string.Format("{0}", m_Data.vaule);
+        textPrice.text = string.Format("{0}", m_Data.price);
         infoViewRoot.Init(m_Data);
     }
 
     protected override void OnClickEvent()
     {
-        GameManager.Instance.GetMasterPresenter().PostMoney(m_Data.vaule, pack.ToString(), OnSucccessMoney, OnFailMoney, OnCompletedMoney);
+        GameManager.Instance.GetMasterPresenter().PostMoney(m_Data.price, pack.ToString(), OnSucccessMoney, OnFailMoney, OnCompletedMoney);
 
         void OnSucccessMoney()
         {

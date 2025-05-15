@@ -23,14 +23,14 @@ public class InfoImageView
         image.sprite = soImage.GetImage(type, amount);
     }
 
-    public void View(SoImageItem soImage, ItemShopData data)
+    public void View(SoImageItem soImage, InventoryItem data)
     {
-        image.sprite = soImage.GetImage(data.type, data.vaule);
+        image.sprite = soImage.GetImage(data.GetDataType(), data.GetQuantity());
     }
 
 }
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SoImageItem", order = 1)]
+[CreateAssetMenu(fileName = "Data", menuName = "Game/SoImageItem", order = 1)]
 public class SoImageItem : ScriptableObject
 {
     public ImageItemData[] datas;

@@ -1,12 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 public static class Helper
 {
+    public static List<InventoryItem> Convert(List<InventoryItem> data)
+    {
+        if (data != null)
+        {
+            var groupedByType = data
+             .GroupBy(item => item.GetDataType())
+             .Select(group => new InventoryItem(
+                new ItemData()
+                {
+                    type = group.Key
+                },
+                group.Sum(item => item.GetQuantity())
+             ))
+             .ToList();
+            return groupedByType;
+        }
+        else
+        {
+            return new List<InventoryItem>();
+        }
+    }
+
     public static T JsonToObject<T>(string value)
     {
         return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(value);
@@ -26,7 +48,7 @@ public static class Helper
             callBack?.Invoke();
         }
     }
-    
+
     public static DG.Tweening.Sequence SetDelay(float delay, UnityAction callBack, GameObject target = null, LinkBehaviour behaviour = LinkBehaviour.KillOnDestroy)
     {
         DG.Tweening.Sequence sequence = DOTween.Sequence();
@@ -43,5 +65,10 @@ public static class Helper
         DG.Tweening.Sequence sequence = DOTween.Sequence();
         sequence.SetLink(target, behaviour);
         return sequence;
+    }
+
+    public static bool IsNotNone(ItemData itemData)
+    {
+        return itemData != null && itemData.type != MasterDataType.None;
     }
 }

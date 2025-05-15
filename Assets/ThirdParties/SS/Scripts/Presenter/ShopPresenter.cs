@@ -10,9 +10,13 @@ public class ShopPresenter : MonoBehaviour, IInitializable
 {
     public const string Key = "ShopPresenter";
 
+    public ItemDatabase itemDatabase;
+
     public SoDataRewards soDataRewards;
 
     public LoadingController loadingController;
+
+    public ItemData GetItem(MasterDataType type) => itemDatabase.GetItem(type);
 
     public void Initialize()
     {
@@ -31,7 +35,7 @@ public class ShopPresenter : MonoBehaviour, IInitializable
                 {
                     if (API.IsActive(item))
                     {
-                        if (API.GetValue(item).Any(x => x.type == MasterDataType.NoAds))
+                        if (API.GetValue(item).Any(x => x.GetDataType() == MasterDataType.NoAds))
                         {
                             GameManager.Instance.GetAdsPresenter().OnRemoveAds();
                         }
@@ -97,26 +101,6 @@ public class ShopPresenter : MonoBehaviour, IInitializable
         }
     }
 
-    private List<ItemShopData> Convert(List<ItemShopData> itemShops)
-    {
-        if (itemShops != null)
-        {
-            var groupedByType = itemShops
-             .GroupBy(item => item.type)
-             .Select(group => new ItemShopData
-             {
-                 vaule = group.Sum(item => item.vaule),
-                 type = group.Key
-             })
-             .ToList();
-            return groupedByType;
-        }
-        else
-        {
-            return new List<ItemShopData>();
-        }
-    }
-
     public void OnRestore()
     {
         loadingController.OnShow();
@@ -158,10 +142,10 @@ public class ShopPresenter : MonoBehaviour, IInitializable
         TigerForge.EventManager.EmitEvent(Key, 0.1f);
     }
 
-    void SetVaule(List<ItemShopData> data, string log = "")
+    void SetVaule(List<InventoryItem> data, string log = "")
     {
-        CongratulationRewardData rewardData = new CongratulationRewardData(Convert(data), log);
-        rewardData.OnReward();
+        DataMethod r = new DataMethod(Helper.Convert(data), log);
+        r.Apply();
     }
 
     private bool HasReceivedReward(string productId)

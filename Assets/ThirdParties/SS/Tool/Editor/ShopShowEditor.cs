@@ -69,7 +69,7 @@ public class ShopShowEditor : EditorWindow
     {
         if (GUILayout.Button("Add", GUILayout.Width(100)))
         {
-            soShop.cointConfig.Add(new CointShop());
+            soShop.cointConfig.Add(new CointInfoPack());
             SaveData();
         }
 
@@ -85,22 +85,22 @@ public class ShopShowEditor : EditorWindow
         {
             EditorGUILayout.BeginHorizontal("box");
 
-            CointPack shopPack = item.pack;
+            ECointPack shopPack = item.pack;
 
-            shopPack = (CointPack)EditorGUILayout.EnumPopup("Pack:", shopPack);
+            shopPack = (ECointPack)EditorGUILayout.EnumPopup("Pack:", shopPack);
             if (shopPack != item.pack)
             {
                 item.pack = shopPack;
                 SaveData();
             }
 
-            int curVaule = item.vaule;
+            int curVaule = item.price;
 
             curVaule = EditorGUILayout.IntField("Vaule", curVaule);
 
-            if (curVaule != item.vaule)
+            if (curVaule != item.price)
             {
-                item.vaule = curVaule;
+                item.price = curVaule;
                 SaveData();
             }
 
@@ -126,7 +126,7 @@ public class ShopShowEditor : EditorWindow
     {
         if (GUILayout.Button("Add", GUILayout.Width(100)))
         {
-            soShop.adsConfig.Add(new AdsShop());
+            soShop.adsConfig.Add(new AdsInfoPack());
             SaveData();
         }
 
@@ -142,9 +142,9 @@ public class ShopShowEditor : EditorWindow
         {
             EditorGUILayout.BeginHorizontal("box");
 
-            AdsPack shopPack = item.pack;
+            EAdsPack shopPack = item.pack;
 
-            shopPack = (AdsPack)EditorGUILayout.EnumPopup("Pack:", shopPack);
+            shopPack = (EAdsPack)EditorGUILayout.EnumPopup("Pack:", shopPack);
             if (shopPack != item.pack)
             {
                 item.pack = shopPack;
@@ -187,11 +187,11 @@ public class ShopShowEditor : EditorWindow
         }
     }
 
-    public static void SaveData(CointShop data, int index)
+    public static void SaveData(CointInfoPack data, int index)
     {
         if (soShop)
         {
-            List<CointShop> purchaseConfig = new List<CointShop>();
+            List<CointInfoPack> purchaseConfig = new List<CointInfoPack>();
             purchaseConfig.AddRange(soShop.cointConfig);
             purchaseConfig[index] = data;
             soShop.cointConfig = purchaseConfig;
@@ -199,11 +199,11 @@ public class ShopShowEditor : EditorWindow
         }
     }
 
-    public static void SaveData(AdsShop data, int index)
+    public static void SaveData(AdsInfoPack data, int index)
     {
         if (soShop)
         {
-            List<AdsShop> purchaseConfig = new List<AdsShop>();
+            List<AdsInfoPack> purchaseConfig = new List<AdsInfoPack>();
             purchaseConfig.AddRange(soShop.adsConfig);
             purchaseConfig[index] = data;
             soShop.adsConfig = purchaseConfig;

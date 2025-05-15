@@ -6,8 +6,6 @@ using Lean.Pool;
 public class SettingPresenter : MonoBehaviour, IInitializable
 {
     public static readonly Vector2 ScreenGame = new Vector2(1080f, 2160f);
-
-    public SoSettingGamePlay soSetting;
     
     private SettingData m_SettingData;
 

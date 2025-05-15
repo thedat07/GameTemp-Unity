@@ -7,7 +7,7 @@ using UnityEngine;
 public class ButtonAdsRewarded : ButtonGame
 {
     [Header("Settings")]
-    public AdsPack pack;
+    public EAdsPack pack;
 
     public InfoViewRoot infoViewRoot;
 
@@ -21,7 +21,7 @@ public class ButtonAdsRewarded : ButtonGame
     /// <summary>
     /// Dữ liệu quảng cáo được ánh xạ từ pack.
     /// </summary>
-    protected AdsShop m_Data;
+    protected AdsInfoPack m_Data;
 
     /// <summary>
     /// Khởi tạo dữ liệu phần thưởng và cập nhật UI khi nút được kích hoạt.

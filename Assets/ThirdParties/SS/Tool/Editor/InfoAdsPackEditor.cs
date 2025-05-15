@@ -13,7 +13,7 @@ public class InfoAdsPackEditor : EditorWindow
 {
     private static int m_Index;
     Vector2 m_Scroll;
-    private static AdsShop m_ItemShop;
+    private static AdsInfoPack m_ItemShop;
 
     private void ClearMemory()
     {
@@ -41,7 +41,7 @@ public class InfoAdsPackEditor : EditorWindow
     {
         if (GUILayout.Button("Add", GUILayout.Width(100)))
         {
-            ShopShowEditor.soShop.adsConfig[m_Index].data.Add(new ItemShopData());
+            ShopShowEditor.soShop.adsConfig[m_Index].data.Add(new InventoryItem());
             if (GUI.changed)
             {
                 ShopShowEditor.SaveData(false);
@@ -64,7 +64,7 @@ public class InfoAdsPackEditor : EditorWindow
         foreach (var item in m_ItemShop.data.ToList())
         {
             EditorGUILayout.BeginHorizontal("box");
-            OnShowItemShopData(item);
+            OnShowInventoryItem(item);
             EditorGUILayout.EndHorizontal();
         }
 
@@ -72,29 +72,29 @@ public class InfoAdsPackEditor : EditorWindow
 
     }
 
-    private void OnShowItemShopData(ItemShopData data)
+    private void OnShowInventoryItem(InventoryItem data)
     {
-        MasterDataType curType = data.type;
+        MasterDataType curType = data.GetDataType();
 
         curType = (MasterDataType)EditorGUILayout.EnumPopup(new GUIContent("Select Option"), curType);
 
-        if (curType != data.type)
+        if (curType != data.GetDataType())
         {
-            data.type = curType;
+            data.SetDataType(curType);
             if (GUI.changed)
                 ShopShowEditor.SaveData(m_ItemShop, m_Index);
         }
 
-        if (data.type == MasterDataType.NoAds || data.type == MasterDataType.None || data.type == MasterDataType.Stage) { }
+        if (data.GetDataType() == MasterDataType.NoAds || data.GetDataType() == MasterDataType.None || data.GetDataType() == MasterDataType.Stage) { }
         else
         {
-            if (data.type == MasterDataType.LivesInfinity)
+            if (data.GetDataType() == MasterDataType.LivesInfinity)
             {
-                int curVaule = data.vaule;
-                curVaule = EditorGUILayout.IntField("Vaule", curVaule);
-                if (curVaule != data.vaule)
+                int curVaule = data.GetQuantity();
+                curVaule = EditorGUILayout.IntField("Time", curVaule);
+                if (curVaule != data.GetQuantity())
                 {
-                    data.vaule = curVaule;
+                    data.SetQuantity(curVaule);
                     if (GUI.changed)
                         ShopShowEditor.SaveData(m_ItemShop, m_Index);
                 }
@@ -102,15 +102,15 @@ public class InfoAdsPackEditor : EditorWindow
             }
             else
             {
-                int curVaule = data.vaule;
-                curVaule = EditorGUILayout.IntField("Vaule", curVaule);
-                if (curVaule != data.vaule)
+                int curVaule = data.GetQuantity();
+                curVaule = EditorGUILayout.IntField("Quantity", curVaule);
+                if (curVaule != data.GetQuantity())
                 {
-                    data.vaule = curVaule;
+                    data.SetQuantity(curVaule);
                     if (GUI.changed)
                         ShopShowEditor.SaveData(m_ItemShop, m_Index);
                 }
-                if (data.vaule <= 0)
+                if (data.GetQuantity() <= 0)
                 {
                     GUIStyle warningStyle = new GUIStyle(EditorStyles.label);
                     warningStyle.normal.textColor = Color.yellow;

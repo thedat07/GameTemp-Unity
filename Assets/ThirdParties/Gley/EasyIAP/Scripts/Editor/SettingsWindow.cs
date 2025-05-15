@@ -258,9 +258,9 @@ namespace Gley.EasyIAP.Editor
                         if (GUILayout.Button("Add", GUILayout.Width(100)))
                         {
                             if (localShopProducts[i].value == null)
-                                localShopProducts[i].value = new List<ItemShopData>();
+                                localShopProducts[i].value = new List<InventoryItem>();
 
-                            localShopProducts[i].value.Add(new ItemShopData());
+                            localShopProducts[i].value.Add(new InventoryItem());
                         }
 
                         if (localShopProducts[i] != null && localShopProducts[i].value != null)
@@ -279,13 +279,16 @@ namespace Gley.EasyIAP.Editor
                                 var item = localShopProducts[i].value[j];
                                 if (item == null)
                                 {
-                                    item = new ItemShopData();
+                                    item = new InventoryItem();
                                     localShopProducts[i].value[j] = item;
                                 }
 
                                 EditorGUILayout.BeginVertical("box");
-                                item.type = (MasterDataType)EditorGUILayout.EnumPopup("Reward Type:", item.type);
-                                item.vaule = EditorGUILayout.IntField("Reward Value:", item.vaule);
+                                var curType = (MasterDataType)EditorGUILayout.EnumPopup("Reward Type:", item.GetDataType());
+                                var curQuantity  = EditorGUILayout.IntField("Reward Value:", item.GetQuantity());
+
+                                item.SetDataType(curType);
+                                item.SetQuantity(curQuantity);
 
                                 if (GUILayout.Button("Remove", GUILayout.Width(100)))
                                 {

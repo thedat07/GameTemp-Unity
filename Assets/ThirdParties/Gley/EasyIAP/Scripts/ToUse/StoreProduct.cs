@@ -21,7 +21,7 @@ namespace Gley.EasyIAP
         public string idIOS;
         public string idMac;
         public string idWindows;
-        public List<ItemShopData> value;
+        public List<InventoryItem> value;
         public string localizedPriceString = "-";
         public double price;
         public string isoCurrencyCode;
@@ -33,7 +33,7 @@ namespace Gley.EasyIAP
 
 
 
-        public StoreProduct(string productName, ProductType productType, List<ItemShopData> value, string idGooglePlay, string idIOS, string idAmazon, string idMac, string idWindows)
+        public StoreProduct(string productName, ProductType productType, List<InventoryItem> value, string idGooglePlay, string idIOS, string idAmazon, string idMac, string idWindows)
         {
             this.productName = productName;
             this.productType = productType;
