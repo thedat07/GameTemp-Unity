@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "com.brunomikoski.animationsequencer": "https://github.com/brunomikoski/Animation-Sequencer.git",
     "com.coffee.softmask-for-ugui": "https://github.com/mob-sakai/SoftMaskForUGUI.git?path=Packages/src#3.2.0",
+    "com.kyrylokuzyk.primetween": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
     "com.unity.addressables": "1.22.3",
     "com.unity.collab-proxy": "2.7.1",
     "com.unity.feature.2d": "2.0.1",
