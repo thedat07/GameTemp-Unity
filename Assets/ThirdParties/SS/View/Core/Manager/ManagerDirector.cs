@@ -13,7 +13,7 @@ namespace Directory
             {
                 m_DataQueue.Enqueue(new Data(data, sceneName, null, null));
                 m_MainSceneName = sceneName;
-                Object.FadeOutScene();
+                Manager.OnControllerHidden();
             }
         }
 
@@ -49,7 +49,6 @@ namespace Directory
 
             if (m_ControllerStack.Count > 0)
             {
-                Object.ShieldOn();
                 m_ControllerStack.Peek().Hide();
             }
         }

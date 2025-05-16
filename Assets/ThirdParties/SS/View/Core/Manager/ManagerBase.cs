@@ -64,7 +64,6 @@ namespace Directory
 
         protected static System.Collections.IEnumerator LoadSceneAsyncRoutine(string sceneName, Callback onShown)
         {
-            Object.ShieldOn();
             UnityEngine.AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             while (!asyncLoad.isDone)
             {
@@ -72,5 +71,9 @@ namespace Directory
             }
             onShown?.Invoke();
         }
+
+        public virtual void OnControllerShown() { }
+
+        public virtual void OnControllerHidden() { }
     }
 }

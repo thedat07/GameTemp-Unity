@@ -166,8 +166,6 @@ namespace Directory
             {
                 controller.Data.onShown();
             }
-
-            Object.ShieldOff();
         }
 
         public static void StartShow(Controller controller)
@@ -190,16 +188,14 @@ namespace Directory
                 var currentController = m_ControllerStack.Peek();
                 currentController.OnReFocus();
             }
-
-            Object.ShieldOff();
         }
 
-        public static void OnFadedIn()
+        public static void OnControllerShown()
         {
             m_MainController.OnShown();
         }
 
-        public static void OnFadedOut()
+        public static void OnControllerHidden()
         {
             if (m_MainController != null)
             {
@@ -297,7 +293,7 @@ namespace Directory
                         m_MainSceneName = scene.name;
                     }
 
-                    Object.FadeInScene();
+                    OnControllerShown();
                 }
                 else
                 {
