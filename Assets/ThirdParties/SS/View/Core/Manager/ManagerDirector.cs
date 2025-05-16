@@ -22,8 +22,7 @@ namespace Directory
             if (Application.CanStreamedLevelBeLoaded(sceneName))
             {
                 m_DataQueue.Enqueue(new Data(data, sceneName, onShown, onHidden, hasShield));
-                Object.ShieldOn();
-                SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+                Object.StartCoroutine(LoadSceneAsyncRoutine(sceneName, onShown));
             }
         }
 
@@ -32,13 +31,12 @@ namespace Directory
             if (!Application.CanStreamedLevelBeLoaded(sceneName))
                 return;
 
-            var currentController = m_ControllerStack.First();
+            var currentController = m_ControllerStack.Peek();
             currentController.HidePopup(false);
             onHidden += () => { currentController.ShowPopup(false); };
 
             m_DataQueue.Enqueue(new Data(data, sceneName, onShown, onHidden, false));
-            Object.ShieldOn();
-            SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+            Object.StartCoroutine(LoadSceneAsyncRoutine(sceneName, null));
         }
 
         public static void PopScene()
@@ -58,7 +56,7 @@ namespace Directory
 
         public static Controller GetRunningScene()
         {
-            return m_ControllerStack.First();
+            return m_ControllerStack.Peek();
         }
 
         public static void Pause()
@@ -134,7 +132,10 @@ namespace Directory
                 if (top == controller && m_ControllerStack.Count > 0)
                 {
                     var previousController = m_ControllerStack.Peek();
-                    previousController.Animation.GetComponent<CanvasGroup>().blocksRaycasts = active;
+                    if (previousController.Animation.TryGetComponent<CanvasGroup>(out CanvasGroup canvasGroup))
+                    {
+                        canvasGroup.blocksRaycasts = active;
+                    }
                     break;
                 }
             }
@@ -187,16 +188,39 @@ namespace Directory
 
         protected static Controller GetController(Scene scene)
         {
-            var roots = scene.GetRootGameObjects();
-            for (int i = 0; i < roots.Length; i++)
+            int rootCount = scene.rootCount;
+            if (rootCount == 0) return null;
+
+            var rootObjects = ListPool<GameObject>.Get();
+            scene.GetRootGameObjects(rootObjects);
+
+            for (int i = 0; i < rootObjects.Count; i++)
             {
-                var controller = roots[i].GetComponent<Controller>();
-                if (controller != null)
+                if (rootObjects[i].TryGetComponent<Controller>(out var controller))
                 {
+                    ListPool<GameObject>.Release(rootObjects);
                     return controller;
                 }
             }
+
+            ListPool<GameObject>.Release(rootObjects);
             return null;
         }
+    }
+}
+
+public static class ListPool<T>
+{
+    private static readonly Stack<List<T>> pool = new();
+
+    public static List<T> Get()
+    {
+        return pool.Count > 0 ? pool.Pop() : new List<T>();
+    }
+
+    public static void Release(List<T> list)
+    {
+        list.Clear();
+        pool.Push(list);
     }
 }

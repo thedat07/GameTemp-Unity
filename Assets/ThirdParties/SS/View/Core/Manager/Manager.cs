@@ -66,11 +66,40 @@ namespace Directory
 
             SceneAnimationDuration = 0.15f;
 
-            Object = ((GameObject)GameObject.Instantiate(Resources.Load("ManagerObject"))).GetComponent<ManagerObject>();
+            if (((GameObject)GameObject.Instantiate(Resources.Load("ManagerObject"))).TryGetComponent<ManagerObject>(out ManagerObject o))
+            {
+                Object = o;
+            }
 
             Object.gameObject.name = "ManagerObject";
 
-            Application.targetFrameRate = 60;
+            SetTargetFrameRateForMobile();
+
+            void SetTargetFrameRateForMobile()
+            {
+                int ramMB = SystemInfo.systemMemorySize; // MB
+
+                int targetFrameRate = 30; // mặc định thấp
+
+#if UNITY_ANDROID || UNITY_IOS
+                if (ramMB >= 4096) // 4GB trở lên
+                {
+                    targetFrameRate = 60;
+                }
+                else if (ramMB >= 2048) // 2GB - 4GB
+                {
+                    targetFrameRate = 45; // trung bình
+                }
+                else
+                {
+                    targetFrameRate = 30; // thấp
+                }
+#else
+                targetFrameRate = 60; // PC, console hoặc editor
+#endif
+
+                Application.targetFrameRate = targetFrameRate;
+            }
         }
 
         #region Loading
@@ -181,116 +210,111 @@ namespace Directory
 
         static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            // Get Controller
             var controller = GetController(scene);
 
-            if (controller == null)
-                return;
-
-            // Loading Scene
-            if (controller.SceneName() == MaskSceneName)
+            if (controller != null)
             {
-                SettingController(ref m_MaskController, 80);
-                return;
-            }
 
-            if (controller.SceneName() == LoadingSceneName)
-            {
-                SettingController(ref m_LoadingController, 90);
-                return;
-            }
-
-            if (controller.SceneName() == NoInternetSceneName)
-            {
-                SettingController(ref m_NoInternetController, 100);
-                return;
-            }
-
-            void SettingController(ref Controller controllerRef, int sortingOrder)
-            {
-                controllerRef = controller;
-                controllerRef.HasShield = false;
-                controllerRef.FullScreen = false;
-                controllerRef.UseCameraUI = true;
-                controller.SetupCanvas(sortingOrder);
-                controllerRef.gameObject.SetActive(false);
-                GameObject.DontDestroyOnLoad(controllerRef.gameObject);
-            }
-
-            // Single Mode automatically destroy all scenes, so we have to clear the stack.
-            if (mode == LoadSceneMode.Single)
-            {
-                m_ControllerStack.Clear();
-            }
-
-            // Unload resources and collect GC.
-            Resources.UnloadUnusedAssets();
-            // System.GC.Collect();
-
-            // Get Data
-            if (m_DataQueue.Count == 0)
-            {
-                m_DataQueue.Enqueue(new Data(null, scene.name, null, null));
-            }
-
-            Data data = m_DataQueue.Dequeue();
-            while (data.sceneName != scene.name && m_DataQueue.Count > 0)
-            {
-                data = m_DataQueue.Dequeue();
-            }
-
-            if (data == null)
-            {
-                data = new Data(null, scene.name, null, null);
-            }
-
-            data.scene = scene;
-
-            // Push the current scene to the stack.
-            m_ControllerStack.Push(controller);
-
-            // Setup controller
-            controller.Data = data;
-            controller.HasShield = data.hasShield;
-            controller.SetupCanvas(m_ControllerStack.Count - 1);
-            controller.OnActive(data.data);
-            controller.CreateShield();
-            controller.EventShow();
-
-            // Animation
-            if (m_ControllerStack.Count == 1)
-            {
-                // Own Camera
-                if (controller.Camera != null)
+                if (string.Equals(controller.SceneName(), MaskSceneName, System.StringComparison.Ordinal))
                 {
-                    // Thiết lập Camera chính là Base
-                    var urpCameraData = controller.Camera.GetUniversalAdditionalCameraData();
-                    urpCameraData.renderType = UnityEngine.Rendering.Universal.CameraRenderType.Base;
-                    //   urpCameraData.cameraStack.Clear(); 
-
-                    // Đảm bảo Camera phụ là Overlay
-                    var overlayCameraData = Object.UICamera.GetUniversalAdditionalCameraData();
-                    overlayCameraData.renderType = UnityEngine.Rendering.Universal.CameraRenderType.Overlay;
-
-                    // Thêm Camera phụ vào Stack của Camera chính
-                    urpCameraData.cameraStack.Add(Object.UICamera);
+                    SettingController(ref m_MaskController, controller, 80);
+                    return;
+                }
+                if (string.Equals(controller.SceneName(), LoadingSceneName, System.StringComparison.Ordinal))
+                {
+                    SettingController(ref m_LoadingController, controller, 90);
+                    return;
+                }
+                if (string.Equals(controller.SceneName(), NoInternetSceneName, System.StringComparison.Ordinal))
+                {
+                    SettingController(ref m_NoInternetController, controller, 100);
+                    return;
                 }
 
-                // Main Scene
-                m_MainController = controller;
-                if (string.IsNullOrEmpty(m_MainSceneName))
+                if (mode == LoadSceneMode.Single)
                 {
-                    m_MainSceneName = scene.name;
+                    m_ControllerStack.Clear();
                 }
 
-                // Fade
-                Object.FadeInScene();
+                // Xem xét gọi Resources.UnloadUnusedAssets() ở chỗ khác phù hợp hơn
+                // Resources.UnloadUnusedAssets();
+
+                if (m_DataQueue.Count == 0)
+                {
+                    m_DataQueue.Enqueue(new Data(null, scene.name, null, null));
+                }
+
+                Data data = null;
+                while (m_DataQueue.Count > 0)
+                {
+                    var peekData = m_DataQueue.Peek();
+                    if (string.Equals(peekData.sceneName, scene.name, System.StringComparison.Ordinal))
+                    {
+                        data = m_DataQueue.Dequeue();
+                        break;
+                    }
+                    else
+                    {
+                        // Bỏ qua data không đúng scene, tránh dequeue nhiều lần vô ích
+                        m_DataQueue.Dequeue();
+                    }
+                }
+
+                if (data == null)
+                {
+                    data = new Data(null, scene.name, null, null);
+                }
+                data.scene = scene;
+
+                m_ControllerStack.Push(controller);
+
+                controller.Data = data;
+                controller.HasShield = data.hasShield;
+
+                int stackCount = m_ControllerStack.Count;
+                controller.SetupCanvas(stackCount - 1);
+                controller.OnActive(data.data);
+                controller.CreateShield();
+                controller.EventShow();
+
+                if (stackCount == 1)
+                {
+                    if (controller.Camera != null)
+                    {
+                        var urpCameraData = controller.Camera.GetUniversalAdditionalCameraData();
+                        urpCameraData.renderType = UnityEngine.Rendering.Universal.CameraRenderType.Base;
+
+                        var overlayCameraData = Object.UICamera.GetUniversalAdditionalCameraData();
+                        overlayCameraData.renderType = UnityEngine.Rendering.Universal.CameraRenderType.Overlay;
+
+                        urpCameraData.cameraStack.Add(Object.UICamera);
+                    }
+
+                    m_MainController = controller;
+
+                    if (string.IsNullOrEmpty(m_MainSceneName))
+                    {
+                        m_MainSceneName = scene.name;
+                    }
+
+                    Object.FadeInScene();
+                }
+                else
+                {
+                    controller.Show();
+                }
             }
-            else
-            {
-                // Popup Scene
-                controller.Show();
-            }
+        }
+
+        private static void SettingController(ref Controller controllerRef, Controller controller, int sortingOrder)
+        {
+            controllerRef = controller;
+            controllerRef.HasShield = false;
+            controllerRef.FullScreen = false;
+            controllerRef.UseCameraUI = true;
+            controller.SetupCanvas(sortingOrder);
+            controllerRef.gameObject.SetActive(false);
+            GameObject.DontDestroyOnLoad(controllerRef.gameObject);
         }
         #endregion
 
@@ -301,26 +325,42 @@ namespace Directory
             if (HasLoading())
             {
                 Manager.LoadingAnimation(true);
-                m_LoadingController.StopAllCoroutines();
-                m_LoadingController.StartCoroutine(LoadYourAsyncScene(sceneName));
+
+                // Dừng hết Coroutine đang chạy trên Object để tránh chạy song song
+                Object.StopAllCoroutines();
+
+                // Bắt đầu Coroutine load scene async có cleanup bộ nhớ trước
+                Object.StartCoroutine(LoadSceneWithCleanup(sceneName));
             }
             else
             {
-                SceneManager.LoadScene(m_MainSceneName, LoadSceneMode.Single);
+                // Trường hợp không có loading, load scene chính theo tên truyền vào
+                SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
             }
         }
 
-        static IEnumerator LoadYourAsyncScene(string sceneName)
+        static IEnumerator LoadSceneWithCleanup(string sceneName)
         {
+            // Đợi 0.5s trước để có thể hiện loading animation hoặc chuẩn bị dọn dẹp
             yield return new WaitForSeconds(0.5f);
 
+            // Dọn tài nguyên không còn sử dụng (chờ xong)
+            yield return Resources.UnloadUnusedAssets();
+
+            // Có thể gọi GC.Collect nếu muốn (cẩn thận với giật lag)
+            // System.GC.Collect();
+
+            // Bắt đầu load scene async với chế độ Single (thay thế scene hiện tại)
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
 
+            // Đợi load xong
             while (!asyncLoad.isDone)
             {
-                yield return new WaitForEndOfFrame();
+                // Có thể theo dõi tiến độ asyncLoad.progress ở đây nếu muốn
+                yield return null; // yield return null thay cho WaitForEndOfFrame để mượt hơn
             }
 
+            // Tắt loading animation khi load xong
             Manager.LoadingAnimation(false);
         }
         #endregion
