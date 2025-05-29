@@ -4,6 +4,7 @@ using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
+using UniRx;
 
 public static class Helper
 {
@@ -41,12 +42,16 @@ public static class Helper
 
     public static void SetDelay(this MonoBehaviour gameObject, float timeDelay, UnityAction callBack)
     {
-        gameObject.StartCoroutine(Wait());
-        IEnumerator Wait()
-        {
-            yield return new WaitForSeconds(timeDelay);
-            callBack?.Invoke();
-        }
+        Observable.Timer(System.TimeSpan.FromSeconds(timeDelay))
+            .Subscribe(_ => callBack?.Invoke())
+            .AddTo(gameObject); // Tự hủy khi gameObject bị destroy
+    }
+
+    public static void SetDelayNextFrame(this MonoBehaviour gameObject, UnityAction callBack)
+    {
+        Observable.NextFrame()
+            .Subscribe(_ => callBack?.Invoke())
+            .AddTo(gameObject); // Tự hủy khi gameObject bị destroy
     }
 
     public static DG.Tweening.Sequence SetDelay(float delay, UnityAction callBack, GameObject target = null, LinkBehaviour behaviour = LinkBehaviour.KillOnDestroy)

@@ -1,6 +1,4 @@
-using System;
-using DesignPatterns;
-using LibraryGame;
+using UnityUtilities;
 using UnityEngine;
 
 [System.Serializable]
@@ -24,7 +22,7 @@ public class MasterDataBase
     /// </summary>
     public int Get()
     {
-        return LibraryGameSave.GetMaster(m_Type, "value", m_DefaultValue);
+        return SaveExtensions.GetMaster(m_Type, "value", m_DefaultValue);
     }
 
     /// <summary>
@@ -42,7 +40,7 @@ public class MasterDataBase
     public virtual void Put(int newValue)
     {
         newValue = Mathf.Clamp(newValue, 0, int.MaxValue);
-        LibraryGameSave.PutMaster(m_Type, "value", newValue);
+        SaveExtensions.PutMaster(m_Type, "value", newValue);
     }
 
     /// <summary>
@@ -50,7 +48,7 @@ public class MasterDataBase
     /// </summary>
     public virtual void Delete()
     {
-        LibraryGameSave.PutMaster(m_Type, "value", 0);
+        SaveExtensions.PutMaster(m_Type, "value", 0);
     }
 
     /// <summary>

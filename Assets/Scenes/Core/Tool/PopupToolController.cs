@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Directory;
 using UnityEngine.UI;
+using System.Linq;
+using IngameDebugConsole;
 
 public class PopupToolController : Controller
 {
@@ -29,6 +31,7 @@ public class PopupToolController : Controller
     public Button btnLive;
     public Button btnMoney;
     public Button btnNextLevel;
+    public Button btnDebug;
 
     void Start()
     {
@@ -62,6 +65,7 @@ public class PopupToolController : Controller
         btnMoney.onClick.AddListener(() => { AddMoney(); });
         btnLive.onClick.AddListener(() => { AddTimeInfinity(); });
         btnNextLevel.onClick.AddListener(() => { NextLevel(); });
+        btnDebug.onClick.AddListener(() => { AddDebug(); });
     }
 
     public void Log()
@@ -119,13 +123,40 @@ public class PopupToolController : Controller
         //    GameManager.Instance.GetMasterPresenter().SetData((int)System.TimeSpan.FromMinutes(15).TotalSeconds, MasterDataType.LivesInfinity, SceneName());
     }
 
+    public void AddDebug()
+    {
+        if (!GameManager.Instance.GetMasterPresenter().IsDebug)
+        {
+            DebugLogConsole.AddCommand<Vector3>("cube", "Creates a cube at specified position", CreateCubeAt);
+            DebugLogConsole.AddCommand<string, GameObject>("child", "Creates a new child object under " + name, AddChild);
+
+
+            void CreateCubeAt(Vector3 position)
+            {
+                GameObject.CreatePrimitive(PrimitiveType.Cube).transform.position = GameManager.Instance.transform.position;
+            }
+
+            GameObject AddChild(string name)
+            {
+                GameObject child = new GameObject(name);
+                child.transform.SetParent(GameManager.Instance.transform);
+
+                return child;
+            }
+
+            GameManager.Instance.GetMasterPresenter().IsDebug = true;
+        }
+        //    GameManager.Instance.GetMasterPresenter().SetData((int)System.TimeSpan.FromMinutes(15).TotalSeconds, MasterDataType.LivesInfinity, SceneName());
+    }
+
     public void BtnHideUI()
     {
+        string[] scenesName = new string[] { };
         GameManager.Instance.hideUI = !GameManager.Instance.hideUI;
         var lst = FindObjectsOfType<Controller>();
         foreach (var item in lst)
         {
-            if (item != this)
+            if (item != this || scenesName.Any(x => x == item.SceneName()))
             {
                 item.HideUI();
             }

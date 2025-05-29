@@ -1,8 +1,3 @@
-using System;
-using DesignPatterns;
-using LibraryGame;
-using UnityEngine;
-
 public enum MasterDataType
 {
     Stage = 0,

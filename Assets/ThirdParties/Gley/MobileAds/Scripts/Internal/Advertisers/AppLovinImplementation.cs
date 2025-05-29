@@ -397,9 +397,7 @@ namespace Gley.MobileAds.Internal
 
         private void OnInterstitialDismissedEvent(string arg1, MaxSdkBase.AdInfo arg2)
         {
-
             GleyLogger.AddLog("Interstitial ad was closed");
-            GameManager.Instance.GetAdsPresenter().adsDataNotSave.UpdateLastAdTime();
             //trigger closed callback
             if (onInterstitialClosed != null)
             {

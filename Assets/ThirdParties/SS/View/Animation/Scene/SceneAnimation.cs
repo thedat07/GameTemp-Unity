@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using Lean.Gui;
+using UnityUtilities;
 
 namespace Directory
 {
@@ -50,19 +51,19 @@ namespace Directory
 
         public void StartShow()
         {
-            GetCanvasGroup().blocksRaycasts = false;
+            GetCanvasGroup().EnableInteractable(false);
             Manager.StartShow(m_Controller);
         }
 
         public void StartHide()
         {
-            GetCanvasGroup().blocksRaycasts = false;
+            GetCanvasGroup().EnableInteractable(false);
             Hide();
         }
 
         public void OnShown()
         {
-            GetCanvasGroup().blocksRaycasts = true;
+            GetCanvasGroup().EnableInteractable(true);
             Manager.OnShown(m_Controller);
         }
 

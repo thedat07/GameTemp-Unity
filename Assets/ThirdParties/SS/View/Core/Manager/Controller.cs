@@ -1,6 +1,7 @@
 ﻿using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityUtilities;
 
 namespace Directory
 {
@@ -149,8 +150,8 @@ namespace Directory
                 {
                     t.SetParent(m_Canvas.transform);
                     t.SetSiblingIndex(0);
-                    t.localScale = Vector3.one;
-                    t.localPosition = new Vector3(t.localPosition.x, t.localPosition.y, 0);
+                    t.SetLocalScale(0, 0, 0);
+                    t.SetLocalPosition(t.localPosition.x, t.localPosition.y, 0);
                 }
             }
         }
@@ -168,7 +169,7 @@ namespace Directory
                 m_Canvas.worldCamera = Manager.Object.UICamera;
             }
 
-            LibraryGame.Game.EditCanvasScaler(GetCanvasScaler());
+            GetCanvasScaler().EditCanvasScaler();
         }
 
         public virtual void HideUI()

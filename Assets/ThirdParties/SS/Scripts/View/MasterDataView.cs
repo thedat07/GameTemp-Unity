@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
-using LibraryGame;
 using TMPro;
+using UnityUtilities;
 
 public class MasterDataView : MasterDataSubject
 {
@@ -19,7 +16,7 @@ public class MasterDataView : MasterDataSubject
         m_Current = m_MasterData.GetData(m_Type);
         if (m_IsAbbreviateNumber)
         {
-            m_Text.text = string.Format("{0}", AbbrevationUtility.AbbreviateNumber(m_Current));
+            m_Text.text = string.Format("{0}", m_Current.ToAbbreviatedString());
         }
         else
         {
@@ -44,7 +41,7 @@ public class MasterDataView : MasterDataSubject
 
         if (m_IsAbbreviateNumber)
         {
-            m_Text.text = string.Format("{0}", AbbrevationUtility.AbbreviateNumber(m_MasterData.GetData(m_Type)));
+            m_Text.text = string.Format("{0}", m_MasterData.GetData(m_Type).ToAbbreviatedString());
         }
         else
         {

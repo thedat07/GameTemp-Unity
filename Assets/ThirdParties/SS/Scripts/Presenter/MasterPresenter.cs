@@ -11,6 +11,8 @@ public class MasterPresenter : MonoBehaviour, IInitializable
     private MasterData m_Data;
 
     public bool IsTest = false;
+    
+    public bool IsDebug = false;
 
     public string GetText(Gley.Localization.WordIDs wordID) => Gley.Localization.API.GetText(wordID);
 

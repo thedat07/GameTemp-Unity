@@ -1,6 +1,4 @@
-using System;
-using UnityEngine;
-using LibraryGame;
+using UnityUtilities;
 
 public class SettingData
 {
@@ -24,8 +22,8 @@ public class SettingData
     /// </summary>
     public bool Sound
     {
-        get => LibraryGameSave.GetSetting(KeySound, DefaultSound);
-        set => LibraryGameSave.PutSetting(KeySound, value);
+        get => SaveExtensions.GetSetting(KeySound, DefaultSound);
+        set => SaveExtensions.PutSetting(KeySound, value);
     }
 
     /// <summary>
@@ -33,8 +31,8 @@ public class SettingData
     /// </summary>
     public bool Vibration
     {
-        get => LibraryGameSave.GetSetting(KeyVibration, DefaultVibration);
-        set => LibraryGameSave.PutSetting(KeyVibration, value);
+        get => SaveExtensions.GetSetting(KeyVibration, DefaultVibration);
+        set => SaveExtensions.PutSetting(KeyVibration, value);
     }
 
     /// <summary>
@@ -42,8 +40,8 @@ public class SettingData
     /// </summary>
     public bool Music
     {
-        get => LibraryGameSave.GetSetting(KeyMusic, DefaultMusic);
-        set => LibraryGameSave.PutSetting(KeyMusic, value);
+        get => SaveExtensions.GetSetting(KeyMusic, DefaultMusic);
+        set => SaveExtensions.PutSetting(KeyMusic, value);
     }
 
     /// <summary>

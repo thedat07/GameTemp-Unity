@@ -61,19 +61,5 @@ namespace Directory
         protected static string m_MainSceneName;
 
         protected static Controller m_MainController;
-
-        protected static System.Collections.IEnumerator LoadSceneAsyncRoutine(string sceneName, Callback onShown)
-        {
-            UnityEngine.AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
-            onShown?.Invoke();
-        }
-
-        public virtual void OnControllerShown() { }
-
-        public virtual void OnControllerHidden() { }
     }
 }

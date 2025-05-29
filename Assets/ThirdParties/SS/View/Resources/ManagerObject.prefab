@@ -334,6 +334,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4048338562465754}
     m_Modifications:
+    - target: {fileID: 1123811222295841888, guid: fae8ed3d4b8592746a03a5469c2977b6, type: 3}
+      propertyPath: m_EventSystem
+      value: 
+      objectReference: {fileID: 3118925105485956580}
     - target: {fileID: 1918184649277184835, guid: fae8ed3d4b8592746a03a5469c2977b6, type: 3}
       propertyPath: appID
       value: 6737581755

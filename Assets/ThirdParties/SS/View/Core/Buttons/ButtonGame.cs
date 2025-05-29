@@ -1,6 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
-using LibraryGame;
+using UnityUtilities;
 
 public class ButtonGame : ButtonBase
 {

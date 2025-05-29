@@ -1,13 +1,10 @@
-using System;
 using UnityEngine;
-using DesignPatterns;
-using LibraryGame;
-using UnityEngine.Events;
+using UnityUtilities;
 
 public class AdsData
 {
     public const string Key = "keyAdsData";
-    private const string KeyRemoveAds = "remove";
+    private const string KeyRemoveAds = "keyRemoveAds";
     private const bool DefaultRemoveAds = false;
 
     public AdsData() { }
@@ -17,8 +14,8 @@ public class AdsData
     /// </summary>
     public bool IsRemoveShowAds
     {
-        get => LibraryGameSave.GetAds(KeyRemoveAds, DefaultRemoveAds);
-        set => LibraryGameSave.PutAds(KeyRemoveAds, value);
+        get => SaveExtensions.GetAds(KeyRemoveAds, DefaultRemoveAds);
+        set => SaveExtensions.PutAds(KeyRemoveAds, value);
     }
 
     /// <summary>
@@ -26,12 +23,12 @@ public class AdsData
     /// </summary>
     public void Reset()
     {
-        LibraryGameSave.PutAds(KeyRemoveAds, DefaultRemoveAds);
+        SaveExtensions.PutAds(KeyRemoveAds, DefaultRemoveAds);
     }
 }
 
 [System.Serializable]
-public class AdsDataNotSave
+public class AdsInfoData
 {
     public int adShowedCount = 0;
     public int adInterCount = 0;

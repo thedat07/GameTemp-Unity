@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
-using LibraryGame;
+using YNL.Utilities.Extensions;
+using UnityUtilities;
 
 [System.Serializable]
 public class CointInfoPack
@@ -84,7 +85,7 @@ public class InfoTextView
             {
                 if (abbrevation)
                 {
-                    text.text = string.Format("{0}", AbbrevationUtility.AbbreviateNumber(itemShop.GetQuantity()));
+                    text.text = string.Format("{0}", itemShop.GetQuantity().ToAbbreviatedString());
                 }
                 else
                 {

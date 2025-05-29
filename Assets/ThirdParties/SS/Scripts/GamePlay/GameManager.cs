@@ -1,7 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using DesignPatterns;
+using Directory;
+using UnityEngine.Events;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : SingletonPersistent<GameManager>
 {
     public bool hideUI;
 
@@ -25,7 +29,7 @@ public class GameManager : Singleton<GameManager>
 
     public CheckInternet checkInternet;
 
-    public void Awake()
+    public override void Awake()
     {
         checkInternet = new CheckInternet(new CheckInternetData(this));
         Init();

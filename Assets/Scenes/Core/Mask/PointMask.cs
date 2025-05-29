@@ -1,11 +1,11 @@
-using LibraryGame;
 using UnityEngine;
 using UnityEngine.UI;
+using YNL.Utilities.Extensions;
 
 public class PointMask : MonoBehaviour
 {
     public Transform point;
-    
+
     public Image image;
 
     [SerializeField] RectTransform m_RectTransform;
@@ -55,8 +55,7 @@ public class PointMask : MonoBehaviour
     {
         if (point != null)
         {
-            GetRect().anchoredPosition = LibraryGame.Canvas.WorldToScreenSpace(point.transform.position,
-            m_Popup.Canvas.worldCamera, m_Popup.contentPoint, m_Popup.GetSize());
+            GetRect().WorldToScreenSpace(point.transform.position, m_Popup.Canvas.worldCamera, m_Popup.contentPoint, m_Popup.GetSize());
         }
     }
 }

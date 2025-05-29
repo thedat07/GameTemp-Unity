@@ -7,12 +7,16 @@ using Gley.MobileAds;
 
 public class AdsPresenter : MonoBehaviour, IInitializable
 {
-    public AdsDataNotSave adsDataNotSave;
+    public AdsInfoData adsInfoData;
 
     AdsData m_AdsData;
 
     public string placementInter = "";
     public string placementReward = "";
+
+    [SerializeField] GameObject m_ShieldAds;
+
+    public void UpdateLastAdTime() => adsInfoData.UpdateLastAdTime();
 
     public void Initialize()
     {
@@ -33,14 +37,14 @@ public class AdsPresenter : MonoBehaviour, IInitializable
 
     public int UpdateAdShowedCount()
     {
-        adsDataNotSave.adShowedCount++;
-        return adsDataNotSave.adShowedCount;
+        adsInfoData.adShowedCount++;
+        return adsInfoData.adShowedCount;
     }
 
     public int UpdateAdInterCount()
     {
-        adsDataNotSave.adInterCount++;
-        return adsDataNotSave.adInterCount;
+        adsInfoData.adInterCount++;
+        return adsInfoData.adInterCount;
     }
 
     [ContextMenu("Remove Ads")]
@@ -62,15 +66,21 @@ public class AdsPresenter : MonoBehaviour, IInitializable
 
     public void ShowInterstitial(string placement)
     {
-        if (adsDataNotSave.CanShowInterstitialAd())
+        if (adsInfoData.CanShowInterstitialAd())
         {
+            SetActiveShield(true);
             placementInter = placement;
-            Gley.MobileAds.API.ShowInterstitial();
+            this.SetDelay(0.25f, () =>
+            {
+                Gley.MobileAds.API.ShowInterstitial(UpdateLastAdTime);
+                SetActiveShield(false);
+            });
         }
     }
 
     public void ShowRewardedVideo(string placement, UnityAction onSuccess = null, UnityAction onFail = null, UnityAction onCompleted = null)
     {
+        SetActiveShield(true);
         placementReward = placement;
         Gley.MobileAds.API.ShowRewardedVideo(CompleteMethod);
 
@@ -79,7 +89,7 @@ public class AdsPresenter : MonoBehaviour, IInitializable
             if (completed)
             {
                 onSuccess?.Invoke();
-                adsDataNotSave.UpdateLastAdTime();
+                UpdateLastAdTime();
             }
             else
             {
@@ -87,11 +97,13 @@ public class AdsPresenter : MonoBehaviour, IInitializable
             }
 
             onCompleted?.Invoke();
+            SetActiveShield(false);
         }
     }
 
     public void ShowRewardedInterstitial(string placement, UnityAction onSuccess = null, UnityAction onFail = null, UnityAction onCompleted = null)
     {
+        SetActiveShield(true);
         placementReward = placement;
         Gley.MobileAds.API.ShowRewardedInterstitial(VideoComplete);
 
@@ -100,7 +112,7 @@ public class AdsPresenter : MonoBehaviour, IInitializable
             if (watched)
             {
                 onSuccess?.Invoke();
-                adsDataNotSave.UpdateLastAdTime();
+                UpdateLastAdTime();
             }
             else
             {
@@ -108,6 +120,22 @@ public class AdsPresenter : MonoBehaviour, IInitializable
             }
 
             onCompleted?.Invoke();
+            SetActiveShield(false);
+        }
+    }
+
+    void SetActiveShield(bool active)
+    {
+        if (active)
+        {
+            m_ShieldAds.gameObject.SetActive(true);
+        }
+        else
+        {
+            this.SetDelayNextFrame(() =>
+            {
+                m_ShieldAds.gameObject.SetActive(false);
+            });
         }
     }
 }

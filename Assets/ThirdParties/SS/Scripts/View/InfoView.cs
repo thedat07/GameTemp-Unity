@@ -20,7 +20,7 @@ public class InfoViewData
     {
         if (content)
             content.SetActive(true);
-            
+
         textView.View(item);
         iconView.View(item);
     }
@@ -61,7 +61,7 @@ public class InfoView : MonoBehaviour
 /// Thành phần quản lý và cập nhật các InfoView theo phần thưởng người chơi nhận.
 /// </summary>
 [System.Serializable]
-public class InfoRewardViewRoot : IInitializableData
+public class InfoRewardViewRoot : IInitializableData<InfoRewardData>
 {
     public InfoView[] infoViews;
 
@@ -89,11 +89,11 @@ public class InfoRewardViewRoot : IInitializableData
     /// <summary>
     /// Khởi tạo giao diện hiển thị dữ liệu phần thưởng.
     /// </summary>
-    public void Initialize(Object inputData)
+    public void Initialize(InfoRewardData inputData)
     {
         SetupViews();
 
-        InfoRewardData rewardData = inputData as InfoRewardData;
+        InfoRewardData rewardData = inputData;
         if (rewardData != null)
         {
             UpdateViews(rewardData.items);

@@ -1,9 +1,11 @@
 using UnityEngine;
 using Directory;
 using System.Collections;
+using System;
+using UniRx;
 
-[System.Serializable]
-public class CheckInternetData : Object
+[Serializable]
+public class CheckInternetData
 {
     public MonoBehaviour mono;
     public NetworkReachability network;
@@ -15,56 +17,56 @@ public class CheckInternetData : Object
     }
 }
 
-public class CheckInternet : IInitializableData, IUpdatable
+public class CheckInternet : IInitializableData<CheckInternetData>, IUpdatable, IDisposable
 {
-    private IEnumerator m_Coroutine;
-
     private CheckInternetData m_Data;
+    private IDisposable m_InternetCheckDisposable;
 
     public CheckInternet(CheckInternetData data)
     {
         Initialize(data);
     }
 
-    public void Initialize(Object data)
+    public void Initialize(CheckInternetData data)
     {
-        m_Data = data as CheckInternetData;
+        m_Data = data;
     }
 
     public bool IsInternet()
     {
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
-            Console.Log("Internet", "No Internet Connection");
+            UnityEngine.Console.Log("Internet", "No Internet Connection");
             return false;
         }
-        else
-        {
-            return true;
-        }
+        return true;
     }
 
     public void CustomUpdate()
     {
-        m_Coroutine = Wait(3.0f);
-        m_Data.mono.StartCoroutine(m_Coroutine);
-    }
+        // Hủy disposable cũ nếu có
+        m_InternetCheckDisposable?.Dispose();
 
-    private IEnumerator Wait(float waitTime)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(waitTime);
-            if (GameManager.Instance.checkInternet.IsInternet() == false)
+        // Khởi động kiểm tra mạng mỗi 3 giây
+        m_InternetCheckDisposable = Observable.Interval(TimeSpan.FromSeconds(3.0f))
+            .Subscribe(_ =>
             {
-                Manager.ShowNoInternet();
-            }
-        }
+                if (!IsInternet())
+                {
+                    Manager.ShowNoInternet();
+                }
+            })
+            .AddTo(m_Data.mono); // Tự hủy khi mono bị destroy
     }
 
     public void SetNetwork(NetworkReachability network)
     {
         m_Data.network = network;
+    }
+
+    public void Dispose()
+    {
+        m_InternetCheckDisposable?.Dispose();
     }
 }
 

@@ -1,5 +1,5 @@
 using UnityEngine;
-using LibraryGame;
+using UnityUtilities;
 
 public class InfoQuest
 {
@@ -33,7 +33,7 @@ public class InfoQuest
     /// </summary>
     public int Get()
     {
-        return LibraryGameSave.GetQuest(m_Type, "value", 0);
+        return SaveExtensions.GetQuest(m_Type, "value", 0);
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ public class InfoQuest
     public virtual void Put(int value)
     {
         value = Mathf.Clamp(value, 0, m_MaxValue);
-        LibraryGameSave.PutQuest(m_Type, "value", value);
+        SaveExtensions.PutQuest(m_Type, "value", value);
     }
 
     /// <summary>
@@ -61,7 +61,7 @@ public class InfoQuest
     /// </summary>
     public virtual void Delete()
     {
-        LibraryGameSave.DeleteQuest(m_Type, "value");
+        SaveExtensions.DeleteQuest(m_Type, "value");
     }
 
     /// <summary>

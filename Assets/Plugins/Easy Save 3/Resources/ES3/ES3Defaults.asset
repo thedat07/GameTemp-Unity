@@ -51,6 +51,8 @@ MonoBehaviour:
     - Purchasing.Common
     - spine-unity
     - Tests
+    - UniRx
+    - UniRx.Examples
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

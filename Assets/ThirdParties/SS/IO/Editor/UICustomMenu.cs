@@ -8,6 +8,13 @@ namespace TMPro.EditorUtilities
 {
     public static class UICustomMenu
     {
+        [MenuItem("GameObject/UI/UICustomMenu/ButtonGame", false, 1)]
+        static public void AddButtonButtonGame(MenuCommand menuCommand)
+        {
+            GameObject go = CreateButton<ButtonGame>(GetStandardResources(), "Text");
+            PlaceUIElementRoot(go, menuCommand);
+        }
+
         [MenuItem("GameObject/UI/UICustomMenu/ButtonGameIAP", false, 1)]
         static public void AddButtonGameIAP(MenuCommand menuCommand)
         {
@@ -20,7 +27,7 @@ namespace TMPro.EditorUtilities
         [MenuItem("GameObject/UI/UICustomMenu/ButtonAdsRewarded", false, 2)]
         static public void AddButtonAdsRewardeds(MenuCommand menuCommand)
         {
-            GameObject go = CreateButton<ButtonAdsRewarded>(GetStandardResources(), "ButtonAdsRewarded");
+            GameObject go = CreateButton<ButtonAdsRewarded>(GetStandardResources(), "Text");
             PlaceUIElementRoot(go, menuCommand);
         }
 

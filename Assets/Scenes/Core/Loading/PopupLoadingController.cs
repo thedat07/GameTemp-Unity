@@ -1,6 +1,6 @@
 ﻿using Directory;
 using DG.Tweening;
-using UnityEngine;
+using UnityUtilities;
 
 public interface ILoading
 {
@@ -23,7 +23,7 @@ public class PopupLoadingController : Controller, ILoading
 
     void Start()
     {
-        LibraryGame.Game.EditCanvasScaler(GetCanvasScaler());
+        GetCanvasScaler().EditCanvasScaler();
     }
 
     public void ShowLoading()

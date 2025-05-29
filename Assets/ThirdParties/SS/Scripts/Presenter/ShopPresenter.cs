@@ -14,9 +14,9 @@ public class ShopPresenter : MonoBehaviour, IInitializable
 
     public SoDataRewards soDataRewards;
 
-    public LoadingController loadingController;
-
     public ItemData GetItem(MasterDataType type) => itemDatabase.GetItem(type);
+
+    [SerializeField] GameObject m_ShieldShop;
 
     public void Initialize()
     {
@@ -51,7 +51,7 @@ public class ShopPresenter : MonoBehaviour, IInitializable
 
     public void BuyProduct(ShopProductNames shopProduct, UnityAction onSuccess = null, UnityAction onFail = null, UnityAction onCompleted = null)
     {
-        loadingController.OnShow();
+        SetActiveShield(true);
 
         Gley.EasyIAP.API.BuyProduct(shopProduct, ProductBought);
 
@@ -76,7 +76,7 @@ public class ShopPresenter : MonoBehaviour, IInitializable
 
             onCompleted?.Invoke();
 
-            loadingController.OnHide();
+            SetActiveShield(false);
 
             void TypeConsumable()
             {
@@ -103,7 +103,7 @@ public class ShopPresenter : MonoBehaviour, IInitializable
 
     public void OnRestore()
     {
-        loadingController.OnShow();
+        SetActiveShield(true);
         Gley.EasyIAP.API.RestorePurchases(ProductRestoredCallback, RestoreDone);
     }
 
@@ -138,8 +138,7 @@ public class ShopPresenter : MonoBehaviour, IInitializable
     private void RestoreDone()
     {
         Console.Log("IAP", "Restore done");
-        loadingController.OnHide();
-        TigerForge.EventManager.EmitEvent(Key, 0.1f);
+        SetActiveShield(false);
     }
 
     void SetVaule(List<InventoryItem> data, string log = "")
@@ -156,5 +155,21 @@ public class ShopPresenter : MonoBehaviour, IInitializable
     private void MarkRewarded(string productId)
     {
         ES3.Save("IAP_Rewarded_" + productId, true, "IAPData");
+    }
+
+    void SetActiveShield(bool active)
+    {
+        if (active)
+        {
+            m_ShieldShop.gameObject.SetActive(true);
+        }
+        else
+        {
+            this.SetDelayNextFrame(() =>
+            {
+                TigerForge.EventManager.EmitEvent(Key);
+                m_ShieldShop.gameObject.SetActive(false);
+            });
+        }
     }
 }

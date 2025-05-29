@@ -12,16 +12,16 @@ public class SettingPresenter : MonoBehaviour, IInitializable
     public LeanGameObjectPool audioMusic;
     public LeanGameObjectPool audioSound;
 
-    [Header("Colors")]
-    public Color normalColor = Color.white;
-    public Color highlightedColor = new Color(0.9f, 0.9f, 0.9f);
-    public Color pressedColor = new Color(0.8f, 0.8f, 0.8f);
-    public Color selectedColor = Color.white;
-    public Color disabledColor = new Color(0.6f, 0.6f, 0.6f);
+    // [Header("Colors")]
+    // public Color normalColor = Color.white;
+    // public Color highlightedColor = new Color(0.9f, 0.9f, 0.9f);
+    // public Color pressedColor = new Color(0.8f, 0.8f, 0.8f);
+    // public Color selectedColor = Color.white;
+    // public Color disabledColor = new Color(0.6f, 0.6f, 0.6f);
 
-    [Header("Transition Settings")]
-    public float colorMultiplier = 1f;
-    public float fadeDuration = 0.1f;
+    // [Header("Transition Settings")]
+    // public float colorMultiplier = 1f;
+    // public float fadeDuration = 0.1f;
 
     [Header("Click")]
     public AudioClip audioClick;
