@@ -34,7 +34,14 @@ public class InventoryItem
     [Min(0)]
     [SerializeField] int m_Quantity;      // Số lượng vật phẩm đang có
 
-    public InventoryItem() { }
+    public InventoryItem()
+    {
+        m_ItemData = new ItemData();
+        m_ItemData.type = MasterDataType.Money;
+        m_ItemData.displayName = "";
+        m_ItemData.icon = null;
+        m_Quantity = 0;
+    }
 
     /// <summary>
     /// Tạo vật phẩm với dữ liệu và số lượng ban đầu.
@@ -48,8 +55,11 @@ public class InventoryItem
     /// <summary>
     /// Lấy loại vật phẩm (để xử lý phần thưởng, hệ thống tiền tệ...)
     /// </summary>
-    public MasterDataType GetDataType() => m_ItemData.type;
-
+    public MasterDataType GetDataType()
+    {
+        return m_ItemData != null ? m_ItemData.type : MasterDataType.Money;
+    }
+    
     /// <summary>
     /// Gán lại loại vật phẩm nếu cần thay đổi.
     /// </summary>

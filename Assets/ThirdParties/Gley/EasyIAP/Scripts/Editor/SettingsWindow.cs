@@ -238,7 +238,7 @@ namespace Gley.EasyIAP.Editor
                     {
                         productFoldouts.Add(true); // mặc định là mở
                     }
-                    
+
                     while (scrollPositions.Count < localShopProducts.Count)
                     {
                         scrollPositions.Add(Vector2.zero);
@@ -249,12 +249,14 @@ namespace Gley.EasyIAP.Editor
                     if (productFoldouts[i])
                     {
                         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+                        // Product name and type
                         localShopProducts[i].productName = EditorGUILayout.TextField("Product Name:", localShopProducts[i].productName);
                         localShopProducts[i].productName = Regex.Replace(localShopProducts[i].productName, @"^[\d-]*\s*", "");
-                        localShopProducts[i].productName = localShopProducts[i].productName.Replace(" ", "");
-                        localShopProducts[i].productName = localShopProducts[i].productName.Trim();
+                        localShopProducts[i].productName = localShopProducts[i].productName.Replace(" ", "").Trim();
                         localShopProducts[i].productType = (ProductType)EditorGUILayout.EnumPopup("Product Type:", localShopProducts[i].productType);
 
+                        // Add new InventoryItem
                         if (GUILayout.Button("Add", GUILayout.Width(100)))
                         {
                             if (localShopProducts[i].value == null)
@@ -263,11 +265,12 @@ namespace Gley.EasyIAP.Editor
                             localShopProducts[i].value.Add(new InventoryItem());
                         }
 
-                        if (localShopProducts[i] != null && localShopProducts[i].value != null)
+                        // Display Inventory Items
+                        if (localShopProducts[i].value != null)
                         {
                             int itemCount = localShopProducts[i].value.Count;
                             int maxVisibleItems = 3;
-                            float itemHeight = 70f; // bạn có thể tinh chỉnh giá trị này tùy độ cao từng item
+                            float itemHeight = 70f;
                             float scrollViewHeight = itemHeight * maxVisibleItems;
 
                             int removeIndex = -1;
@@ -284,8 +287,23 @@ namespace Gley.EasyIAP.Editor
                                 }
 
                                 EditorGUILayout.BeginVertical("box");
-                                var curType = (MasterDataType)EditorGUILayout.EnumPopup("Reward Type:", item.GetDataType());
-                                var curQuantity  = EditorGUILayout.IntField("Reward Value:", item.GetQuantity());
+                                MasterDataType currentType = MasterDataType.Money;
+
+                                try
+                                {
+                                    if (item != null)
+                                    {
+                                        currentType = item.GetDataType();
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug.LogWarning($"[ShopEditor] Error calling GetDataType at i={i}, j={j}: {ex.Message}");
+                                }
+
+                                currentType = Enum.IsDefined(typeof(MasterDataType), currentType) ? currentType : MasterDataType.Money;
+                                var curType = (MasterDataType)EditorGUILayout.EnumPopup("Reward Type:", currentType);
+                                var curQuantity = EditorGUILayout.IntField("Reward Value:", item.GetQuantity());
 
                                 item.SetDataType(curType);
                                 item.SetQuantity(curQuantity);
@@ -294,6 +312,7 @@ namespace Gley.EasyIAP.Editor
                                 {
                                     removeIndex = j;
                                 }
+
                                 EditorGUILayout.EndVertical();
                             }
 
@@ -305,9 +324,7 @@ namespace Gley.EasyIAP.Editor
                             }
                         }
 
-
-                        // localShopProducts[i].value = EditorGUILayout.IntField("Reward Value:", localShopProducts[i].value);
-
+                        // Platform-specific IDs
                         if (useForGooglePlay)
                         {
                             localShopProducts[i].idGooglePlay = EditorGUILayout.TextField("Google Play ID:", localShopProducts[i].idGooglePlay);
@@ -333,16 +350,20 @@ namespace Gley.EasyIAP.Editor
                             localShopProducts[i].idWindows = EditorGUILayout.TextField("Windows Store ID:", localShopProducts[i].idWindows);
                         }
 
+                        // Remove product
                         if (GUILayout.Button("Remove Product"))
                         {
                             localShopProducts.RemoveAt(i);
                             productFoldouts.RemoveAt(i);
                             scrollPositions.RemoveAt(i);
-                            break; // nên break để tránh lỗi chỉ số sau khi remove
+                            EditorGUILayout.EndVertical(); // Kết thúc layout trước khi break
+                            break;
                         }
+
                         EditorGUILayout.EndVertical();
                         EditorGUILayout.Space();
                     }
+
                     EditorGUILayout.Space();
                 }
 
@@ -351,6 +372,7 @@ namespace Gley.EasyIAP.Editor
                     localShopProducts.Add(new StoreProduct());
                 }
             }
+
 
             GUILayout.Label(errorText);
             if (GUILayout.Button("Save"))
