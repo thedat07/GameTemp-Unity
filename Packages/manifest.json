@@ -1,5 +1,37 @@
 {
   "dependencies": {
+           "com.applovin.mediation.adapters.bidmachine.android": "3020100.0.0",
+        "com.applovin.mediation.adapters.bidmachine.ios": "302010000.0.0",
+        "com.applovin.mediation.adapters.bigoads.android": "5020100.0.0",
+        "com.applovin.mediation.adapters.bigoads.ios": "4070000.0.0",
+        "com.applovin.mediation.adapters.bytedance.android": "605000801.0.0",
+        "com.applovin.mediation.adapters.bytedance.ios": "605000900.0.0",
+        "com.applovin.mediation.adapters.facebook.android": "6190002.0.0",
+        "com.applovin.mediation.adapters.facebook.ios": "6170100.0.0",
+        "com.applovin.mediation.adapters.fyber.android": "8030601.0.0",
+        "com.applovin.mediation.adapters.fyber.ios": "8030600.0.0",
+        "com.applovin.mediation.adapters.google.android": "24010000.0.0",
+        "com.applovin.mediation.adapters.google.ios": "12020000.0.0",
+        "com.applovin.mediation.adapters.googleadmanager.android": "24010000.0.0",
+        "com.applovin.mediation.adapters.googleadmanager.ios": "12020000.0.0",
+        "com.applovin.mediation.adapters.hyprmx.android": "6040203.0.0",
+        "com.applovin.mediation.adapters.hyprmx.ios": "604020000.0.0",
+        "com.applovin.mediation.adapters.inmobi.android": "10080200.0.0",
+        "com.applovin.mediation.adapters.inmobi.ios": "10080200.0.0",
+        "com.applovin.mediation.adapters.ironsource.android": "807000000.0.0",
+        "com.applovin.mediation.adapters.ironsource.ios": "807000000.0.0",
+        "com.applovin.mediation.adapters.mintegral.android": "16096100.0.0",
+        "com.applovin.mediation.adapters.mintegral.ios": "707070000.0.0",
+        "com.applovin.mediation.adapters.moloco.android": "3080000.0.0",
+        "com.applovin.mediation.adapters.moloco.ios": "3080000.0.0",
+        "com.applovin.mediation.adapters.unityads.android": "4140100.0.0",
+        "com.applovin.mediation.adapters.unityads.ios": "4140100.0.0",
+        "com.applovin.mediation.adapters.vungle.android": "7040301.0.0",
+        "com.applovin.mediation.adapters.vungle.ios": "7040500.0.0",
+        "com.applovin.mediation.adapters.yandex.android": "7120000.0.0",
+        "com.applovin.mediation.adapters.yandex.ios": "7110100.0.0",
+        "com.applovin.mediation.ads": "8.2.0",    
+
     "com.brunomikoski.animationsequencer": "https://github.com/brunomikoski/Animation-Sequencer.git",
     "com.coffee.softmask-for-ugui": "https://github.com/mob-sakai/SoftMaskForUGUI.git?path=Packages/src#3.2.0",
     "com.gitamend.unityutils": "https://github.com/adammyhre/Unity-Utils.git",
@@ -47,5 +79,23 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "AppLovin MAX Unity",
+      "url": "https://unity.packages.applovin.com/",
+      "scopes": [
+        "com.applovin.mediation.ads",
+        "com.applovin.mediation.adapters",
+        "com.applovin.mediation.dsp"
+      ]
+    },
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.google.external-dependency-manager"
+      ]
+    }
+  ]
 }

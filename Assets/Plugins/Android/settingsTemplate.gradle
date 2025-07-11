@@ -19,7 +19,19 @@ dependencyResolutionManagement {
 // Android Resolver Repos Start
         def unityProjectPath = $/file:///**DIR_UNITYPROJECT**/$.replace("\\", "/")
         maven {
-            url (unityProjectPath + "/Assets/Firebase/m2repository") // Assets/ThirdParties/SDK/Firebase/Editor/AnalyticsDependencies.xml:18, Assets/ThirdParties/SDK/Firebase/Editor/AppDependencies.xml:22, Assets/ThirdParties/SDK/Firebase/Editor/AuthDependencies.xml:20, Assets/ThirdParties/SDK/Firebase/Editor/CrashlyticsDependencies.xml:20, Assets/ThirdParties/SDK/Firebase/Editor/MessagingDependencies.xml:24, Assets/ThirdParties/SDK/Firebase/Editor/RemoteConfigDependencies.xml:20
+            url (unityProjectPath + "/Assets/GeneratedLocalRepo/Firebase/m2repository") // Assets/Firebase/Editor/AnalyticsDependencies.xml:18, Assets/Firebase/Editor/AppDependencies.xml:22, Assets/Firebase/Editor/AuthDependencies.xml:20, Assets/Firebase/Editor/CrashlyticsDependencies.xml:20, Assets/Firebase/Editor/MessagingDependencies.xml:24, Assets/Firebase/Editor/RemoteConfigDependencies.xml:20
+        }
+        maven {
+            url "https://artifactory.bidmachine.io/bidmachine" // Packages/com.applovin.mediation.adapters.bidmachine.android/Editor/Dependencies.xml:8
+        }
+        maven {
+            url "https://android-sdk.is.com/" // Packages/com.applovin.mediation.adapters.ironsource.android/Editor/Dependencies.xml:8
+        }
+        maven {
+            url "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea" // Packages/com.applovin.mediation.adapters.mintegral.android/Editor/Dependencies.xml:8
+        }
+        maven {
+            url "https://artifact.bytedance.com/repository/pangle" // Packages/com.applovin.mediation.adapters.bytedance.android/Editor/Dependencies.xml:8
         }
         mavenLocal()
 // Android Resolver Repos End

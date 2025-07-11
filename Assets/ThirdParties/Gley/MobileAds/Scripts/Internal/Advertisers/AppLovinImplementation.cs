@@ -1,4 +1,4 @@
-﻿#if GLEY_APPLOVIN
+﻿﻿#if GLEY_APPLOVIN
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -930,15 +930,16 @@ namespace Gley.MobileAds.Internal
         };
             FirebaseEvent.LogAnalytics("ad_impression", impressionParameters);
             FirebaseEvent.LogAnalytics("ad_cgteam_impression", impressionParameters);
-            var eventParams = new Dictionary<string, string>();
-            eventParams.Add("ad_platform", "AppLovin");
-            eventParams.Add("ad_source", impressionData.NetworkName);
-            eventParams.Add("ad_unit_name", impressionData.AdUnitIdentifier);
-            eventParams.Add("ad_format", impressionData.AdFormat);
-            eventParams.Add("value", impressionData.Revenue.ToString("0.0000"));
-            eventParams.Add("currency", "USD");
 
-            AppsFlyerAdRevenue.logAdRevenue(impressionData.NetworkName, AppsFlyerAdRevenueMediationNetworkType.AppsFlyerAdRevenueMediationNetworkTypeApplovinMax, impressionData.Revenue, "USD", eventParams);
+            Dictionary<string, string> additionalParams = new Dictionary<string, string>();
+            additionalParams.Add(AdRevenueScheme.COUNTRY, "USA");
+            additionalParams.Add(AdRevenueScheme.AD_UNIT,  impressionData.AdUnitIdentifier);
+            additionalParams.Add(AdRevenueScheme.AD_TYPE,  impressionData.AdFormat);
+            additionalParams.Add(AdRevenueScheme.PLACEMENT, impressionData.Placement);
+            var logRevenue = new AFAdRevenueData("monetizationNetworkEx", MediationNetwork.ApplovinMax, "USD", impressionData.Revenue);
+            AppsFlyer.logAdRevenue(logRevenue, additionalParams);
+
+
 
             UnityEngine.Console.Log("Max", "Value: " + impressionData.Revenue);
             double currentImpressionRevenue = impressionData.Revenue;
@@ -1020,7 +1021,7 @@ namespace Gley.MobileAds.Internal
 
         private void LogAdCampaignVideo()
         {
-            var count = GameManager.Instance.GetAdsPresenter().UpdateAdInterCount();
+            var count = GameManager.Instance.GetAdsPresenter().UpdateAdShowedCount();
 
             var listCountAvailableForEvent = new List<int> { 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70 };
 
