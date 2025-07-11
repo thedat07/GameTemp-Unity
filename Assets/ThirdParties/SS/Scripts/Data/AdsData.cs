@@ -30,8 +30,21 @@ public class AdsData
 [System.Serializable]
 public class AdsInfoData
 {
-    public int adShowedCount = 0;
-    public int adInterCount = 0;
+    public int adInterAds;
+    
+    public int adShowedCount
+    {
+        set => PlayerPrefs.SetInt("AdShowedCount", value);
+        get => PlayerPrefs.GetInt("AdShowedCount", 0);
+    }
+
+    public int adInterCount
+    {
+        set => PlayerPrefs.SetInt("AdInterCount", value);
+        get => PlayerPrefs.GetInt("AdInterCount", 0);
+    }
+
+
     private float lastAdTime = 0f;
 
     /// <summary>

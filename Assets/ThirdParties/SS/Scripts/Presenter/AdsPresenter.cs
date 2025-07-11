@@ -43,6 +43,7 @@ public class AdsPresenter : MonoBehaviour, IInitializable
 
     public int UpdateAdInterCount()
     {
+        adsInfoData.adInterAds++;
         adsInfoData.adInterCount++;
         return adsInfoData.adInterCount;
     }
@@ -69,11 +70,33 @@ public class AdsPresenter : MonoBehaviour, IInitializable
         if (adsInfoData.CanShowInterstitialAd())
         {
             SetActiveShield(true);
+
             placementInter = placement;
-            this.SetDelay(0.25f, () =>
+
+            this.SetDelay(0.5f, () =>
             {
-                Gley.MobileAds.API.ShowInterstitial(UpdateLastAdTime);
                 SetActiveShield(false);
+                Gley.MobileAds.API.ShowInterstitial(UpdateLastAdTime);
+            });
+        }
+    }
+
+    public void ShowInterstitial(string placement, UnityAction interstitialClosed)
+    {
+        if (adsInfoData.CanShowInterstitialAd())
+        {
+            SetActiveShield(true);
+
+            placementInter = placement;
+
+            this.SetDelay(0.5f, () =>
+            {
+                SetActiveShield(false);
+                Gley.MobileAds.API.ShowInterstitial(() =>
+                {
+                    UpdateLastAdTime();
+                    interstitialClosed?.Invoke();
+                });
             });
         }
     }
@@ -81,46 +104,31 @@ public class AdsPresenter : MonoBehaviour, IInitializable
     public void ShowRewardedVideo(string placement, UnityAction onSuccess = null, UnityAction onFail = null, UnityAction onCompleted = null)
     {
         SetActiveShield(true);
+
         placementReward = placement;
-        Gley.MobileAds.API.ShowRewardedVideo(CompleteMethod);
+
+        this.SetDelay(0.25f, () =>
+        {
+            SetActiveShield(false);
+            Gley.MobileAds.API.ShowRewardedVideo(CompleteMethod);
+        });
 
         void CompleteMethod(bool completed)
         {
-            if (completed)
+            this.SetDelay(0.2f, () =>
             {
-                onSuccess?.Invoke();
-                UpdateLastAdTime();
-            }
-            else
-            {
-                onFail?.Invoke();
-            }
+                if (completed)
+                {
+                    onSuccess?.Invoke();
+                    UpdateLastAdTime();
+                }
+                else
+                {
+                    onFail?.Invoke();
+                }
 
-            onCompleted?.Invoke();
-            SetActiveShield(false);
-        }
-    }
-
-    public void ShowRewardedInterstitial(string placement, UnityAction onSuccess = null, UnityAction onFail = null, UnityAction onCompleted = null)
-    {
-        SetActiveShield(true);
-        placementReward = placement;
-        Gley.MobileAds.API.ShowRewardedInterstitial(VideoComplete);
-
-        void VideoComplete(bool watched)
-        {
-            if (watched)
-            {
-                onSuccess?.Invoke();
-                UpdateLastAdTime();
-            }
-            else
-            {
-                onFail?.Invoke();
-            }
-
-            onCompleted?.Invoke();
-            SetActiveShield(false);
+                onCompleted?.Invoke();
+            });
         }
     }
 
@@ -132,10 +140,37 @@ public class AdsPresenter : MonoBehaviour, IInitializable
         }
         else
         {
-            this.SetDelayNextFrame(() =>
-            {
-                m_ShieldAds.gameObject.SetActive(false);
-            });
+            m_ShieldAds.gameObject.SetActive(false);
         }
+    }
+
+    public bool AutoShowPopupRemoveAds(UnityAction onHidden)
+    {
+        if (Gley.MobileAds.API.CanShowAds())
+        {
+            int level = GameManager.Instance.GetMasterData().dataStage.Get();
+
+            if (level == StaticData.RemoveAdFirst)
+            {
+                // Directory.Manager.PushScene(PopupNoAdsController.POPUPNOADS_SCENE_NAME, null, null, () =>
+                // {
+                //     onHidden?.Invoke();
+                // });
+                return true;
+            }
+            else if (level > StaticData.RemoveAdFirst)
+            {
+                if (adsInfoData.adInterAds % StaticData.RemoveAdFrequency == 0)
+                {
+                    adsInfoData.adInterAds = 0;
+                    // Directory.Manager.PushScene(PopupNoAdsController.POPUPNOADS_SCENE_NAME, null, null, () =>
+                    // {
+                    //     onHidden?.Invoke();
+                    // });
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
