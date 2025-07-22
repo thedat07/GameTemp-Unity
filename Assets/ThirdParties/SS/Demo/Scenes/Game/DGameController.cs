@@ -1,7 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Directory;
+using Creator;
 
 public class DGameController : Controller
 {
@@ -56,13 +55,13 @@ public class DGameController : Controller
 
     public void OnButtonTap()
     {
-        Manager.PushScene(DTopController.SCENE_NAME);
+        Creator.Director.PushScene(DTopController.SCENE_NAME);
     }
 
     IEnumerator OnStart()
     {
         yield return new WaitForSeconds(1f);
 
-        Manager.LoadingAnimation(false);
+        Creator.Director.LoadingAnimation(false);
     }
 }

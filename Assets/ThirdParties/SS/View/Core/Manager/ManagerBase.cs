@@ -1,7 +1,7 @@
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-namespace Directory
+namespace Creator
 {
     public class ManagerBase
     {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Directory
+namespace Creator
 {
     public class ManagerObject : BaseSS
     {
@@ -59,14 +59,14 @@ namespace Directory
             if (this != null)
             {
                 m_State = State.SHIELD_OFF;
-                Manager.OnFadedIn();
+                Creator.Director.OnFadedIn();
             }
         }
 
         public void OnFadedOut()
         {
             m_State = State.SCENE_LOADING;
-            Manager.OnFadedOut();
+            Creator.Director.OnFadedOut();
         }
 
         protected override void OnEndAnimation()

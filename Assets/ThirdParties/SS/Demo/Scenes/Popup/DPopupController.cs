@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using Directory;
+using Creator;
 
 public class DPopupData
 {
@@ -59,6 +57,6 @@ public class DPopupController : Controller
 
     public void CloseTwice()
     {
-        Manager.PopToRootScene();
+        Creator.Director.PopToRootScene();
     }
 }

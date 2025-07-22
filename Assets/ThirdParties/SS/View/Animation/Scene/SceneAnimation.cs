@@ -1,12 +1,10 @@
 ﻿// This code is part of the SS-Scene library, released by Anh Pham (anhpt.csit@gmail.com).
 
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-using Lean.Gui;
 using UnityUtilities;
 
-namespace Directory
+namespace Creator
 {
     [ExecuteInEditMode]
     public class SceneAnimation : BaseSS
@@ -52,7 +50,7 @@ namespace Directory
         public void StartShow()
         {
             GetCanvasGroup().EnableInteractable(false);
-            Manager.StartShow(m_Controller);
+            Director.StartShow(m_Controller);
         }
 
         public void StartHide()
@@ -64,12 +62,12 @@ namespace Directory
         public void OnShown()
         {
             GetCanvasGroup().EnableInteractable(true);
-            Manager.OnShown(m_Controller);
+            Director.OnShown(m_Controller);
         }
 
         public void OnHidden()
         {
-            Manager.OnHidden(m_Controller);
+            Director.OnHidden(m_Controller);
         }
 
         public virtual void SetImmediate()
@@ -80,7 +78,7 @@ namespace Directory
         {
             if (Application.isPlaying)
             {
-                if (m_Controller != Manager.MainController)
+                if (m_Controller != Director.MainController)
                 {
                     HideBeforeShowing();
                 }

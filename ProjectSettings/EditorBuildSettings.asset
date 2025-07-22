@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Core/SplashPixOn/SplashPixOn.unity
-    guid: 0c42c92f384ba644da355552c42c208c
-  - enabled: 1
     path: Assets/Scenes/Core/MainGame/MainGame.unity
     guid: 584dc122048f3fb41a602a2a92781cca
   - enabled: 1

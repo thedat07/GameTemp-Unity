@@ -1,6 +1,5 @@
 using UnityEngine;
-using Directory;
-using System.Collections;
+using Creator;
 using System;
 using UniRx;
 
@@ -53,7 +52,7 @@ public class CheckInternet : IInitializableData<CheckInternetData>, IUpdatable, 
             {
                 if (!IsInternet())
                 {
-                    Manager.ShowNoInternet();
+                    Creator.Director.ShowNoInternet();
                 }
             })
             .AddTo(m_Data.mono); // Tự hủy khi mono bị destroy

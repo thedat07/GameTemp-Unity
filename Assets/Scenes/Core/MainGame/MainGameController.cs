@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Directory;
+using Creator;
 
 public class MainGameController : MonoBehaviour
 {
@@ -9,7 +9,7 @@ public class MainGameController : MonoBehaviour
 
     void Awake()
     {
-        Manager manager = new Manager();
+        Creator.Director director = new Creator.Director();
 
 #if DEBUG
         Debug.unityLogger.logEnabled = true;
@@ -20,13 +20,13 @@ public class MainGameController : MonoBehaviour
 
     IEnumerator Start()
     {
-        Manager.SceneAnimationDuration = 0.15f;
+        Creator.Director.SceneAnimationDuration = 0.15f;
 
-        Manager.LoadingSceneName = PopupLoadingController.SCENE_NAME;
+        Creator.Director.LoadingSceneName = PopupLoadingController.SCENE_NAME;
 
-        Manager.MaskSceneName = PopupMaskController.SCENE_NAME;
+        Creator.Director.MaskSceneName = PopupMaskController.SCENE_NAME;
 
-        Manager.NoInternetSceneName = PopupNoInternetController.SCENE_NAME;
+        Creator.Director.NoInternetSceneName = PopupNoInternetController.SCENE_NAME;
 
         yield return new WaitForEndOfFrame();
 
@@ -34,6 +34,6 @@ public class MainGameController : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        Manager.RunScene(DGameController.SCENE_NAME);
+        Creator.Director.RunScene(DGameController.SCENE_NAME);
     }
 }

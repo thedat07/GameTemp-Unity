@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DesignPatterns;
-using Directory;
-using UnityEngine.Events;
 
 public class GameManager : SingletonPersistent<GameManager>
 {

@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Directory;
-
+using Director;
 
 public static class StaticData
 {

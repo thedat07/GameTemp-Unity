@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using Directory;
 using Gley.EasyIAP;
 
 public class ShopPresenter : MonoBehaviour, IInitializable
