@@ -14,6 +14,14 @@ public static class StaticData
         }
     }
 
+    public static int InterTimestepRw
+    {
+        get
+        {
+            return RemoteConfigController.GetIntConfig("inter_capping_rw", 75);
+        }
+    }
+
     public static int LevelStartShowingInter
     {
         get

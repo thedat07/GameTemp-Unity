@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Directory;
 
-public class MainGameController : Controller
+public class MainGameController : MonoBehaviour
 {
     public const string MAIN_GAME = "MainGame";
-
-    public override string SceneName()
-    {
-        return MAIN_GAME;
-    }
 
     void Awake()
     {

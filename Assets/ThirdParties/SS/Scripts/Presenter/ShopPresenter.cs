@@ -30,7 +30,11 @@ public class ShopPresenter : MonoBehaviour, IInitializable
                 // For each non-consumable or subscription you should check if it is already bought.
                 // If a product is active, means it was bought -> grand the access.
                 // If remove ads was bought before, mark it as owned.
-                ShopProductNames[] shopProductNames = new ShopProductNames[] { };
+
+                ShopProductNames[] shopProductNames = new ShopProductNames[] {
+
+                };
+
                 foreach (var item in shopProductNames)
                 {
                     if (API.IsActive(item))
@@ -112,7 +116,10 @@ public class ShopPresenter : MonoBehaviour, IInitializable
     {
         if (status == IAPOperationStatus.Success)
         {
-            ShopProductNames[] shopProductNames = new ShopProductNames[] { };
+            ShopProductNames[] shopProductNames = new ShopProductNames[] {
+
+            };
+
             foreach (var item in shopProductNames)
             {
                 ShopProductNames productName = API.ConvertNameToShopProduct(product.productName);
