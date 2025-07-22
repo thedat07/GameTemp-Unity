@@ -6,7 +6,7 @@ using Lean.Pool;
 public class SettingPresenter : MonoBehaviour, IInitializable
 {
     public static readonly Vector2 ScreenGame = new Vector2(1080f, 2160f);
-    
+
     private SettingData m_SettingData;
 
     public LeanGameObjectPool audioMusic;
@@ -39,20 +39,19 @@ public class SettingPresenter : MonoBehaviour, IInitializable
         m_SettingData = GameManager.Instance.GetSettingData();
     }
 
-    public void SetSound()
+    public void ToggleSound()
     {
-        m_SettingData.Sound = !m_SettingData.Sound;
-        if (m_SettingData.Music == false)
+        m_SettingData.SetSound(!m_SettingData.Sound.Value);
+        if (m_SettingData.Sound.Value == false)
         {
             audioSound.DespawnAll();
         }
-        TigerForge.EventManager.EmitEvent(SettingData.Key);
     }
 
-    public void SetMusic()
+    public void ToggleMusic()
     {
-        m_SettingData.Music = !m_SettingData.Music;
-        if (m_SettingData.Music == false)
+        m_SettingData.SetMusic(!m_SettingData.Music.Value);
+        if (m_SettingData.Music.Value == false)
         {
             audioMusic.DespawnAll();
         }
@@ -60,18 +59,16 @@ public class SettingPresenter : MonoBehaviour, IInitializable
         {
             PlayMusic();
         }
-        TigerForge.EventManager.EmitEvent(SettingData.Key);
     }
 
-    public void SetVibration()
+    public void ToggleVibration()
     {
-        m_SettingData.Vibration = !m_SettingData.Vibration;
-        TigerForge.EventManager.EmitEvent(SettingData.Key);
+        m_SettingData.SetVibration(!m_SettingData.Vibration.Value);
     }
 
     public void PlaySound(AudioClip clip)
     {
-        if (m_SettingData.Sound == true && clip != null)
+        if (m_SettingData.Sound.Value && clip != null)
         {
             if (audioSound.Spawn(transform).TryGetComponent<AudioSource>(out AudioSource audio))
             {
@@ -82,7 +79,7 @@ public class SettingPresenter : MonoBehaviour, IInitializable
 
     public void PlaySound(TypeAudio type)
     {
-        if (m_SettingData.Sound == true)
+        if (m_SettingData.Sound.Value)
         {
             if (audioSound.Spawn(transform).TryGetComponent<AudioSource>(out AudioSource audio))
             {
@@ -102,7 +99,7 @@ public class SettingPresenter : MonoBehaviour, IInitializable
 
     public void PlayMusic()
     {
-        if (m_SettingData.Music == true)
+        if (m_SettingData.Music.Value)
         {
             audioMusic.DespawnAll();
             if (audioMusic.Spawn(transform).TryGetComponent<AudioSource>(out AudioSource audio))

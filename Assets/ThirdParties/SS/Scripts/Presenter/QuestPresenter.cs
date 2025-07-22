@@ -18,26 +18,6 @@ public class QuestPresenter : MonoBehaviour, IInitializable, IUpdatable
 
     public void CustomUpdate()
     {
-        TigerForge.EventManager.EmitEvent(KeyUpdate);
-    }
 
-    public void Post(int vaule, TypeQuest type)
-    {
-        switch (type)
-        {
-            default:
-                break;
-        }
-        TigerForge.EventManager.EmitEvent(QuestData.Key);
-    }
-
-    public void Put(int vaule, TypeQuest type)
-    {
-        switch (type)
-        {
-            default:
-                break;
-        }
-        TigerForge.EventManager.EmitEvent(QuestData.Key);
     }
 }

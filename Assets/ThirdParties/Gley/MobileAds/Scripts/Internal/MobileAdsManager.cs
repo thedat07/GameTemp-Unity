@@ -44,14 +44,14 @@ namespace Gley.MobileAds.Internal
         {
             if (remove == true)
             {
-                GameManager.Instance.GetAdsData().IsRemoveShowAds = true;
+                GameManager.Instance.GetAdsData().SetRemoveAds(true);
                 // PlayerPrefs.SetInt(Constants.REMOVE_ADS_KEY, 1);
                 //if banner is active and user bought remove ads the banner will automatically hide
                 HideBanner();
             }
             else
             {
-                GameManager.Instance.GetAdsData().IsRemoveShowAds = false;
+                GameManager.Instance.GetAdsData().SetRemoveAds(false);
                 //PlayerPrefs.SetInt(Constants.REMOVE_ADS_KEY, 0);
             }
         }
@@ -63,20 +63,7 @@ namespace Gley.MobileAds.Internal
         /// <returns>true if ads should be displayed</returns>
         public bool CanShowAds()
         {
-            // if (!PlayerPrefs.HasKey(Constants.REMOVE_ADS_KEY))
-            // {
-            //     return true;
-            // }
-            // else
-            // {
-            //     if (PlayerPrefs.GetInt(Constants.REMOVE_ADS_KEY) == 0)
-            //     {
-            //         return true;
-            //     }
-            // }
-            // return false;
-
-            return GameManager.Instance.GetAdsData().IsRemoveShowAds == false;
+            return !GameManager.Instance.GetAdsData().IsRemoveShowAds.Value;
         }
 
         /// <summary>

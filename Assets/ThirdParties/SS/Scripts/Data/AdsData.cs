@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityUtilities;
+using UniRx;
 
 public class AdsData
 {
@@ -7,15 +8,24 @@ public class AdsData
     private const string KeyRemoveAds = "keyRemoveAds";
     private const bool DefaultRemoveAds = false;
 
-    public AdsData() { }
+    private readonly ReactiveProperty<bool> _isRemoveAds;
+    public IReadOnlyReactiveProperty<bool> IsRemoveShowAds => _isRemoveAds;
+
+    public AdsData()
+    {
+        // Khởi tạo từ Save hoặc mặc định
+        _isRemoveAds = new ReactiveProperty<bool>(SaveExtensions.GetAds(KeyRemoveAds, DefaultRemoveAds));
+
+        // Tự động lưu khi giá trị thay đổi
+        _isRemoveAds.Subscribe(val => SaveExtensions.PutAds(KeyRemoveAds, val));
+    }
 
     /// <summary>
-    /// GET/PUT: Trạng thái đã mua gỡ quảng cáo
+    /// Gán giá trị thủ công từ code
     /// </summary>
-    public bool IsRemoveShowAds
+    public void SetRemoveAds(bool value)
     {
-        get => SaveExtensions.GetAds(KeyRemoveAds, DefaultRemoveAds);
-        set => SaveExtensions.PutAds(KeyRemoveAds, value);
+        _isRemoveAds.Value = value;
     }
 
     /// <summary>

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using Gley.MobileAds;
@@ -52,7 +49,6 @@ public class AdsPresenter : MonoBehaviour, IInitializable
     public void OnRemoveAds()
     {
         Gley.MobileAds.API.RemoveAds(true);
-        TigerForge.EventManager.EmitEvent(AdsData.Key);
     }
 
     public void ShawBanner()

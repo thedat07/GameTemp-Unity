@@ -6,8 +6,6 @@ using Gley.EasyIAP;
 
 public class ShopPresenter : MonoBehaviour, IInitializable
 {
-    public const string Key = "ShopPresenter";
-
     public ItemDatabase itemDatabase;
 
     public SoDataRewards soDataRewards;
@@ -84,7 +82,6 @@ public class ShopPresenter : MonoBehaviour, IInitializable
             {
                 SetVaule(product.value, "IAP");
                 onSuccess?.Invoke();
-                TigerForge.EventManager.EmitEvent(Key, 0.1f);
             }
 
             void TypeNonConsumable()
@@ -172,7 +169,6 @@ public class ShopPresenter : MonoBehaviour, IInitializable
         {
             this.SetDelayNextFrame(() =>
             {
-                TigerForge.EventManager.EmitEvent(Key);
                 m_ShieldShop.gameObject.SetActive(false);
             });
         }
