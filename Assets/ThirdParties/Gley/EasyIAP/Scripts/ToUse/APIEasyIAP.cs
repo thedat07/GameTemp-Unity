@@ -103,7 +103,7 @@ namespace Gley.EasyIAP
         /// <returns>The amount of in game currency received</returns>
         public static List<InventoryItem> GetValue(ShopProductNames product)
         {
-            return IAPManager.Instance.GetValue(product);
+            return IAPManager.Instance?.GetValue(product) ?? new List<InventoryItem>();
         }
 
 

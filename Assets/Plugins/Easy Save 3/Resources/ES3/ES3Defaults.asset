@@ -47,7 +47,6 @@ MonoBehaviour:
     - MaxSdk.Scripts
     - NaughtyAttributes.Core
     - NaughtyAttributes.Test
-    - PrimeTween.Runtime
     - Purchasing.Common
     - spine-unity
     - Tests

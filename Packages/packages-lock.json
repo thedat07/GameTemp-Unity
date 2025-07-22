@@ -249,12 +249,6 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
-    "com.kyrylokuzyk.primetween": {
-      "version": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
-    },
     "com.unity.2d.animation": {
       "version": "9.1.1",
       "depth": 1,
