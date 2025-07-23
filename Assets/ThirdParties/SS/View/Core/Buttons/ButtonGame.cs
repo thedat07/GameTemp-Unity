@@ -27,9 +27,17 @@ public class ButtonGame : ButtonBase
     {
         if (!activeEffect) return;
 
-        transform.DoResetDefault(); // Reset về trạng thái gốc nếu có animation trước đó
-        transform.DOPunchScale(m_Scale * 0.05f, 0.25f)
-                 .SetLink(gameObject, LinkBehaviour.KillOnDestroy);
+        if (this != null && transform != null && gameObject != null)
+        {
+            transform.DoResetDefault(); // Reset nếu có
+            transform.DOPunchScale(m_Scale * 0.05f, 0.25f)
+                     .SetLink(gameObject, LinkBehaviour.KillOnDestroy)
+                     .OnKill(() =>
+                     {
+                         if (this != null && transform != null)
+                             transform.localScale = m_Scale;
+                     });
+        }
     }
 }
 

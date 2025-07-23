@@ -51,6 +51,8 @@ namespace UnityUtilities
                 return ENUM_Device_Type.Phone;
             }
 #endif
+
+            return ENUM_Device_Type.Phone;
         }
     }
 }

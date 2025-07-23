@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Directory;
-
+using Director;
 
 public static class StaticData
 {
@@ -11,6 +7,14 @@ public static class StaticData
         get
         {
             return RemoteConfigController.GetIntConfig("inter_capping", 75);
+        }
+    }
+
+    public static int InterTimestepRw
+    {
+        get
+        {
+            return RemoteConfigController.GetIntConfig("inter_capping_rw", 75);
         }
     }
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 
-namespace Directory
+namespace Creator
 {
     public class SceneDefaultAnimation : SceneAnimation
     {
@@ -49,9 +49,9 @@ namespace Directory
         {
             if (Application.isPlaying)
             {
-                if (Manager.SceneAnimationDuration > GetDataNullDefault())
+                if (Director.SceneAnimationDuration > GetDataNullDefault())
                 {
-                    m_AnimationDuration = Manager.SceneAnimationDuration;
+                    m_AnimationDuration = Director.SceneAnimationDuration;
                 }
                 else
                 {

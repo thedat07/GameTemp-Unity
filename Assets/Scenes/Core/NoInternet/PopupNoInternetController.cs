@@ -1,8 +1,7 @@
 using UnityEngine;
-using Directory;
-using System.Collections;
+using Creator;
 using System;
-using UniRx;
+using System.Collections;
 
 [Serializable]
 public class CheckInternetData
@@ -42,21 +41,33 @@ public class CheckInternet : IInitializableData<CheckInternetData>, IUpdatable, 
         return true;
     }
 
+    private Coroutine m_InternetCheckCoroutine;
+
     public void CustomUpdate()
     {
-        // Hủy disposable cũ nếu có
-        m_InternetCheckDisposable?.Dispose();
+        // Hủy coroutine cũ nếu có
+        if (m_InternetCheckCoroutine != null)
+        {
+            m_Data.mono.StopCoroutine(m_InternetCheckCoroutine);
+        }
 
-        // Khởi động kiểm tra mạng mỗi 3 giây
-        m_InternetCheckDisposable = Observable.Interval(TimeSpan.FromSeconds(3.0f))
-            .Subscribe(_ =>
+        // Bắt đầu coroutine kiểm tra internet mỗi 3 giây
+        m_InternetCheckCoroutine = m_Data.mono.StartCoroutine(InternetCheckCoroutine());
+    }
+
+    private IEnumerator InternetCheckCoroutine()
+    {
+        var wait = new WaitForSeconds(3f);
+
+        while (true)
+        {
+            if (!IsInternet())
             {
-                if (!IsInternet())
-                {
-                    Manager.ShowNoInternet();
-                }
-            })
-            .AddTo(m_Data.mono); // Tự hủy khi mono bị destroy
+                Creator.Director.ShowNoInternet();
+            }
+
+            yield return wait;
+        }
     }
 
     public void SetNetwork(NetworkReachability network)

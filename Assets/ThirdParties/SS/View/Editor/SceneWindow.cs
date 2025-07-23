@@ -3,7 +3,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-namespace Directory
+namespace Creator
 {
     public class SceneWindow : EditorWindow
     {

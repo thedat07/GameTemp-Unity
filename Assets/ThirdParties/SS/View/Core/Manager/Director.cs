@@ -2,12 +2,11 @@
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.Rendering.Universal;
 using YNL.Utilities.Extensions;
 
-namespace Directory
+namespace Creator
 {
-    public class Manager : ManagerDirector
+    public class Director : ManagerDirector
     {
         protected static string m_LoadingSceneName;
         protected static Controller m_LoadingController;
@@ -61,7 +60,7 @@ namespace Directory
 
         public static bool HasLoading() => m_LoadingController != null;
 
-        static Manager()
+        static Director()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -133,7 +132,7 @@ namespace Directory
                 ActivatePreviousController(controller, false);
             }
             
-            controller.SetDelay(Manager.SceneAnimationDuration, () =>
+            controller.SetDelay(Director.SceneAnimationDuration, () =>
             {
                 controller.OnShown();
                 if (controller.Data != null && controller.Data.onShown != null)
@@ -289,7 +288,7 @@ namespace Directory
         {
             if (HasLoading())
             {
-                Manager.LoadingAnimation(true);
+                Director.LoadingAnimation(true);
                 m_LoadingController.StopAllCoroutines();
                 m_LoadingController.StartCoroutine(LoadYourAsyncScene(sceneName));
             }
@@ -310,7 +309,7 @@ namespace Directory
                 yield return new WaitForEndOfFrame();
             }
 
-            Manager.LoadingAnimation(false);
+            Director.LoadingAnimation(false);
         }
         #endregion
     }

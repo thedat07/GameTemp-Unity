@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Directory;
+using Director;
 using UnityEngine.Events;
 
 /// <summary>
@@ -62,7 +62,7 @@ public class DataMethod
             }
 
             // Phát hiệu ứng nhận thưởng (âm thanh, animation,...)
-            Manager.Object.PlayEffect();
+            Creator.Director.Object.PlayEffect();
         }
 
         // Gọi callback sau khi xử lý xong phần thưởng

@@ -8,6 +8,25 @@ using UniRx;
 
 public static class Helper
 {
+    public static void StopEverythingInScene()
+    {
+        // Stop all coroutines on all active MonoBehaviours
+        MonoBehaviour[] allBehaviours = Object.FindObjectsOfType<MonoBehaviour>();
+        foreach (var behaviour in allBehaviours)
+        {
+            behaviour.StopAllCoroutines();
+        }
+
+        // Kill all active DOTween tweens (also complete them if needed)
+        DOTween.KillAll(); // Pass 'true' if you want to complete tweens before killing
+
+        // Optional: reset time scale if it was changed
+        Time.timeScale = 1f;
+
+        // Optional: clear DOTween memory (pools, etc.)
+        DOTween.Clear();
+    }
+
     public static List<InventoryItem> Convert(List<InventoryItem> data)
     {
         if (data != null)
@@ -40,18 +59,26 @@ public static class Helper
         return Newtonsoft.Json.JsonConvert.SerializeObject(classT);
     }
 
-    public static void SetDelay(this MonoBehaviour gameObject, float timeDelay, UnityAction callBack)
+    public static void SetDelay(this MonoBehaviour monoBehaviour, float timeDelay, UnityAction callBack)
     {
-        Observable.Timer(System.TimeSpan.FromSeconds(timeDelay))
-            .Subscribe(_ => callBack?.Invoke())
-            .AddTo(gameObject); // Tự hủy khi gameObject bị destroy
+        monoBehaviour.StartCoroutine(DelayCoroutine(timeDelay, callBack));
     }
 
-    public static void SetDelayNextFrame(this MonoBehaviour gameObject, UnityAction callBack)
+    public static void SetDelayNextFrame(this MonoBehaviour monoBehaviour, UnityAction callBack)
     {
-        Observable.NextFrame()
-            .Subscribe(_ => callBack?.Invoke())
-            .AddTo(gameObject); // Tự hủy khi gameObject bị destroy
+        monoBehaviour.StartCoroutine(DelayNextFrameCoroutine(callBack));
+    }
+
+    private static IEnumerator DelayCoroutine(float delay, UnityAction callBack)
+    {
+        yield return new WaitForSeconds(delay);
+        callBack?.Invoke();
+    }
+
+    private static IEnumerator DelayNextFrameCoroutine(UnityAction callBack)
+    {
+        yield return new WaitForEndOfFrame();
+        callBack?.Invoke();
     }
 
     public static DG.Tweening.Sequence SetDelay(float delay, UnityAction callBack, GameObject target = null, LinkBehaviour behaviour = LinkBehaviour.KillOnDestroy)

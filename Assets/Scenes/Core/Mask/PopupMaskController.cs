@@ -1,8 +1,7 @@
 
 using UnityEngine;
-using Directory;
+using Creator;
 using UnityEngine.UI;
-using DG.Tweening;
 using Lean.Pool;
 using System.Collections.Generic;
 using TMPro;
@@ -58,8 +57,8 @@ public class PopupMaskController : Controller, IMask
         }
         else
         {
-            m_Cam = Manager.Object.UICamera;
-            Canvas.worldCamera.transform.position = Manager.Object.UICamera.transform.position;
+            m_Cam = Creator.Director.Object.UICamera;
+            Canvas.worldCamera.transform.position = Creator.Director.Object.UICamera.transform.position;
         }
     }
 

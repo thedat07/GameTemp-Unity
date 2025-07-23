@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Directory
+namespace Creator
 {
     public class ManagerDirector : ManagerBase
     {

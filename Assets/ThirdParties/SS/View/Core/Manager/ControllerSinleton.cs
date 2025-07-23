@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DesignPatterns;
 
-namespace Directory
+namespace Creator
 {
     public class SingletonController<T> : Controller where T : Component
     {

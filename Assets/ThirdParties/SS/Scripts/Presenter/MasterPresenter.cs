@@ -1,10 +1,5 @@
-using System;
-using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using Directory;
-using System.Collections;
 
 public class MasterPresenter : MonoBehaviour, IInitializable
 {
@@ -47,8 +42,6 @@ public class MasterPresenter : MonoBehaviour, IInitializable
 
         Log();
 
-        TigerForge.EventManager.EmitEvent(MasterData.Key);
-
         void Log()
         {
             UnityEngine.Console.Log("AddData", string.Format("{0}: {1}", type.ToString(), vaule));
@@ -72,7 +65,6 @@ public class MasterPresenter : MonoBehaviour, IInitializable
                 }
                 break;
         }
-        TigerForge.EventManager.EmitEvent(MasterData.Key);
     }
 
     public void PostMoney(int vaule, string log, UnityAction onSucccess, UnityAction onFail, UnityAction onCompleted)

@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Directory;
+﻿using UnityEngine;
+using Creator;
 
 public class DTopController : Controller
 {
@@ -14,18 +12,18 @@ public class DTopController : Controller
 
     public void OnButtonTap1()
     {
-        Manager.PushScene(DPopupController.SCENE_NAME, new DPopupData("Popup1", true), () =>
-        {
-            Console.Log("Life cycle", "On Show Popup1");
-        }, () =>
-        {
-            Console.Log("Life cycle", "On Hide Popup1");
-        }, false);
+        Creator.Director.PushScene(DPopupController.SCENE_NAME, new DPopupData("Popup1", true), () =>
+         {
+             Console.Log("Life cycle", "On Show Popup1");
+         }, () =>
+         {
+             Console.Log("Life cycle", "On Hide Popup1");
+         }, false);
     }
 
     public void OnButtonTap2()
     {
-        Manager.PushScene(DPopupController.SCENE_NAME, new DPopupData("Popup1", false), () =>
+        Creator.Director.PushScene(DPopupController.SCENE_NAME, new DPopupData("Popup1", false), () =>
         {
             Console.Log("Life cycle", "On Show Popup1");
         }, () =>
@@ -33,7 +31,7 @@ public class DTopController : Controller
             Console.Log("Life cycle", "On Hide Popup1");
         }, true);
 
-        Manager.PushScene(DPopupController.SCENE_NAME, new DPopupData("Popup2", true), () =>
+        Creator.Director.PushScene(DPopupController.SCENE_NAME, new DPopupData("Popup2", true), () =>
         {
             Console.Log("Life cycle", "On Show Popup2");
         }, () =>
@@ -44,7 +42,7 @@ public class DTopController : Controller
 
     public void OnSelectTap()
     {
-        Manager.PushScene(DSelectController.DSELECT_SCENE_NAME);
+        Creator.Director.PushScene(DSelectController.DSELECT_SCENE_NAME);
     }
 
     public override void OnActive(object data)

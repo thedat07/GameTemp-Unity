@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using Gley.EasyIAP;
 using System.Collections.Generic;
+using Gley.EasyIAP.Internal;
 
 public class ButtonGameIAP : ButtonGame
 {
@@ -10,6 +11,7 @@ public class ButtonGameIAP : ButtonGame
     public ShopProductNames yourPorduct;
     public TextMeshProUGUI textPrice;
     public InfoRewardViewRoot infoViewRoot;
+    public UnityEvent OnUpdateView;
 
     [Header("Event")]
     public UnityEvent OnSuccess;
@@ -18,72 +20,37 @@ public class ButtonGameIAP : ButtonGame
 
     protected List<InventoryItem> m_Data;
 
+    [SerializeField] ProductType m_ProductType;
+
+    CanvasGroup m_CanvasGroup;
+
     protected override void StartButton()
     {
+        m_CanvasGroup = GetComponent<CanvasGroup>();
+
         Init();
 
-        Event();
+        UpdateView();
 
         void Init()
         {
             m_Data = Gley.EasyIAP.API.GetValue(yourPorduct);
-            infoViewRoot.Initialize(new InfoRewardData(m_Data));
-            if (textPrice)
-                textPrice.text = Gley.EasyIAP.API.GetPrice(yourPorduct).ToString();
 
-            this.interactable = Gley.EasyIAP.API.IsActive(yourPorduct);
-        }
+            m_ProductType = Gley.EasyIAP.API.GetProductType(yourPorduct);
 
-        void Event()
-        {
-            UpdateView();
-            GetType();
+            InfoRewardData infoReward = new InfoRewardData(m_Data);
 
-            void GetType()
+            infoViewRoot.Initialize(infoReward);
+
+            if (!IAPManager.Instance.IsInitialized())
             {
-                ProductType productType = Gley.EasyIAP.API.GetProductType(yourPorduct);
-                switch (productType)
-                {
-                    case ProductType.Consumable:
-                        //do something for consumable
-                        break;
-
-                    case ProductType.NonConsumable:
-                        TigerForge.EventManager.StartListening(ShopPresenter.Key, UpdateView);
-                        //do something for non-consumable
-                        break;
-
-                    case ProductType.Subscription:
-                        TigerForge.EventManager.StartListening(ShopPresenter.Key, UpdateView);
-                        //do something for subscription
-                        break;
-                }
+                if (textPrice)
+                    textPrice.text = "???";
             }
-        }
-    }
-
-    protected override void DestroyButton()
-    {
-        GetType();
-
-        void GetType()
-        {
-            ProductType productType = Gley.EasyIAP.API.GetProductType(yourPorduct);
-            switch (productType)
+            else
             {
-                case ProductType.Consumable:
-                    //do something for consumable
-                    break;
-
-                case ProductType.NonConsumable:
-                    TigerForge.EventManager.StopListening(ShopPresenter.Key, UpdateView);
-                    //do something for non-consumable
-                    break;
-
-                case ProductType.Subscription:
-                    TigerForge.EventManager.StopListening(ShopPresenter.Key, UpdateView);
-                    //do something for subscription
-                    break;
+                if (textPrice)
+                    textPrice.text = Gley.EasyIAP.API.GetPrice(yourPorduct).ToString();
             }
         }
     }
@@ -95,6 +62,10 @@ public class ButtonGameIAP : ButtonGame
         void OnCompletedIAP()
         {
             OnCompleted?.Invoke();
+            if (m_ProductType == ProductType.NonConsumable || m_ProductType == ProductType.Subscription)
+            {
+                UpdateView();
+            }
         }
 
         void OnSuccessIAP()
@@ -110,7 +81,20 @@ public class ButtonGameIAP : ButtonGame
 
     public virtual void UpdateView()
     {
-        this.interactable = Gley.EasyIAP.API.IsActive(yourPorduct);
+        if (m_ProductType == ProductType.NonConsumable || m_ProductType == ProductType.Subscription)
+        {
+            // if (yourPorduct == ShopProductNames.removeads)
+            // {
+            //     m_CanvasGroup.interactable = !GameManager.Instance.GetAdsData().IsRemoveShowAds;
+            //     m_CanvasGroup.alpha = !GameManager.Instance.GetAdsData().IsRemoveShowAds ? 1 : 0.75f;
+            // }
+            // else
+            // {
+            //     m_CanvasGroup.interactable = !Gley.EasyIAP.API.IsActive(yourPorduct);
+            //     m_CanvasGroup.alpha = !Gley.EasyIAP.API.IsActive(yourPorduct) ? 1 : 0.75f;
+            // }
+        }
+        OnUpdateView?.Invoke();
     }
 }
 

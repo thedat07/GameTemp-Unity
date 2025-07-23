@@ -1,5 +1,5 @@
 using UnityEngine;
-using Directory;
+using Creator;
 
 public class DSelectController : Controller
 {
@@ -12,7 +12,7 @@ public class DSelectController : Controller
 
   public void OnGameButtonTap()
   {
-    Manager.RunScene(DGameController.SCENE_NAME);
+    Creator.Director.RunScene(DGameController.SCENE_NAME);
   }
 
   public override void OnActive(object data = null)

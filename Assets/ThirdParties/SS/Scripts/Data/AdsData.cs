@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityUtilities;
+using UniRx;
 
 public class AdsData
 {
@@ -7,15 +8,24 @@ public class AdsData
     private const string KeyRemoveAds = "keyRemoveAds";
     private const bool DefaultRemoveAds = false;
 
-    public AdsData() { }
+    private readonly ReactiveProperty<bool> _isRemoveAds;
+    public IReadOnlyReactiveProperty<bool> IsRemoveShowAds => _isRemoveAds;
+
+    public AdsData()
+    {
+        // Khởi tạo từ Save hoặc mặc định
+        _isRemoveAds = new ReactiveProperty<bool>(SaveExtensions.GetAds(KeyRemoveAds, DefaultRemoveAds));
+
+        // Tự động lưu khi giá trị thay đổi
+        _isRemoveAds.Subscribe(val => SaveExtensions.PutAds(KeyRemoveAds, val));
+    }
 
     /// <summary>
-    /// GET/PUT: Trạng thái đã mua gỡ quảng cáo
+    /// Gán giá trị thủ công từ code
     /// </summary>
-    public bool IsRemoveShowAds
+    public void SetRemoveAds(bool value)
     {
-        get => SaveExtensions.GetAds(KeyRemoveAds, DefaultRemoveAds);
-        set => SaveExtensions.PutAds(KeyRemoveAds, value);
+        _isRemoveAds.Value = value;
     }
 
     /// <summary>
@@ -31,7 +41,7 @@ public class AdsData
 public class AdsInfoData
 {
     public int adInterAds;
-    
+
     public int adShowedCount
     {
         set => PlayerPrefs.SetInt("AdShowedCount", value);
@@ -44,8 +54,7 @@ public class AdsInfoData
         get => PlayerPrefs.GetInt("AdInterCount", 0);
     }
 
-
-    private float lastAdTime = 0f;
+    private float lastAdTime = -999f; // Khởi tạo ban đầu để chắc chắn ads có thể hiển thị từ đầu
 
     /// <summary>
     /// Kiểm tra xem có thể hiện quảng cáo interstitial không.
@@ -53,11 +62,10 @@ public class AdsInfoData
     public bool CanShowInterstitialAd()
     {
         int currentLevel = GameManager.Instance.GetMasterData().GetData(MasterDataType.Stage);
-        float adInterval = StaticData.InterTimestep;
         int minLevelForAds = StaticData.LevelStartShowingInter;
 
         bool hasReachedMinLevel = currentLevel >= minLevelForAds;
-        bool isAdCooldownOver = Time.time >= lastAdTime + adInterval;
+        bool isAdCooldownOver = Time.time >= lastAdTime;
         bool canAdBeShown = Gley.MobileAds.API.CanShowAds();
 
         return hasReachedMinLevel && isAdCooldownOver && canAdBeShown;
@@ -66,8 +74,10 @@ public class AdsInfoData
     /// <summary>
     /// Cập nhật thời gian hiển thị quảng cáo gần nhất.
     /// </summary>
-    public void UpdateLastAdTime()
+    /// <param name="isRewardedAd">True nếu là reward ad, false nếu là interstitial</param>
+    public void UpdateLastAdTime(bool isRewardedAd)
     {
-        lastAdTime = Time.time;
+        float cooldown = isRewardedAd ? StaticData.InterTimestepRw : StaticData.InterTimestep;
+        lastAdTime = Time.time + cooldown;
     }
 }

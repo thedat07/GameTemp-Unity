@@ -1,15 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using Directory;
 using Gley.EasyIAP;
 
 public class ShopPresenter : MonoBehaviour, IInitializable
 {
-    public const string Key = "ShopPresenter";
-
     public ItemDatabase itemDatabase;
 
     public SoDataRewards soDataRewards;
@@ -30,7 +26,11 @@ public class ShopPresenter : MonoBehaviour, IInitializable
                 // For each non-consumable or subscription you should check if it is already bought.
                 // If a product is active, means it was bought -> grand the access.
                 // If remove ads was bought before, mark it as owned.
-                ShopProductNames[] shopProductNames = new ShopProductNames[] { };
+
+                ShopProductNames[] shopProductNames = new ShopProductNames[] {
+
+                };
+
                 foreach (var item in shopProductNames)
                 {
                     if (API.IsActive(item))
@@ -82,7 +82,6 @@ public class ShopPresenter : MonoBehaviour, IInitializable
             {
                 SetVaule(product.value, "IAP");
                 onSuccess?.Invoke();
-                TigerForge.EventManager.EmitEvent(Key, 0.1f);
             }
 
             void TypeNonConsumable()
@@ -112,7 +111,10 @@ public class ShopPresenter : MonoBehaviour, IInitializable
     {
         if (status == IAPOperationStatus.Success)
         {
-            ShopProductNames[] shopProductNames = new ShopProductNames[] { };
+            ShopProductNames[] shopProductNames = new ShopProductNames[] {
+
+            };
+
             foreach (var item in shopProductNames)
             {
                 ShopProductNames productName = API.ConvertNameToShopProduct(product.productName);
@@ -167,7 +169,6 @@ public class ShopPresenter : MonoBehaviour, IInitializable
         {
             this.SetDelayNextFrame(() =>
             {
-                TigerForge.EventManager.EmitEvent(Key);
                 m_ShieldShop.gameObject.SetActive(false);
             });
         }

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityUtilities;
 
-namespace Directory
+namespace Creator
 {
     public interface IController
     {
@@ -69,11 +69,11 @@ namespace Directory
         [Button]
         public virtual void OnKeyBack()
         {
-            Manager.PopScene();
+            Director.PopScene();
         }
 
 
-        public Manager.Data Data
+        public Director.Data Data
         {
             get;
             set;
@@ -150,7 +150,7 @@ namespace Directory
                 {
                     t.SetParent(m_Canvas.transform);
                     t.SetSiblingIndex(0);
-                    t.SetLocalScale(0, 0, 0);
+                    t.SetLocalScale(1, 1, 1);
                     t.SetLocalPosition(t.localPosition.x, t.localPosition.y, 0);
                 }
             }
@@ -166,7 +166,7 @@ namespace Directory
             if (UseCameraUI)
             {
                 m_Canvas.sortingOrder = sortingOrder;
-                m_Canvas.worldCamera = Manager.Object.UICamera;
+                m_Canvas.worldCamera = Director.Object.UICamera;
             }
 
             GetCanvasScaler().EditCanvasScaler();
