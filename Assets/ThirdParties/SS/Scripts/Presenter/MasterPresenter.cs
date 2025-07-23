@@ -1,13 +1,22 @@
 using UnityEngine;
 using UnityEngine.Events;
+using ExaGames.Common.TimeBasedLifeSystem;
+using NaughtyAttributes;
 
 public class MasterPresenter : MonoBehaviour, IInitializable
 {
     private MasterData m_Data;
 
+    public LivesManager livesManager;
+
     public bool IsTest = false;
-    
+
     public bool IsDebug = false;
+
+    public bool CanPlay() => livesManager.CanPlay;
+
+    [Button]
+    public void ConsumeLife() => livesManager.ConsumeLife();
 
     public string GetText(Gley.Localization.WordIDs wordID) => Gley.Localization.API.GetText(wordID);
 
@@ -64,6 +73,55 @@ public class MasterPresenter : MonoBehaviour, IInitializable
                     m_Data.dataStage.Put(vaule);
                 }
                 break;
+
+            case MasterDataType.Money:
+                {
+                    m_Data.dataMoney.Post(vaule);
+                }
+                break;
+
+            case MasterDataType.Booster1:
+                {
+                    m_Data.dataBooster1.Post(vaule);
+                }
+                break;
+            case MasterDataType.Booster2:
+                {
+                    m_Data.dataBooster2.Post(vaule);
+                }
+                break;
+            case MasterDataType.Booster3:
+                {
+                    m_Data.dataBooster3.Post(vaule);
+                }
+                break;
+            case MasterDataType.Booster4:
+                {
+                    m_Data.dataBooster4.Post(vaule);
+                }
+                break;
+            case MasterDataType.LivesInfinity:
+                {
+                    livesManager.GiveInifinite(vaule);
+                }
+                break;
+            case MasterDataType.Lives:
+                {
+                    if (vaule < 5)
+                    {
+                        for (int i = 0; i < vaule; i++)
+                        {
+                            livesManager.GiveOneLife();
+                        }
+                    }
+
+                    else
+                        livesManager.FillLives();
+                }
+                break;
+            default:
+                break;
+
         }
     }
 
@@ -91,4 +149,15 @@ public class MasterPresenter : MonoBehaviour, IInitializable
 
         onCompleted?.Invoke();
     }
+
+    public void PlayGame()
+    {
+        // if (GameManager.Instance.GetMasterData().dataStage.Get() <= StaticData.GoGamePlay)
+        //     Manager.RunScene(GamePlayController.GAMEPLAY_SCENE_NAME);
+        // else
+        //     Manager.RunScene(HomeController.HOME_SCENE_NAME);
+
+        Creator.Director.RunScene(DGameController.SCENE_NAME);
+    }
+
 }

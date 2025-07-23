@@ -2,7 +2,6 @@ using UnityEngine;
 using Creator;
 using UnityEngine.UI;
 using System.Linq;
-using IngameDebugConsole;
 
 public class PopupToolController : Controller
 {
@@ -125,23 +124,6 @@ public class PopupToolController : Controller
     {
         if (!GameManager.Instance.GetMasterPresenter().IsDebug)
         {
-            DebugLogConsole.AddCommand<Vector3>("cube", "Creates a cube at specified position", CreateCubeAt);
-            DebugLogConsole.AddCommand<string, GameObject>("child", "Creates a new child object under " + name, AddChild);
-
-
-            void CreateCubeAt(Vector3 position)
-            {
-                GameObject.CreatePrimitive(PrimitiveType.Cube).transform.position = GameManager.Instance.transform.position;
-            }
-
-            GameObject AddChild(string name)
-            {
-                GameObject child = new GameObject(name);
-                child.transform.SetParent(GameManager.Instance.transform);
-
-                return child;
-            }
-
             GameManager.Instance.GetMasterPresenter().IsDebug = true;
         }
         //    GameManager.Instance.GetMasterPresenter().SetData((int)System.TimeSpan.FromMinutes(15).TotalSeconds, MasterDataType.LivesInfinity, SceneName());

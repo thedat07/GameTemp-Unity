@@ -49,4 +49,45 @@ public static class StaticData
             return RemoteConfigController.GetIntConfig("remove_ad_first", 10);
         }
     }
+
+    public static bool RwBooster
+    {
+        get
+        {
+            return RemoteConfigController.GetBoolConfig("rw_booster", true);
+        }
+    }
+
+    public static bool RwBoosterHide
+    {
+        get
+        {
+            return RemoteConfigController.GetBoolConfig("rw_booster_hide", true);
+        }
+    }
+
+    public static bool LoseInterAd
+    {
+        get
+        {
+            return RemoteConfigController.GetBoolConfig("lose_interAd", true);
+        }
+    }
+
+    public static int BoosterAvailable
+    {
+        get
+        {
+            return RemoteConfigController.GetIntConfig("booster_available", 3);
+        }
+    }
+
+    public static int AmountRevive
+    {
+        get
+        {
+            return RemoteConfigController.GetIntConfig("amount_revive", 8);
+        }
+    }
+
 }

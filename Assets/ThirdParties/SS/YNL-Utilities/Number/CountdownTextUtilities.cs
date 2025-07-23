@@ -6,6 +6,24 @@ namespace UnityUtilities
 {
     public static class CountdownTextUtilities
     {
+        public static string FormatCountdownLives(TimeSpan time,
+  string formatD, string formatH, string formatM, string formatZero)
+        {
+            string displayText;
+            if (time.TotalSeconds <= 0)
+            {
+                return formatZero;
+            }
+            if (time.TotalDays >= 1)
+                displayText = string.Format(formatD, time.Days, time.Hours);
+            else if (time.TotalHours >= 1)
+                displayText = string.Format(formatH, time.Hours, time.Minutes);
+            else
+                displayText = string.Format(formatM, time.Minutes, time.Seconds);
+
+            return displayText;
+        }
+
         public static bool UpdateCountdownText(this Text target, DateTime timeEnd,
             string formatD = "{0}d {1}h", string formatH = "{0}h {1}m",
             string formatM = "{0}m {1}s", string formatZero = "--:--")
