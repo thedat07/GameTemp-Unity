@@ -111,6 +111,22 @@ This file tracks the versions and integration details of key SDKs used in the Ga
 
 ---
 
+## ✅ Easy IAP v2.0 (In-App Purchase System)
+
+- **Package**: [Easy IAP v2.0 on Unity Asset Store](https://assetstore.unity.com/packages/tools/integration/easy-iap-in-app-purchase-v2-0-264594)
+- **Purpose**: Simplify and unify IAP across platforms (Google Play, iOS)
+- **Features**:
+  - Simple purchase API
+  - Cross-platform support
+  - Receipt validation support
+- **Code References**:
+  - `ShopModelView.cs`
+- **Notes**:
+  - Designed to be plug-and-play
+  - Can extend with custom listeners for analytics or special logic
+
+---
+
 ## 🛠 Unity & Build Info
 
 - **Unity Version**: `2022.3.x LTS`
