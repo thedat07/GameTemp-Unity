@@ -8,15 +8,34 @@ using UniRx;
 
 public static class Helper
 {
-    public static readonly MasterDataType[] ShopAllowedTypes = new[]
+    public static readonly MasterDataType[] ShopTypes = new[]
     {
         MasterDataType.Money,
         MasterDataType.Booster1,
         MasterDataType.Booster2,
         MasterDataType.Booster3,
         MasterDataType.Booster4,
-        MasterDataType.NoAds
+        MasterDataType.NoAds,
+        MasterDataType.Lives,
+        MasterDataType.LivesInfinity
     };
+
+    public static readonly MasterDataType[] ShopQuantityTypes = new[]
+    {
+        MasterDataType.Money,
+        MasterDataType.Booster1,
+        MasterDataType.Booster2,
+        MasterDataType.Booster3,
+        MasterDataType.Booster4,
+        MasterDataType.Lives,
+        MasterDataType.LivesInfinity
+    };
+
+    public static readonly MasterDataType[] ShopQuantityTime = new[]
+    {
+        MasterDataType.LivesInfinity
+    };
+
 
     public static void StopEverythingInScene()
     {

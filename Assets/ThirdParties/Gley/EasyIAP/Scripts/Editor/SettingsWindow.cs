@@ -304,19 +304,34 @@ namespace Gley.EasyIAP.Editor
 
                                 currentType = Enum.IsDefined(typeof(MasterDataType), currentType) ? currentType : MasterDataType.Money;
 
-                                int selectedIndex = Array.IndexOf(Helper.ShopAllowedTypes, currentType);
+                                int selectedIndex = Array.IndexOf(Helper.ShopTypes, currentType);
                                 if (selectedIndex < 0) selectedIndex = 0;
 
-                                string[] displayedOptions = Helper.ShopAllowedTypes.Select(t => t.ToString()).ToArray();
+                                string[] displayedOptions = Helper.ShopTypes.Select(t => t.ToString()).ToArray();
                                 selectedIndex = EditorGUILayout.Popup(j + ": Reward Type:", selectedIndex, displayedOptions);
 
-                                var curType = Helper.ShopAllowedTypes[selectedIndex];
+                                var curType = Helper.ShopTypes[selectedIndex];
                                 item.SetDataType(curType);
 
-                                if (curType != MasterDataType.NoAds)
+                                if (Helper.ShopQuantityTypes.Any(x => x == curType))
                                 {
-                                    var curQuantity = EditorGUILayout.IntField("Reward Value:", item.GetQuantity());
-                                    item.SetQuantity(curQuantity);
+                                    if (Helper.ShopQuantityTime.Any(x => x == curType))
+                                    {
+                                        var curQuantity = EditorGUILayout.IntField("Reward Time (Minute):", item.GetQuantity());
+                                        item.SetQuantity(curQuantity);
+                                    }
+                                    else
+                                    {
+                                        var curQuantity = EditorGUILayout.IntField("Reward Value:", item.GetQuantity());
+                                        item.SetQuantity(curQuantity);
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.GetQuantity() != 0)
+                                    {
+                                        item.SetQuantity(0);
+                                    }
                                 }
 
                                 if (GUILayout.Button("Remove", GUILayout.Width(100)))
