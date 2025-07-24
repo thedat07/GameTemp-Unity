@@ -79,5 +79,3 @@ Danh sách các package cài đặt qua Git URL hoặc Unity Asset Store đượ
 - **Notes**:
   - Setup required via `Tools → Demigiant → DOTween Utility Panel`
   - Highly optimized and used for animation sequences in UI and gameplay
-
----
