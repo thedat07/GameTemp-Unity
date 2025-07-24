@@ -6,7 +6,7 @@ This file tracks the versions and integration details of key SDKs used in the Ga
 
 ## ✅ AppLovin MAX SDK
 
-- **Version**: `11.11.3`
+- **Version**: `8.2.0`
 - **Integration Tool**: AppLovin Integration Manager
 - **Features**:
   - Interstitial Ads
@@ -25,8 +25,8 @@ This file tracks the versions and integration details of key SDKs used in the Ga
 ## ✅ Firebase SDK
 
 - **Version**:
-  - Firebase Core: `11.6.0`
-  - Firebase Analytics: `11.6.0`
+  - Firebase Core: `12.5.0`
+  - Firebase Analytics: `12.5.0`
 - **Integration**: `.unitypackage`
 - **Features**:
   - Analytics tracking (`LogEvent`)
@@ -40,7 +40,7 @@ This file tracks the versions and integration details of key SDKs used in the Ga
 
 ## ✅ Appsflyer SDK
 
-- **Version**: `6.12.0`
+- **Version**: `6.15.2`
 - **Integration**: Manual import
 - **Features**:
   - Attribution Tracking
@@ -55,7 +55,7 @@ This file tracks the versions and integration details of key SDKs used in the Ga
 
 ## ✅ Facebook SDK
 
-- **Version**: `11.0.0`
+- **Version**: `17.0.0`
 - **Integration**: Unity `.unitypackage`
 - **Features**:
   - App Activation Tracking
@@ -70,7 +70,7 @@ This file tracks the versions and integration details of key SDKs used in the Ga
 
 ## ✅ DOTween (Tweening Library)
 
-- **Version**: `1.2.920` (hoặc mới nhất)
+- **Version**: `1.2.765` (hoặc mới nhất)
 - **Asset Store**: [DOTween on Unity Asset Store](https://assetstore.unity.com/publishers/19336)
 - **Features**:
   - Tweening animations for transforms, UI, sequences
@@ -84,7 +84,7 @@ This file tracks the versions and integration details of key SDKs used in the Ga
 
 ## ✅ UniRx (Reactive Extensions for Unity)
 
-- **Version**: `7.1.0` (hoặc latest từ GitHub)
+- **Version**: `6.2.2` (hoặc latest từ GitHub)
 - **Source**: [https://github.com/neuecc/UniRx](https://github.com/neuecc/UniRx)
 - **Features**:
   - Reactive programming model (`ReactiveProperty`, `Subject`, `Observable.Timer`)
