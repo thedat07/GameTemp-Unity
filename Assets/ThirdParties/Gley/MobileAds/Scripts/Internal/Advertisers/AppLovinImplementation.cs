@@ -29,8 +29,8 @@ namespace Gley.MobileAds.Internal
         private bool initialized;
         private bool rewardedVideoCompleted;
 
-        string placementInter => GameManager.Instance.GetAdsPresenter().placementInter;
-        string placementReward => GameManager.Instance.GetAdsPresenter().placementReward;
+        string placementInter => GameManager.Instance.GetAdsModelView().placementInter;
+        string placementReward => GameManager.Instance.GetAdsModelView().placementReward;
 
         #region Initialize
         #region InterfaceImplementation
@@ -976,7 +976,7 @@ namespace Gley.MobileAds.Internal
 
         private void LogAdCountEvent(MaxSdkBase.AdInfo impressionData)
         {
-            var count = GameManager.Instance.GetAdsPresenter().UpdateAdShowedCount();
+            var count = GameManager.Instance.GetAdsModelView().UpdateAdShowedCount();
 
             var listCountAvailable = new List<int> { 3, 5, 7, 10, 12, 15, 20, 25, 30 };
 
@@ -1005,7 +1005,7 @@ namespace Gley.MobileAds.Internal
 
         private void LogAdCampaignInter()
         {
-            var count = GameManager.Instance.GetAdsPresenter().UpdateAdInterCount();
+            var count = GameManager.Instance.GetAdsModelView().UpdateAdInterCount();
 
             var listCountAvailableForEvent = new List<int> { 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70 };
 
@@ -1021,7 +1021,7 @@ namespace Gley.MobileAds.Internal
 
         private void LogAdCampaignVideo()
         {
-            var count = GameManager.Instance.GetAdsPresenter().UpdateAdShowedCount();
+            var count = GameManager.Instance.GetAdsModelView().UpdateAdShowedCount();
 
             var listCountAvailableForEvent = new List<int> { 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70 };
 

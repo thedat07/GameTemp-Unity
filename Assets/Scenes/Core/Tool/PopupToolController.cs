@@ -34,10 +34,10 @@ public class PopupToolController : Controller
     {
 
 #if UNITY_EDITOR
-        GameManager.Instance.GetMasterPresenter().IsTest = true;
+        GameManager.Instance.GetMasterModelView().IsTest = true;
 #endif
 
-        if (GameManager.Instance.GetMasterPresenter().IsTest)
+        if (GameManager.Instance.GetMasterModelView().IsTest)
         {
             pass.SetActive(false);
             content.SetActive(true);
@@ -71,13 +71,13 @@ public class PopupToolController : Controller
         {
             pass.SetActive(false);
             content.SetActive(true);
-            GameManager.Instance.GetMasterPresenter().IsTest = true;
+            GameManager.Instance.GetMasterModelView().IsTest = true;
         }
     }
 
     public void AddMoney()
     {
-        GameManager.Instance.GetMasterPresenter().Post(999999, MasterDataType.Money, SceneName());
+        GameManager.Instance.GetMasterModelView().Post(999999, MasterDataType.Money, SceneName());
     }
 
     public void AddStar()
@@ -87,7 +87,7 @@ public class PopupToolController : Controller
 
     public void NextLevel()
     {
-        GameManager.Instance.GetMasterPresenter().Post(1, MasterDataType.Stage);
+        GameManager.Instance.GetMasterModelView().Post(1, MasterDataType.Stage);
         //
     }
 
@@ -98,7 +98,7 @@ public class PopupToolController : Controller
             int number;
             if (int.TryParse(inputField.text, out number))
             {
-                GameManager.Instance.GetMasterPresenter().Put(int.Parse(inputField.text), MasterDataType.Stage);
+                GameManager.Instance.GetMasterModelView().Put(int.Parse(inputField.text), MasterDataType.Stage);
                 //  SS.View.Manager.RunScene(GamePlayController.GAMEPLAY_SCENE_NAME);
             }
         }
@@ -106,27 +106,27 @@ public class PopupToolController : Controller
 
     public void ShowAds()
     {
-        GameManager.Instance.GetAdsPresenter().ShowMediationDebugger();
+        GameManager.Instance.GetAdsModelView().ShowMediationDebugger();
     }
 
     public void RemoveAds()
     {
-        GameManager.Instance.GetAdsPresenter().OnRemoveAds();
+        GameManager.Instance.GetAdsModelView().OnRemoveAds();
     }
 
 
     public void AddTimeInfinity()
     {
-        //    GameManager.Instance.GetMasterPresenter().SetData((int)System.TimeSpan.FromMinutes(15).TotalSeconds, MasterDataType.LivesInfinity, SceneName());
+        //    GameManager.Instance.GetMasterModelView().SetData((int)System.TimeSpan.FromMinutes(15).TotalSeconds, MasterDataType.LivesInfinity, SceneName());
     }
 
     public void AddDebug()
     {
-        if (!GameManager.Instance.GetMasterPresenter().IsDebug)
+        if (!GameManager.Instance.GetMasterModelView().IsDebug)
         {
-            GameManager.Instance.GetMasterPresenter().IsDebug = true;
+            GameManager.Instance.GetMasterModelView().IsDebug = true;
         }
-        //    GameManager.Instance.GetMasterPresenter().SetData((int)System.TimeSpan.FromMinutes(15).TotalSeconds, MasterDataType.LivesInfinity, SceneName());
+        //    GameManager.Instance.GetMasterModelView().SetData((int)System.TimeSpan.FromMinutes(15).TotalSeconds, MasterDataType.LivesInfinity, SceneName());
     }
 
     public void BtnHideUI()
