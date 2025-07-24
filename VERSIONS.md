@@ -14,8 +14,8 @@ This file tracks the versions and integration details of key SDKs used in the Ga
   - Banner Ads
   - Ad Revenue Tracking (`OnAdRevenuePaidEvent`)
 - **Code References**:
-  - `AdsManager.cs`
-  - `AdRevenueManager.cs`
+  - `AdsModelView.cs`
+  - `AdsModel.cs`
 - **Notes**:
   - Auto-load on close is supported
   - `MaxSdk.SetUserId` used for user tracking
@@ -31,7 +31,7 @@ This file tracks the versions and integration details of key SDKs used in the Ga
 - **Features**:
   - Analytics tracking (`LogEvent`)
 - **Code References**:
-  - `FirebaseEvent.cs`
+  - `FirebaseEvent.cs`, `FirebaseController.cs`
 - **Notes**:
   - Uses wrapper class for easier extension
   - Consider enabling Crashlytics if needed
@@ -46,7 +46,7 @@ This file tracks the versions and integration details of key SDKs used in the Ga
   - Attribution Tracking
   - Conversion Data Handling
 - **Code References**:
-  - `AppsflyerManager.cs`
+  - `AppsFlyerObjectScript.cs`
 - **Notes**:
   - `devKey` and `appId` are configured at runtime
   - Handles `OnConversionDataSuccess` and `OnAppOpenAttribution`
@@ -61,10 +61,53 @@ This file tracks the versions and integration details of key SDKs used in the Ga
   - App Activation Tracking
   - Analytics Events (`LogAppEvent`)
 - **Code References**:
-  - `FacebookManager.cs`
+  - `FacebookController.cs`
 - **Notes**:
   - Facebook SDK is initialized and activated on app start
   - Facebook Login is not currently used, but can be added
+
+---
+
+## ✅ DOTween (Tweening Library)
+
+- **Version**: `1.2.920` (hoặc mới nhất)
+- **Asset Store**: [DOTween on Unity Asset Store](https://assetstore.unity.com/publishers/19336)
+- **Features**:
+  - Tweening animations for transforms, UI, sequences
+- **Code References**:
+  - `DOFade`, `DOMove`, `DOScale`, etc.
+- **Notes**:
+  - Setup required via `Tools → Demigiant → DOTween Utility Panel`
+  - Highly optimized and used for animation sequences in UI and gameplay
+
+---
+
+## ✅ UniRx (Reactive Extensions for Unity)
+
+- **Version**: `7.1.0` (hoặc latest từ GitHub)
+- **Source**: [https://github.com/neuecc/UniRx](https://github.com/neuecc/UniRx)
+- **Features**:
+  - Reactive programming model (`ReactiveProperty`, `Subject`, `Observable.Timer`)
+  - Clean separation of logic and UI
+- **Notes**:
+  - Makes async state and event management cleaner
+  - Lightweight and no dependencies
+
+---
+
+## ✅ Mobile Ads v2.0 (Integration Layer)
+
+- **Package**: [Mobile Ads v2.0 - Unity Asset Store](https://assetstore.unity.com/packages/tools/integration/mobile-ads-v2-0-266331)
+- **Purpose**:
+  - Acts as a wrapper layer for multiple ad networks (Applovin, Unity Ads, AdMob...)
+- **Features**:
+  - Unified AdsManager
+  - Pre-built reward/interstitial/banner logic
+- **Code References**:
+  - `AdsModelView.cs`
+- **Notes**:
+  - Makes integration modular and swappable
+  - Includes Ad Revenue forwarding and analytics integration hooks
 
 ---
 
@@ -80,7 +123,9 @@ This file tracks the versions and integration details of key SDKs used in the Ga
 ## 📌 Update Tips
 
 - AppLovin MAX SDK: check [latest releases](https://dash.applovin.com/documentation/mediation/unity/getting-started/integration#step-1)
-- Firebase: use Unity SDK updater or download new `.unitypackage`
-- Appsflyer: refer to [official Appsflyer Unity GitHub](https://github.com/AppsFlyerSDK/AppsFlyerUnityPlugin)
-- Facebook: use Unity Package or manual `.unitypackage` from Meta
+- Firebase: use Unity SDK updater or download `.unitypackage`
+- Appsflyer: check [AppsFlyer Unity GitHub](https://github.com/AppsFlyerSDK/AppsFlyerUnityPlugin)
+- Facebook: use Unity Package Manager or official `.unitypackage`
+- DOTween: update via Asset Store or GitHub (Demigiant)
+- UniRx: recommend GitHub latest commit if not from UPM
 
