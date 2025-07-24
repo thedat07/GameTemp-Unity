@@ -29,7 +29,7 @@ MonoBehaviour:
     idIOS: 
     idMac: 
     idWindows: 
-    value: 10
+    value: []
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
@@ -41,7 +41,7 @@ MonoBehaviour:
     idIOS: 
     idMac: 
     idWindows: 
-    value: 0
+    value: []
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 

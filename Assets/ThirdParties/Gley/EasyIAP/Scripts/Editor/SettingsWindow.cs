@@ -7,6 +7,7 @@ using Gley.EasyIAP.Internal;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -269,7 +270,7 @@ namespace Gley.EasyIAP.Editor
                         if (localShopProducts[i].value != null)
                         {
                             int itemCount = localShopProducts[i].value.Count;
-                            int maxVisibleItems = 3;
+                            int maxVisibleItems = itemCount <= 3 ? itemCount : 3;
                             float itemHeight = 70f;
                             float scrollViewHeight = itemHeight * maxVisibleItems;
 
@@ -302,11 +303,21 @@ namespace Gley.EasyIAP.Editor
                                 }
 
                                 currentType = Enum.IsDefined(typeof(MasterDataType), currentType) ? currentType : MasterDataType.Money;
-                                var curType = (MasterDataType)EditorGUILayout.EnumPopup("Reward Type:", currentType);
-                                var curQuantity = EditorGUILayout.IntField("Reward Value:", item.GetQuantity());
 
+                                int selectedIndex = Array.IndexOf(Helper.ShopAllowedTypes, currentType);
+                                if (selectedIndex < 0) selectedIndex = 0;
+
+                                string[] displayedOptions = Helper.ShopAllowedTypes.Select(t => t.ToString()).ToArray();
+                                selectedIndex = EditorGUILayout.Popup(j + ": Reward Type:", selectedIndex, displayedOptions);
+
+                                var curType = Helper.ShopAllowedTypes[selectedIndex];
                                 item.SetDataType(curType);
-                                item.SetQuantity(curQuantity);
+
+                                if (curType != MasterDataType.NoAds)
+                                {
+                                    var curQuantity = EditorGUILayout.IntField("Reward Value:", item.GetQuantity());
+                                    item.SetQuantity(curQuantity);
+                                }
 
                                 if (GUILayout.Button("Remove", GUILayout.Width(100)))
                                 {
@@ -351,7 +362,7 @@ namespace Gley.EasyIAP.Editor
                         }
 
                         // Remove product
-                        if (GUILayout.Button("Remove Product"))
+                        if (GUILayout.Button("Remove Product", GUILayout.Width(120)))
                         {
                             localShopProducts.RemoveAt(i);
                             productFoldouts.RemoveAt(i);

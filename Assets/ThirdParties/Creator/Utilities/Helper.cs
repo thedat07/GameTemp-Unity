@@ -8,6 +8,16 @@ using UniRx;
 
 public static class Helper
 {
+    public static readonly MasterDataType[] ShopAllowedTypes = new[]
+    {
+        MasterDataType.Money,
+        MasterDataType.Booster1,
+        MasterDataType.Booster2,
+        MasterDataType.Booster3,
+        MasterDataType.Booster4,
+        MasterDataType.NoAds
+    };
+
     public static void StopEverythingInScene()
     {
         // Stop all coroutines on all active MonoBehaviours
