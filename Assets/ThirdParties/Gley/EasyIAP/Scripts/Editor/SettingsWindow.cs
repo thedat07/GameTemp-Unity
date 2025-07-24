@@ -257,8 +257,34 @@ namespace Gley.EasyIAP.Editor
                         localShopProducts[i].productName = localShopProducts[i].productName.Replace(" ", "").Trim();
                         localShopProducts[i].productType = (ProductType)EditorGUILayout.EnumPopup("Product Type:", localShopProducts[i].productType);
 
+                        // Platform-specific IDs
+                        if (useForGooglePlay)
+                        {
+                            localShopProducts[i].idGooglePlay = EditorGUILayout.TextField("Google Play ID:", localShopProducts[i].idGooglePlay);
+                        }
+
+                        if (useForAmazon)
+                        {
+                            localShopProducts[i].idAmazon = EditorGUILayout.TextField("Amazon SKU:", localShopProducts[i].idAmazon);
+                        }
+
+                        if (useForIos)
+                        {
+                            localShopProducts[i].idIOS = EditorGUILayout.TextField("App Store (iOS) ID:", localShopProducts[i].idIOS);
+                        }
+
+                        if (useForMac)
+                        {
+                            localShopProducts[i].idMac = EditorGUILayout.TextField("Mac Store ID:", localShopProducts[i].idMac);
+                        }
+
+                        if (useForWindows)
+                        {
+                            localShopProducts[i].idWindows = EditorGUILayout.TextField("Windows Store ID:", localShopProducts[i].idWindows);
+                        }
+
                         // Add new InventoryItem
-                        if (GUILayout.Button("Add", GUILayout.Width(100)))
+                        if (GUILayout.Button("Add Reward", GUILayout.Width(120)))
                         {
                             if (localShopProducts[i].value == null)
                                 localShopProducts[i].value = new List<InventoryItem>();
@@ -348,32 +374,6 @@ namespace Gley.EasyIAP.Editor
                             {
                                 localShopProducts[i].value.RemoveAt(removeIndex);
                             }
-                        }
-
-                        // Platform-specific IDs
-                        if (useForGooglePlay)
-                        {
-                            localShopProducts[i].idGooglePlay = EditorGUILayout.TextField("Google Play ID:", localShopProducts[i].idGooglePlay);
-                        }
-
-                        if (useForAmazon)
-                        {
-                            localShopProducts[i].idAmazon = EditorGUILayout.TextField("Amazon SKU:", localShopProducts[i].idAmazon);
-                        }
-
-                        if (useForIos)
-                        {
-                            localShopProducts[i].idIOS = EditorGUILayout.TextField("App Store (iOS) ID:", localShopProducts[i].idIOS);
-                        }
-
-                        if (useForMac)
-                        {
-                            localShopProducts[i].idMac = EditorGUILayout.TextField("Mac Store ID:", localShopProducts[i].idMac);
-                        }
-
-                        if (useForWindows)
-                        {
-                            localShopProducts[i].idWindows = EditorGUILayout.TextField("Windows Store ID:", localShopProducts[i].idWindows);
                         }
 
                         // Remove product
