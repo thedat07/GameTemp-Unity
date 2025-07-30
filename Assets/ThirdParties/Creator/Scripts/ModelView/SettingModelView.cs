@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using Solo.MOST_IN_ONE;
 using UnityEngine;
 using DG.Tweening;
 using Lean.Pool;
@@ -12,16 +12,6 @@ public class SettingModelView : MonoBehaviour, IInitializable
     public LeanGameObjectPool audioMusic;
     public LeanGameObjectPool audioSound;
 
-    // [Header("Colors")]
-    // public Color normalColor = Color.white;
-    // public Color highlightedColor = new Color(0.9f, 0.9f, 0.9f);
-    // public Color pressedColor = new Color(0.8f, 0.8f, 0.8f);
-    // public Color selectedColor = Color.white;
-    // public Color disabledColor = new Color(0.6f, 0.6f, 0.6f);
-
-    // [Header("Transition Settings")]
-    // public float colorMultiplier = 1f;
-    // public float fadeDuration = 0.1f;
 
     [Header("Click")]
     public AudioClip audioClick;
@@ -133,28 +123,10 @@ public class SettingModelView : MonoBehaviour, IInitializable
         }
     }
 
-    public void TapPopVibrate()
+    public void TapSelectionHaptic()
     {
-        //         if (!m_SettingData.Vibration) return;
-        // #if UNITY_ANDROID
-        //         Vibration.VibratePop();
-        // #endif
-
-        // #if UNITY_IOS
-        //         Vibration.VibrateIOS(ImpactFeedbackStyle.Light);
-        // #endif
-    }
-
-    public void TapPeekVibrate()
-    {
-        //         if (!m_SettingData.Vibration) return;
-        // #if UNITY_ANDROID
-        //         Vibration.VibratePeek();
-        // #endif
-
-        // #if UNITY_IOS
-        //         Vibration.VibrateIOS(ImpactFeedbackStyle.Medium);
-        // #endif
+        if (!m_SettingData.Vibration.Value) return;
+        Most_HapticFeedback.Generate(Most_HapticFeedback.HapticTypes.LightImpact);
     }
 }
 

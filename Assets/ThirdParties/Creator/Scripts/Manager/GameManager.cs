@@ -50,7 +50,7 @@ public class GameManager : SingletonPersistent<GameManager>
         m_ShopModelView.Initialize();
     }
 
-    public SettingModelView GetSettingPresenter() => m_SettingModelView;
+    public SettingModelView GetSettingModelView() => m_SettingModelView;
     public MasterModelView GetMasterModelView() => m_MasterModelView;
     public StageModelView GetStageModelView() => m_StageModelView;
     public QuestModelView GetQuestModelView() => m_QuestModelView;

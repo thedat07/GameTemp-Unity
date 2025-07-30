@@ -30,7 +30,7 @@ public class MainGameController : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        GameManager.Instance.GetSettingPresenter().PlayMusic();
+        GameManager.Instance.GetSettingModelView().PlayMusic();
 
         yield return new WaitForEndOfFrame();
 

@@ -15,7 +15,7 @@ public class ButtonSound : ButtonGame
 
     protected override void OnClickEvent()
     {
-        GameManager.Instance.GetSettingPresenter().ToggleSound();
+        GameManager.Instance.GetSettingModelView().ToggleSound();
         UpdateView();
     }
 

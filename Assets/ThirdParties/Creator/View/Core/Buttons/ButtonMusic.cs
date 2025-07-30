@@ -15,7 +15,7 @@ public class ButtonMusic : ButtonGame
 
     protected override void OnClickEvent()
     {
-        GameManager.Instance.GetSettingPresenter().ToggleMusic();
+        GameManager.Instance.GetSettingModelView().ToggleMusic();
         UpdateView();
     }
 

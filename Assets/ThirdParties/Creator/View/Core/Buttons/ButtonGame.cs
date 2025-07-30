@@ -10,13 +10,16 @@ public class ButtonGame : ButtonBase
     [Header("Audio")]
     public bool activeEffect = true;
 
+    [Header("Haptic")]
+    public bool activeHaptic = true;
+
     /// <summary>
     /// Phát âm thanh khi nhấn nút.
     /// </summary>
     protected override void PlayAudio()
     {
         GameManager.Instance
-                   .GetSettingPresenter()
+                   .GetSettingModelView()
                    .PlaySound(typeAudio);
     }
 
@@ -38,6 +41,10 @@ public class ButtonGame : ButtonBase
                              transform.localScale = m_Scale;
                      });
         }
+
+        if (!activeHaptic) return;
+
+        GameManager.Instance.GetSettingModelView().TapSelectionHaptic();
     }
 }
 
@@ -55,9 +62,11 @@ namespace Lean.Gui.Editor
         {
             base.DrawSelectableSettings();
 
-            Draw("typeAudio", "Loại âm thanh phát khi nhấn nút.k");
+            Draw("typeAudio", "Loại âm thanh phát khi nhấn nút.");
 
             Draw("activeEffect", "Bật/tắt hiệu ứng scale khi click.");
+
+            Draw("activeHaptic", "Bật/tắt rung.");
         }
     }
 }

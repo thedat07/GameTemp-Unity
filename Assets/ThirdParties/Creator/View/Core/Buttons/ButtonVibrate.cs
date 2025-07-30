@@ -15,7 +15,7 @@ public class ButtonVibrate : ButtonGame
 
     protected override void OnClickEvent()
     {
-        GameManager.Instance.GetSettingPresenter().ToggleVibration();
+        GameManager.Instance.GetSettingModelView().ToggleVibration();
         UpdateView();
     }
 
