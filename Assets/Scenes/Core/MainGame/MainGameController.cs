@@ -20,7 +20,7 @@ public class MainGameController : MonoBehaviour
 
     IEnumerator Start()
     {
-        Creator.Director.SceneAnimationDuration = 0.15f;
+        Creator.Director.SceneAnimationDuration = 0.1f;
 
         Creator.Director.LoadingSceneName = PopupLoadingController.SCENE_NAME;
 

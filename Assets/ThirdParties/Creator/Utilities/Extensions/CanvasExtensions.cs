@@ -103,7 +103,6 @@ namespace UnityUtilities
 
         public static void EnableInteractable(this CanvasGroup canvasGroup, bool enableInteractable)
         {
-            canvasGroup.interactable = enableInteractable;
             canvasGroup.blocksRaycasts = enableInteractable;
         }
     }

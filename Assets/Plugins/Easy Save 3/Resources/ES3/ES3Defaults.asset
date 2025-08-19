@@ -47,6 +47,7 @@ MonoBehaviour:
     - MaxSdk.Scripts
     - NaughtyAttributes.Core
     - NaughtyAttributes.Test
+    - ParticleImage
     - Purchasing.Common
     - spine-unity
     - Tests

@@ -522,7 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Controller: {fileID: 1387960}
   shield: {fileID: 0}
-  m_AnimationType: 2
+  m_AnimationType: 7
   m_ShowEaseType: 27
   m_HideEaseType: 26
 --- !u!225 &1284827506
@@ -730,6 +730,7 @@ MonoBehaviour:
       m_Calls: []
   typeAudio: -1
   activeEffect: 1
+  activeHaptic: 1
 --- !u!1 &1569419518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,6 +1082,7 @@ MonoBehaviour:
       m_Calls: []
   typeAudio: -1
   activeEffect: 1
+  activeHaptic: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
