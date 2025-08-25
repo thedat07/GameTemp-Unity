@@ -210,15 +210,6 @@
       "dependencies": {},
       "url": "https://unity.packages.applovin.com"
     },
-    "com.applovin.mediation.ads": {
-      "version": "8.2.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.google.external-dependency-manager": "1.2.182"
-      },
-      "url": "https://unity.packages.applovin.com"
-    },
     "com.brunomikoski.animationsequencer": {
       "version": "https://github.com/brunomikoski/Animation-Sequencer.git",
       "depth": 0,
@@ -241,13 +232,6 @@
       "source": "git",
       "dependencies": {},
       "hash": "abce380167a02eff74cfeb1b64a33e31efa1441e"
-    },
-    "com.google.external-dependency-manager": {
-      "version": "1.2.182",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://package.openupm.com"
     },
     "com.unity.2d.animation": {
       "version": "9.1.1",
