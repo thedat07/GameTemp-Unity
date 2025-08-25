@@ -308,8 +308,6 @@ namespace Creator
             {
                 yield return new WaitForEndOfFrame();
             }
-
-            Director.LoadingAnimation(false);
         }
         #endregion
     }
