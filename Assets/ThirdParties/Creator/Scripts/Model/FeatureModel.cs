@@ -13,9 +13,14 @@ public enum TypeFeature
 
 public class FeatureModel
 {
+    public FeaturePiggyBank featurePiggyBank;
+
+    public FeatureLukySpin featureLukySpin;
+
     private void Init()
     {
-
+        featurePiggyBank = new FeaturePiggyBank(TypeFeature.PiggyBank, 4);
+        featureLukySpin = new FeatureLukySpin(TypeFeature.LuckySpin, 11);
     }
 
     public FeatureModel()

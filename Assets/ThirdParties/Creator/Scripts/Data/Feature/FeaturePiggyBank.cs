@@ -1,7 +1,7 @@
 using System;
 using UnityUtilities;
 
-public class FeaturePiggyBankcs : FeatureData
+public class FeaturePiggyBank : FeatureData
 {
     [System.Serializable]
     public class PiggyBankData
@@ -11,13 +11,13 @@ public class FeaturePiggyBankcs : FeatureData
         public string fullTimeStamp;  // thời gian đạt full (string lưu DateTime)
     }
 
-    private int expPerWin = 100;
-    private int maxExp = 1000;
-    private int countdownHours = 48;
+    private int m_ExpPerWin = 100;
+    private int m_MaxExp = 1000;
+    private int m_CountdownHours = 48;
 
-    private PiggyBankData piggyData;
+    private PiggyBankData m_PiggyData;
 
-    public FeaturePiggyBankcs(TypeFeature type, int levelUnlock = 0) : base(type, levelUnlock)
+    public FeaturePiggyBank(TypeFeature type, int levelUnlock = 0) : base(type, levelUnlock)
     {
         LoadData();
         CheckExpire();
@@ -26,14 +26,14 @@ public class FeaturePiggyBankcs : FeatureData
     // Cộng exp khi win level
     public void AddExpOnWin()
     {
-        if (piggyData.isFull) return; // đang full thì không cộng thêm
+        if (m_PiggyData.isFull) return; // đang full thì không cộng thêm
 
-        piggyData.exp += expPerWin;
-        if (piggyData.exp >= maxExp)
+        m_PiggyData.exp += m_ExpPerWin;
+        if (m_PiggyData.exp >= m_MaxExp)
         {
-            piggyData.exp = maxExp;
-            piggyData.isFull = true;
-            piggyData.fullTimeStamp = NetworkTime.GetDateTimeUtc().ToString("O"); // ISO 8601
+            m_PiggyData.exp = m_MaxExp;
+            m_PiggyData.isFull = true;
+            m_PiggyData.fullTimeStamp = NetworkTime.GetDateTimeUtc().ToString("O"); // ISO 8601
         }
         SaveData();
     }
@@ -43,7 +43,7 @@ public class FeaturePiggyBankcs : FeatureData
     {
         CheckExpire();
 
-        if (!piggyData.isFull) return false; // chưa full thì không mua được
+        if (!m_PiggyData.isFull) return false; // chưa full thì không mua được
 
         ResetPiggy();
         return true;
@@ -52,10 +52,10 @@ public class FeaturePiggyBankcs : FeatureData
     // Kiểm tra hết hạn
     private void CheckExpire()
     {
-        if (piggyData.isFull && !string.IsNullOrEmpty(piggyData.fullTimeStamp))
+        if (m_PiggyData.isFull && !string.IsNullOrEmpty(m_PiggyData.fullTimeStamp))
         {
-            DateTime fullTime = DateTime.Parse(piggyData.fullTimeStamp);
-            DateTime expireTime = fullTime.AddHours(countdownHours);
+            DateTime fullTime = DateTime.Parse(m_PiggyData.fullTimeStamp);
+            DateTime expireTime = fullTime.AddHours(m_CountdownHours);
 
             if (DateTime.Now >= expireTime)
             {
@@ -67,11 +67,11 @@ public class FeaturePiggyBankcs : FeatureData
     // Lấy thời gian còn lại để mua
     public TimeSpan GetRemainingTime()
     {
-        if (!piggyData.isFull || string.IsNullOrEmpty(piggyData.fullTimeStamp))
+        if (!m_PiggyData.isFull || string.IsNullOrEmpty(m_PiggyData.fullTimeStamp))
             return TimeSpan.Zero;
 
-        DateTime fullTime = DateTime.Parse(piggyData.fullTimeStamp);
-        DateTime expireTime = fullTime.AddHours(countdownHours);
+        DateTime fullTime = DateTime.Parse(m_PiggyData.fullTimeStamp);
+        DateTime expireTime = fullTime.AddHours(m_CountdownHours);
 
         TimeSpan remain = expireTime - DateTime.Now;
         return remain.TotalSeconds > 0 ? remain : TimeSpan.Zero;
@@ -80,29 +80,29 @@ public class FeaturePiggyBankcs : FeatureData
     // Reset Piggy về 0
     private void ResetPiggy()
     {
-        piggyData.exp = 0;
-        piggyData.isFull = false;
-        piggyData.fullTimeStamp = "";
+        m_PiggyData.exp = 0;
+        m_PiggyData.isFull = false;
+        m_PiggyData.fullTimeStamp = "";
         SaveData();
     }
 
     // Get Exp hiện tại
-    public int GetCurrentExp() => piggyData.exp;
+    public int GetCurrentExp() => m_PiggyData.exp;
 
     // Get Max Exp
-    public int GetMaxExp() => maxExp;
+    public int GetMaxExp() => m_MaxExp;
 
     // Kiểm tra đã full chưa
-    public bool IsFull() => piggyData.isFull;
+    public bool IsFull() => m_PiggyData.isFull;
 
     // Data save/load
     private void LoadData()
     {
         if (ES3.KeyExists("PiggyBankData"))
-            piggyData = ES3.Load<PiggyBankData>("PiggyBankData");
+            m_PiggyData = ES3.Load<PiggyBankData>("PiggyBankData");
         else
         {
-            piggyData = new PiggyBankData
+            m_PiggyData = new PiggyBankData
             {
                 exp = 0,
                 isFull = false,
@@ -114,6 +114,6 @@ public class FeaturePiggyBankcs : FeatureData
 
     private void SaveData()
     {
-        ES3.Save("PiggyBankData", piggyData);
+        ES3.Save("PiggyBankData", m_PiggyData);
     }
 }

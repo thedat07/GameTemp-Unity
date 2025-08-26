@@ -14,7 +14,7 @@ public class FeatureLukySpin : FeatureData
 
     private int m_MaxDailySpins = StaticData.MaxAdsSpins;
 
-    private SpinData spinData;
+    private SpinData m_SpinData;
 
     public FeatureLukySpin(TypeFeature type, int levelUnlock = 0) : base(type, levelUnlock)
     {
@@ -33,12 +33,12 @@ public class FeatureLukySpin : FeatureData
         if (!isAdsSpin)
         {
             // free spin
-            return !spinData.freeSpinUsed;
+            return !m_SpinData.freeSpinUsed;
         }
         else
         {
             // ads spin
-            return spinData.adsSpinsUsed < m_MaxDailySpins;
+            return m_SpinData.adsSpinsUsed < m_MaxDailySpins;
         }
     }
 
@@ -47,11 +47,11 @@ public class FeatureLukySpin : FeatureData
     {
         if (!isAdsSpin)
         {
-            spinData.freeSpinUsed = true;
+            m_SpinData.freeSpinUsed = true;
         }
         else
         {
-            spinData.adsSpinsUsed++;
+            m_SpinData.adsSpinsUsed++;
         }
         SaveData();
     }
@@ -61,8 +61,8 @@ public class FeatureLukySpin : FeatureData
     {
         CheckDailyReset();
 
-        int freeLeft = spinData.freeSpinUsed ? 0 : 1;
-        int adsLeft = m_LevelUnlock - spinData.adsSpinsUsed;
+        int freeLeft = m_SpinData.freeSpinUsed ? 0 : 1;
+        int adsLeft = m_LevelUnlock - m_SpinData.adsSpinsUsed;
 
         return (freeLeft, adsLeft);
     }
@@ -72,11 +72,11 @@ public class FeatureLukySpin : FeatureData
     {
         string today = NetworkTime.GetDateTimeUtc().ToString("yyyy-MM-dd");
 
-        if (spinData.lastSpinDate != today)
+        if (m_SpinData.lastSpinDate != today)
         {
-            spinData.freeSpinUsed = false;
-            spinData.adsSpinsUsed = 0;
-            spinData.lastSpinDate = today;
+            m_SpinData.freeSpinUsed = false;
+            m_SpinData.adsSpinsUsed = 0;
+            m_SpinData.lastSpinDate = today;
             SaveData();
         }
     }
@@ -85,11 +85,11 @@ public class FeatureLukySpin : FeatureData
     {
         if (ES3.KeyExists("SpinData"))
         {
-            spinData = ES3.Load<SpinData>("SpinData");
+            m_SpinData = ES3.Load<SpinData>("SpinData");
         }
         else
         {
-            spinData = new SpinData
+            m_SpinData = new SpinData
             {
                 freeSpinUsed = false,
                 adsSpinsUsed = 0,
@@ -101,6 +101,6 @@ public class FeatureLukySpin : FeatureData
 
     private void SaveData()
     {
-        ES3.Save("SpinData", spinData);
+        ES3.Save("SpinData", m_SpinData);
     }
 }
