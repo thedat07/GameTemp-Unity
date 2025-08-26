@@ -93,4 +93,12 @@ public static class StaticData
         }
     }
 
+    public static int MaxAdsSpins
+    {
+        get
+        {
+            return RemoteConfigController.GetIntConfig("max_ads_spins ", 2);
+        }
+    }
+
 }

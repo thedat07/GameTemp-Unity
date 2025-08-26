@@ -95,24 +95,24 @@ namespace UnityUtilities
             Delete(key, keyFileAdsData);
         }
 
-        // ========== QUEST DATA ==========
+        // ========== Feature DATA ==========
 
-        public static T GetQuest<T>(TypeQuest type, string key, T defaultValue)
+        public static T GetFeature<T>(TypeFeature type, string key, T defaultValue)
         {
             return Get<T>($"{type}_{key}", defaultValue, keyFileQuestData);
         }
 
-        public static void PutQuest<T>(TypeQuest type, string key, T value)
+        public static void PutFeature<T>(TypeFeature type, string key, T value)
         {
             Put<T>($"{type}_{key}", value, keyFileQuestData);
         }
 
-        public static void DeleteQuest(TypeQuest type, string key)
+        public static void DeleteFeature(TypeFeature type, string key)
         {
             Delete($"{type}_{key}", keyFileQuestData);
         }
 
-        public static ListES3<T> GetQuestList<T>(TypeQuest type, string key, int levelUnlock = 0)
+        public static ListES3<T> GetFeatureList<T>(TypeFeature type, string key, int levelUnlock = 0)
         {
             var info = ($"{type}_{key}", keyFileQuestData);
             return new ListES3<T>(info, levelUnlock);
@@ -165,7 +165,6 @@ public class ListES3<T> : List<T>
     {
         return true;
     }
-
 
     public ListES3((string, string) info, int levelUnlock)
     {
