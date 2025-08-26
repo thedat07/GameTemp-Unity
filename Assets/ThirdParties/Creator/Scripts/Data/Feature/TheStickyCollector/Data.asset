@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7caf4d3a9c36cf941b993bbb61ef1c96, type: 3}
   m_Name: Data
   m_EditorClassIdentifier: 
-  datas: []
+  datas:
+  - amount: 0
+    rewards: []

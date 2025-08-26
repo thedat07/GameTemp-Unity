@@ -52,13 +52,16 @@ public partial class FeatureTheStickyCollector
         return true;
     }
 
-
-    public void Claim()
+    public InventoryItem[] Claim()
     {
         if (CanClaim())
         {
+            int index = m_Data.claimIndex;
             m_Data.claimIndex++;
             SaveData();
+
+            return m_So.GetRewardData(index);
         }
+        return new InventoryItem[0];
     }
 }
