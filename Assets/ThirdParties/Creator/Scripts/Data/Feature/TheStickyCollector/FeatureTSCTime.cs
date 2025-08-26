@@ -13,15 +13,15 @@ public partial class FeatureTheStickyCollector
         DateTime currentWeekEnd = DateTimeExtensions.FindLastDateOfTheWeek(now).Date.AddDays(1).AddTicks(-1);
 
         // Nếu chưa từng reset thì gán tuần hiện tại
-        if (lastResetTime == default)
+        if (m_LastResetTime == default)
         {
-            lastResetTime = now;
+            m_LastResetTime = now;
             UnityEngine.Console.Log("FeatureTheStickyCollector", "First time setup, event bắt đầu từ tuần hiện tại.");
             return;
         }
 
         // Nếu lastReset nằm ở tuần trước → reset
-        bool isInCurrentWeek = lastResetTime >= currentWeekStart && lastResetTime <= currentWeekEnd;
+        bool isInCurrentWeek = m_LastResetTime >= currentWeekStart && m_LastResetTime <= currentWeekEnd;
         if (!isInCurrentWeek)
         {
             ResetFeature();
@@ -29,7 +29,7 @@ public partial class FeatureTheStickyCollector
             UnityEngine.Console.Log("FeatureTheStickyCollector", "Reset tuần mới!");
 
             // Cập nhật lại lastResetTime = tuần hiện tại
-            lastResetTime = now;
+            m_LastResetTime = now;
         }
         else
         {
