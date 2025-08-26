@@ -1,7 +1,25 @@
 using System;
+using Bytenado;
 
 namespace UnityUtilities
 {
+    public static class NetworkTime
+    {
+        public static DateTime GetDateTimeUtc()
+        {
+            if (NetworkTimeManager.Instance != null
+            && NetworkTimeManager.Instance.IsTimeInSync)
+            {
+                return NetworkTimeManager.Instance.DateTimeUtc;
+
+            }
+            else
+            {
+                return DateTime.UtcNow;
+            }
+        }
+    }
+
     public static class DateTimeExtensions
     {
         /// <summary>
