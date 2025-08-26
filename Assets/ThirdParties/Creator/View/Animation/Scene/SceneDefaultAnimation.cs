@@ -215,7 +215,7 @@ namespace Creator
             if (m_State == State.SHOW)
             {
                 RectTransform.localScale = Vector3.zero;
-                return Helper.SetDelay(GetAnimationDurationFlash(), () => CreateScaleTween(ease), gameObject);
+                return Helper.Register(GetAnimationDurationFlash(), () => CreateScaleTween(ease), gameObject);
             }
 
             return RectTransform
@@ -275,7 +275,7 @@ namespace Creator
         private Tween CreateFadeOnlyTween(Ease ease)
         {
             if (m_State == State.SHOW)
-                return Helper.SetDelay(GetAnimationDurationFlash(), () => CreateFadeOnlyTween(ease), gameObject);
+                return Helper.Register(GetAnimationDurationFlash(), () => CreateFadeOnlyTween(ease), gameObject);
 
             return CanvasGroup.DOFade(m_End.y, GetAnimationDuration())
                 .From(m_Start.x)

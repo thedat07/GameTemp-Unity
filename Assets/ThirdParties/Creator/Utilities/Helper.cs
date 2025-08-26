@@ -88,29 +88,7 @@ public static class Helper
         return Newtonsoft.Json.JsonConvert.SerializeObject(classT);
     }
 
-    public static void SetDelay(this MonoBehaviour monoBehaviour, float timeDelay, UnityAction callBack)
-    {
-        monoBehaviour.StartCoroutine(DelayCoroutine(timeDelay, callBack));
-    }
-
-    public static void SetDelayNextFrame(this MonoBehaviour monoBehaviour, UnityAction callBack)
-    {
-        monoBehaviour.StartCoroutine(DelayNextFrameCoroutine(callBack));
-    }
-
-    private static IEnumerator DelayCoroutine(float delay, UnityAction callBack)
-    {
-        yield return new WaitForSeconds(delay);
-        callBack?.Invoke();
-    }
-
-    private static IEnumerator DelayNextFrameCoroutine(UnityAction callBack)
-    {
-        yield return new WaitForEndOfFrame();
-        callBack?.Invoke();
-    }
-
-    public static DG.Tweening.Sequence SetDelay(float delay, UnityAction callBack, GameObject target = null, LinkBehaviour behaviour = LinkBehaviour.KillOnDestroy)
+    public static DG.Tweening.Sequence Register(float delay, UnityAction callBack, GameObject target = null, LinkBehaviour behaviour = LinkBehaviour.KillOnDestroy)
     {
         DG.Tweening.Sequence sequence = DOTween.Sequence();
 

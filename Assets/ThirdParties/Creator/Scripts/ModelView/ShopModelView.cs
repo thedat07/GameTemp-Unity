@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using Gley.EasyIAP;
+using UnityTimer;
 
 public class ShopModelView : MonoBehaviour, IInitializable
 {
@@ -167,7 +168,7 @@ public class ShopModelView : MonoBehaviour, IInitializable
         }
         else
         {
-            this.SetDelayNextFrame(() =>
+            Timer.Register(0.2f, () =>
             {
                 m_ShieldShop.gameObject.SetActive(false);
             });

@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
 using YNL.Utilities.Extensions;
+using UnityTimer;
 
 namespace Creator
 {
@@ -132,7 +133,7 @@ namespace Creator
                 ActivatePreviousController(controller, false);
             }
             
-            controller.SetDelay(Director.SceneAnimationDuration, () =>
+            Timer.Register(Director.SceneAnimationDuration, () =>
             {
                 controller.OnShown();
                 if (controller.Data != null && controller.Data.onShown != null)

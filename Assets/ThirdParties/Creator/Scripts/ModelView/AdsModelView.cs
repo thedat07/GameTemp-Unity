@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Gley.MobileAds;
+using UnityTimer;
 
 public class AdsModelView : MonoBehaviour, IInitializable
 {
@@ -41,7 +42,7 @@ public class AdsModelView : MonoBehaviour, IInitializable
     public int UpdateAdInterCount()
     {
         adsInfoData.adInterAds++;
-        
+
         m_Model.adInterCount++;
         return m_Model.adInterCount;
     }
@@ -70,7 +71,7 @@ public class AdsModelView : MonoBehaviour, IInitializable
 
             placementInter = placement;
 
-            this.SetDelay(0.5f, () =>
+            Timer.Register(0.5f, () =>
             {
                 SetActiveShield(false);
                 Gley.MobileAds.API.ShowInterstitial(() => { UpdateLastAdTime(false); });
@@ -86,15 +87,15 @@ public class AdsModelView : MonoBehaviour, IInitializable
 
             placementInter = placement;
 
-            this.SetDelay(0.5f, () =>
-            {
-                SetActiveShield(false);
-                Gley.MobileAds.API.ShowInterstitial(() =>
-                {
-                    UpdateLastAdTime(false);
-                    interstitialClosed?.Invoke();
-                });
-            });
+            Timer.Register(0.5f, () =>
+           {
+               SetActiveShield(false);
+               Gley.MobileAds.API.ShowInterstitial(() =>
+               {
+                   UpdateLastAdTime(false);
+                   interstitialClosed?.Invoke();
+               });
+           });
         }
     }
 
@@ -104,28 +105,28 @@ public class AdsModelView : MonoBehaviour, IInitializable
 
         placementReward = placement;
 
-        this.SetDelay(0.25f, () =>
-        {
-            SetActiveShield(false);
-            Gley.MobileAds.API.ShowRewardedVideo(CompleteMethod);
-        });
+        Timer.Register(0.25f, () =>
+         {
+             SetActiveShield(false);
+             Gley.MobileAds.API.ShowRewardedVideo(CompleteMethod);
+         });
 
         void CompleteMethod(bool completed)
         {
-            this.SetDelay(0.2f, () =>
-            {
-                if (completed)
-                {
-                    onSuccess?.Invoke();
-                    UpdateLastAdTime(true);
-                }
-                else
-                {
-                    onFail?.Invoke();
-                }
+            Timer.Register(0.2f, () =>
+             {
+                 if (completed)
+                 {
+                     onSuccess?.Invoke();
+                     UpdateLastAdTime(true);
+                 }
+                 else
+                 {
+                     onFail?.Invoke();
+                 }
 
-                onCompleted?.Invoke();
-            });
+                 onCompleted?.Invoke();
+             });
         }
     }
 
