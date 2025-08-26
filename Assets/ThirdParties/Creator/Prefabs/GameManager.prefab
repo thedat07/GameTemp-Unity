@@ -583,10 +583,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hideUI: 0
+  m_FeatureModel:
+    featureTheStickyCollector:
+      currentConfig:
+        totalSteps: 25
+        steps: []
+        requiredItemId: 
+        rewardSetIndex: 0
   m_SettingModelView: {fileID: 6578075393011312102}
   m_MasterModelView: {fileID: 99410924891902406}
   m_StageModelView: {fileID: 275627112018197525}
-  m_QuestModelView: {fileID: 1982315883115589816}
+  m_FeatureModelView: {fileID: 1982315883115589816}
   m_AdsModelView: {fileID: 1123811222295841888}
   m_ShopModelView: {fileID: 6495066347722601384}
   m_ConfigController: {fileID: 1561823362190096716}
@@ -656,7 +663,7 @@ GameObject:
   - component: {fileID: 2090718075048910403}
   - component: {fileID: 1982315883115589816}
   m_Layer: 0
-  m_Name: QuestModelView
+  m_Name: FeatureModelView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

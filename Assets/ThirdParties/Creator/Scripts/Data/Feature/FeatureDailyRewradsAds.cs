@@ -14,7 +14,7 @@ public class FeatureDailyRewradsAds : FeatureData
         public DailyRewardsData()
         {
             claimIndex = 0;
-            lastSpinDate = NetworkTime.GetDateTimeUtc().ToString("O");
+            lastSpinDate = NetworkTime.UTC.ToString("O");
         }
     }
 
@@ -51,7 +51,7 @@ public class FeatureDailyRewradsAds : FeatureData
     // Reset theo ngày user
     private void CheckDailyReset()
     {
-        string today = NetworkTime.GetDateTimeUtc().ToString("O");
+        string today = NetworkTime.UTC.ToString("O");
 
         if (m_DailyRewardsData.lastSpinDate != today)
         {

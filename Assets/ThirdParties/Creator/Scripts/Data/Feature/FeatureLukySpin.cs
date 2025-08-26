@@ -17,7 +17,7 @@ public class FeatureLukySpin : FeatureData
         {
             freeSpinUsed = false;
             adsSpinsUsed = 0;
-            lastSpinDate = NetworkTime.GetDateTimeUtc().ToString("O");
+            lastSpinDate = NetworkTime.UTC.ToString("O");
         }
     }
 
@@ -79,7 +79,7 @@ public class FeatureLukySpin : FeatureData
     // Reset theo ngày user
     private void CheckDailyReset()
     {
-        string today = NetworkTime.GetDateTimeUtc().ToString("O");
+        string today = NetworkTime.UTC.ToString("O");
 
         if (m_SpinData.lastSpinDate != today)
         {

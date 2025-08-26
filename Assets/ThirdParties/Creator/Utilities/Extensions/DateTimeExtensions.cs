@@ -5,17 +5,35 @@ namespace UnityUtilities
 {
     public static class NetworkTime
     {
-        public static DateTime GetDateTimeUtc()
+        public static DateTime UTC
         {
-            if (NetworkTimeManager.Instance != null
-            && NetworkTimeManager.Instance.IsTimeInSync)
+            get
             {
-                return NetworkTimeManager.Instance.DateTimeUtc;
-
+                if (NetworkTimeManager.Instance != null
+                    && NetworkTimeManager.Instance.IsTimeInSync)
+                {
+                    return NetworkTimeManager.Instance.DateTimeUtc;
+                }
+                else
+                {
+                    return DateTime.Now; // fallback local
+                }
             }
-            else
+        }
+
+        public static DateTime Now
+        {
+            get
             {
-                return DateTime.UtcNow;
+                if (NetworkTimeManager.Instance != null
+                    && NetworkTimeManager.Instance.IsTimeInSync)
+                {
+                    return NetworkTimeManager.Instance.DateTimeUtc.ToLocalTime();
+                }
+                else
+                {
+                    return DateTime.Now; // fallback local
+                }
             }
         }
     }
