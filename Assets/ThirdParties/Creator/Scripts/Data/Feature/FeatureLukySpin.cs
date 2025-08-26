@@ -19,6 +19,7 @@ public class FeatureLukySpin : FeatureData
     public FeatureLukySpin(TypeFeature type, int levelUnlock = 0) : base(type, levelUnlock)
     {
         LoadData();
+        CheckDailyReset();
     }
 
     // Kiểm tra có được spin không
