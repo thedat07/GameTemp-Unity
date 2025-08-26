@@ -20,6 +20,7 @@ public class FeatureDailyRewradsFree : FeatureData
     }
 
     private int m_CooldownHours = 1;
+    
     private DailyRewardsData m_Data;
 
     public FeatureDailyRewradsFree(TypeFeature type, int timeCooldownHours, int levelUnlock = 0) : base(type, levelUnlock)

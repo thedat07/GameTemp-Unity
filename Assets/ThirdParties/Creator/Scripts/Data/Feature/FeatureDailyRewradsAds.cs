@@ -24,6 +24,8 @@ public class FeatureDailyRewradsAds : FeatureData
 
     public bool IsNoti() => m_DailyRewardsData.claimIndex < m_MaxDailyRewards;
 
+    public int GetClaimIndex() => m_DailyRewardsData.claimIndex;
+
     public FeatureDailyRewradsAds(TypeFeature type, int levelUnlock = 0) : base(type, levelUnlock)
     {
         LoadData();
