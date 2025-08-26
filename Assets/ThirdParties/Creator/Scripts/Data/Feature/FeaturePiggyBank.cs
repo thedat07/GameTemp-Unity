@@ -3,12 +3,21 @@ using UnityUtilities;
 
 public class FeaturePiggyBank : FeatureData
 {
+    const string Key = "PiggyBankData";
+
     [System.Serializable]
     public class PiggyBankData
     {
         public int exp;               // điểm hiện tại trong Pig
         public bool isFull;           // Pig đã full chưa
         public string fullTimeStamp;  // thời gian đạt full (string lưu DateTime)
+
+        public PiggyBankData()
+        {
+            exp = 0;
+            isFull = false;
+            fullTimeStamp = "";
+        }
     }
 
     private int m_ExpPerWin = 100;
@@ -33,7 +42,7 @@ public class FeaturePiggyBank : FeatureData
         {
             m_PiggyData.exp = m_MaxExp;
             m_PiggyData.isFull = true;
-            m_PiggyData.fullTimeStamp = NetworkTime.GetDateTimeUtc().ToString("O"); // ISO 8601
+            m_PiggyData.fullTimeStamp = NetworkTime.GetDateTimeUtc().ToString("O");
         }
         SaveData();
     }
@@ -98,22 +107,17 @@ public class FeaturePiggyBank : FeatureData
     // Data save/load
     private void LoadData()
     {
-        if (ES3.KeyExists("PiggyBankData"))
-            m_PiggyData = ES3.Load<PiggyBankData>("PiggyBankData");
+        if (SaveExtensions.KeyExists(m_Type, Key))
+            m_PiggyData = SaveExtensions.GetFeature<PiggyBankData>(m_Type, Key, new PiggyBankData());
         else
         {
-            m_PiggyData = new PiggyBankData
-            {
-                exp = 0,
-                isFull = false,
-                fullTimeStamp = ""
-            };
+            m_PiggyData = new PiggyBankData();
             SaveData();
         }
     }
 
     private void SaveData()
     {
-        ES3.Save("PiggyBankData", m_PiggyData);
+        SaveExtensions.PutFeature(m_Type, Key, m_PiggyData);
     }
 }

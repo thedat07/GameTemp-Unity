@@ -4,12 +4,21 @@ using UnityUtilities;
 [System.Serializable]
 public class FeatureLukySpin : FeatureData
 {
+    const string Key = "SpinData";
+
     [System.Serializable]
     public class SpinData
     {
         public bool freeSpinUsed;   // đã dùng free chưa
         public int adsSpinsUsed;    // số lượt ads đã dùng
         public string lastSpinDate; // ngày lưu
+
+        public SpinData()
+        {
+            freeSpinUsed = false;
+            adsSpinsUsed = 0;
+            lastSpinDate = NetworkTime.GetDateTimeUtc().ToString("O");
+        }
     }
 
     private int m_MaxDailySpins = StaticData.MaxAdsSpins;
@@ -70,7 +79,7 @@ public class FeatureLukySpin : FeatureData
     // Reset theo ngày user
     private void CheckDailyReset()
     {
-        string today = NetworkTime.GetDateTimeUtc().ToString("yyyy-MM-dd");
+        string today = NetworkTime.GetDateTimeUtc().ToString("O");
 
         if (m_SpinData.lastSpinDate != today)
         {
@@ -83,24 +92,19 @@ public class FeatureLukySpin : FeatureData
 
     private void LoadData()
     {
-        if (ES3.KeyExists("SpinData"))
+        if (SaveExtensions.KeyExists(m_Type, Key))
         {
-            m_SpinData = ES3.Load<SpinData>("SpinData");
+            m_SpinData = SaveExtensions.GetFeature<SpinData>(m_Type, Key, new SpinData());
         }
         else
         {
-            m_SpinData = new SpinData
-            {
-                freeSpinUsed = false,
-                adsSpinsUsed = 0,
-                lastSpinDate = NetworkTime.GetDateTimeUtc().ToString("yyyy-MM-dd")
-            };
+            m_SpinData = new SpinData();
             SaveData();
         }
     }
 
     private void SaveData()
     {
-        ES3.Save("SpinData", m_SpinData);
+        ES3.Save(Key, m_SpinData);
     }
 }

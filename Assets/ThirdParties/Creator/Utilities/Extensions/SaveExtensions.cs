@@ -13,6 +13,12 @@ namespace UnityUtilities
         public const string keyFileShopData = "FileShopData";
         public const string keyFileHomeData = "FileHomeData";
 
+        public static bool KeyExists(TypeFeature type, string key)
+        {
+            string filePath = "FileGame";
+            return ES3.KeyExists($"{type}_{key}", filePath);
+        }
+
         // ========== Generic ==========
 
         /// <summary>GET: Lấy dữ liệu từ file</summary>
