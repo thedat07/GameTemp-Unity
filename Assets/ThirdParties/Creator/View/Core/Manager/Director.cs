@@ -12,9 +12,6 @@ namespace Creator
         protected static string m_LoadingSceneName;
         protected static Controller m_LoadingController;
 
-        protected static string m_MaskSceneName;
-        protected static Controller m_MaskController;
-
         protected static string m_NoInternetSceneName;
         protected static Controller m_NoInternetController;
 
@@ -31,19 +28,6 @@ namespace Creator
             }
         }
 
-        public static string MaskSceneName
-        {
-            set
-            {
-                m_MaskSceneName = value;
-                SceneManager.LoadScene(m_MaskSceneName, LoadSceneMode.Additive);
-            }
-            get
-            {
-                return m_MaskSceneName;
-            }
-        }
-
         public static string NoInternetSceneName
         {
             set
@@ -56,8 +40,6 @@ namespace Creator
                 return m_NoInternetSceneName;
             }
         }
-
-        public static bool HasMask() => m_MaskController != null;
 
         public static bool HasLoading() => m_LoadingController != null;
 
@@ -88,33 +70,6 @@ namespace Creator
                     (m_LoadingController as ILoading).HideLoading();
                 }
             }
-        }
-        #endregion
-
-        #region Mask
-        public static void ShowMask(PopupMaskData data)
-        {
-            if (HasMask())
-                (m_MaskController as IMask).ShowMask(data);
-        }
-
-        public static void ShowMask(List<PopupMaskData> datas)
-        {
-            if (HasMask())
-                (m_MaskController as IMask).ShowMask(datas);
-        }
-
-        public static bool UpdateMaskStep()
-        {
-            if (HasMask())
-                return (m_MaskController as IMask).UpdateMaskStep();
-            return false;
-        }
-
-        public static void HideMask()
-        {
-            if (HasMask())
-                (m_MaskController as IMask).HideMask();
         }
         #endregion
 
@@ -190,13 +145,6 @@ namespace Creator
 
             if (controller == null)
                 return;
-
-            // Loading Scene
-            if (controller.SceneName() == MaskSceneName)
-            {
-                SettingController(ref m_MaskController, 80);
-                return;
-            }
 
             if (controller.SceneName() == LoadingSceneName)
             {

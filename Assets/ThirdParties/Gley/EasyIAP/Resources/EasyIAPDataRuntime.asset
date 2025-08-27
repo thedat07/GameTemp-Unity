@@ -21,4 +21,396 @@ MonoBehaviour:
   useForIos: 0
   useForMac: 0
   useForWindows: 0
-  shopProducts: []
+  shopProducts:
+  - productName: SmallPack
+    productType: 0
+    idGooglePlay: com.test.t0
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 6000
+    - m_ItemData:
+        type: 14
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 60
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: MediumPack
+    productType: 0
+    idGooglePlay: com.test.t1
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 10000
+    - m_ItemData:
+        type: 2
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 5
+    - m_ItemData:
+        type: 3
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 5
+    - m_ItemData:
+        type: 4
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 5
+    - m_ItemData:
+        type: 14
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 180
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: LargePack
+    productType: 0
+    idGooglePlay: com.test.t2
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 16000
+    - m_ItemData:
+        type: 2
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 10
+    - m_ItemData:
+        type: 3
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 10
+    - m_ItemData:
+        type: 4
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 10
+    - m_ItemData:
+        type: 14
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 360
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: PiggyBank
+    productType: 0
+    idGooglePlay: com.test.t3
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 3000
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: RemoveAdsBundle
+    productType: 1
+    idGooglePlay: com.test.t4
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 12
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 0
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 2000
+    - m_ItemData:
+        type: 2
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 5
+    - m_ItemData:
+        type: 3
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 5
+    - m_ItemData:
+        type: 4
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 5
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: RemoveAds
+    productType: 1
+    idGooglePlay: com.test.t5
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 12
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 0
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: ReviveOfferI
+    productType: 0
+    idGooglePlay: com.test.t6
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 1000
+    - m_ItemData:
+        type: 2
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 2
+    - m_ItemData:
+        type: 3
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 1
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: ReviveOfferII
+    productType: 0
+    idGooglePlay: com.test.t7
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 1000
+    - m_ItemData:
+        type: 3
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 2
+    - m_ItemData:
+        type: 4
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 1
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: ReviveOfferIII
+    productType: 0
+    idGooglePlay: com.test.t8
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 1000
+    - m_ItemData:
+        type: 2
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 1
+    - m_ItemData:
+        type: 3
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 1
+    - m_ItemData:
+        type: 4
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 1
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: StarterPack
+    productType: 0
+    idGooglePlay: com.test.t9
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 1000
+    - m_ItemData:
+        type: 2
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 1
+    - m_ItemData:
+        type: 3
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 1
+    - m_ItemData:
+        type: 4
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 1
+    - m_ItemData:
+        type: 14
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 60
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: Coins1
+    productType: 0
+    idGooglePlay: com.test.t10
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 1000
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: Coins2
+    productType: 0
+    idGooglePlay: com.test.t11
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 5000
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: Coins3
+    productType: 0
+    idGooglePlay: com.test.t12
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 10000
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: Coins4
+    productType: 0
+    idGooglePlay: com.test.t13
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 25000
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: Coins5
+    productType: 0
+    idGooglePlay: com.test.t14
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 50000
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 
+  - productName: Coins6
+    productType: 0
+    idGooglePlay: com.test.t15
+    idAmazon: 
+    idIOS: 
+    idMac: 
+    idWindows: 
+    value:
+    - m_ItemData:
+        type: 1
+        displayName: 
+        icon: {fileID: 0}
+      m_Quantity: 100000
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+    receipt: 

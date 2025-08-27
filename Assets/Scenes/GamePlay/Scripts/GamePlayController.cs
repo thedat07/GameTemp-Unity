@@ -11,11 +11,14 @@ public partial class GamePlayController : SingletonController<Controller>
 
     void Start()
     {
-
+        int secondGamePlay = 0;
+        View();
+        ViewTime(secondGamePlay);
     }
-    
+
     void Update()
     {
-        
+        int secondGamePlay = 0;
+        ViewTime(secondGamePlay);
     }
 }

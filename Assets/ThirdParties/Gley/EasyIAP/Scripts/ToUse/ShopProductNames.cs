@@ -7,6 +7,22 @@ namespace Gley.EasyIAP
 {
 	public enum ShopProductNames
 	{
+		SmallPack,
+		MediumPack,
+		LargePack,
+		PiggyBank,
+		RemoveAdsBundle,
+		RemoveAds,
+		ReviveOfferI,
+		ReviveOfferII,
+		ReviveOfferIII,
+		StarterPack,
+		Coins1,
+		Coins2,
+		Coins3,
+		Coins4,
+		Coins5,
+		Coins6,
 	}
 }
 #endif

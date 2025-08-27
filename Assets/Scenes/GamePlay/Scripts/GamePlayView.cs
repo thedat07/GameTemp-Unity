@@ -5,6 +5,13 @@ using TMPro;
 
 public partial class GamePlayController
 {
+    public enum TypeLevel
+    {
+        Default,
+        Hard,
+        SuperHard
+    }
+
     [Header("View")]
 
     [SerializeField] TextMeshPro m_TxtLevel;
@@ -34,5 +41,30 @@ public partial class GamePlayController
                 m_TxtTime.text = string.Format("00:00");
             }
         }
+    }
+
+    void ShowWarring(TypeLevel type)
+    {
+        switch (type)
+        {
+            case TypeLevel.Hard:
+                ViewHard();
+                break;
+            case TypeLevel.SuperHard:
+                ViewSuperHard();
+                break;
+            default:
+                break;
+        }
+    }
+
+    void ViewHard()
+    {
+
+    }
+
+    void ViewSuperHard()
+    {
+
     }
 }

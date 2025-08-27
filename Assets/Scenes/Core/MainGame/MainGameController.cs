@@ -24,8 +24,6 @@ public class MainGameController : MonoBehaviour
 
         Creator.Director.LoadingSceneName = PopupLoadingController.SCENE_NAME;
 
-        Creator.Director.MaskSceneName = PopupMaskController.SCENE_NAME;
-
         Creator.Director.NoInternetSceneName = PopupNoInternetController.SCENE_NAME;
 
         yield return new WaitForEndOfFrame();

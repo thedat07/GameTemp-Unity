@@ -56,4 +56,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BuyBooster/BuyBooster.unity
     guid: 3f13180f6ab50744d91548e3257bc907
+  - enabled: 1
+    path: Assets/Scenes/ShopMini/ShopMini.unity
+    guid: 9b1825cdc1d741b4a8842f799fad1481
+  - enabled: 1
+    path: Assets/Scenes/UnLockNewBooster/UnLockNewBooster.unity
+    guid: 71e1c4d34795b424f829d80150ee5520
   m_configObjects: {}
