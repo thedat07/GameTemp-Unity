@@ -31,7 +31,7 @@ public partial class GamePlayController
             }
             else
             {
-                m_TxtTime.text = string.Format(string.Format("00:00"));
+                m_TxtTime.text = string.Format("00:00");
             }
         }
     }
