@@ -8,4 +8,14 @@ public partial class GamePlayController : SingletonController<Controller>
     {
         return GAMEPLAY_SCENE_NAME;
     }
+
+    void Start()
+    {
+
+    }
+    
+    void Update()
+    {
+        
+    }
 }
