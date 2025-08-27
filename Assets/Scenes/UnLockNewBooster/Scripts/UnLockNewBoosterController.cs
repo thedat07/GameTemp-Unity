@@ -33,7 +33,7 @@ public class UnLockNewBoosterController : Controller
     public Image icon;
     public TextMeshProUGUI[] txtTile;
     public TextMeshProUGUI[] txtTut;
-    public RectTransform screenPoint;
+    public RectTransform maskingShape;
 
     private UnLockNewBoosterData m_Data;
     private UnLockSO.Data m_DataType;
@@ -71,7 +71,7 @@ public class UnLockNewBoosterController : Controller
             if (Canvas.TryGetComponent<RectTransform>(out RectTransform rect))
             {
                 Camera cam = Canvas.worldCamera; ;
-                screenPoint.WorldToScreenSpace(m_Data.point.position, cam, rect, 100);
+                maskingShape.WorldToScreenSpace(m_Data.point.position, cam, rect, 100);
             }
         }
     }
