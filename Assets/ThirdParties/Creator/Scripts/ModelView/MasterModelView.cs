@@ -1,9 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 using ExaGames.Common.TimeBasedLifeSystem;
-using NaughtyAttributes;
-
-
 
 public class MasterModelView : MonoBehaviour, IInitializable
 {
@@ -150,14 +147,5 @@ public class MasterModelView : MonoBehaviour, IInitializable
         }
 
         onCompleted?.Invoke();
-    }
-
-    public void PlayGame()
-    {
-        if (CanPlay())
-        {
-            ConsumeLife();
-            Creator.Director.RunScene(GamePlayController.GAMEPLAY_SCENE_NAME);
-        }
     }
 }

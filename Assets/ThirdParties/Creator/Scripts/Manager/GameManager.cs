@@ -7,7 +7,7 @@ public class GameDataLog
     public int logPlayDone;
 }
 
-public class GameManager : SingletonPersistent<GameManager>
+public partial class GameManager : SingletonPersistent<GameManager>
 {
     public bool hideUI;
 

@@ -24,4 +24,14 @@ public partial class WinController : Controller
     {
         m_DataLog.logPlayDone += 1;
     }
+
+    public void OnCoinAds()
+    {
+
+    }
+
+    public void OnCoin()
+    {
+        
+    }
 }

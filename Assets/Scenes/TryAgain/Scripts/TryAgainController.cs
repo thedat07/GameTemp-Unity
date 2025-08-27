@@ -13,7 +13,7 @@ public class TryAgainController : Controller
     {
         if (GameManager.Instance.GetMasterModelView().CanPlay())
         {
-            GameManager.Instance.GetMasterModelView().PlayGame();
+            GameManager.Instance.RunPlay();
         }
         else
         {
@@ -23,6 +23,6 @@ public class TryAgainController : Controller
 
     public void OnClose()
     {
-        ManagerDirector.RunScene(HomeController.HOME_SCENE_NAME);
+        GameManager.Instance.RunHome();
     }
 }

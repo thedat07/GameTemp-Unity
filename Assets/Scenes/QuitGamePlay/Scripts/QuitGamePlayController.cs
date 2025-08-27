@@ -11,6 +11,6 @@ public class QuitGamePlayController : Controller
 
     public void OnQuit()
     {
-        ManagerDirector.RunScene(HomeController.HOME_SCENE_NAME);
+        GameManager.Instance.RunHome();
     }
 }

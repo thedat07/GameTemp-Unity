@@ -13,7 +13,7 @@ public class RetryController : Controller
     {
         if (GameManager.Instance.GetMasterModelView().CanPlay())
         {
-            GameManager.Instance.GetMasterModelView().PlayGame();
+            GameManager.Instance.RunPlay();
         }
         else
         {
