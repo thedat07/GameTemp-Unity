@@ -1,5 +1,6 @@
 using System;
 using UnityUtilities;
+using UniRx;
 
 public class FeaturePiggyBank : FeatureData
 {
@@ -8,15 +9,15 @@ public class FeaturePiggyBank : FeatureData
     [System.Serializable]
     public class PiggyBankData
     {
-        public int exp;               // điểm hiện tại trong Pig
-        public bool isFull;           // Pig đã full chưa
-        public string fullTimeStamp;  // thời gian đạt full (string lưu DateTime)
+        public IntReactiveProperty exp;
+        public BoolReactiveProperty isFull;
+        public StringReactiveProperty fullTimeStamp;
 
         public PiggyBankData()
         {
-            exp = 0;
-            isFull = false;
-            fullTimeStamp = "";
+            exp = new IntReactiveProperty(0);
+            isFull = new BoolReactiveProperty(false);
+            fullTimeStamp = new StringReactiveProperty("");
         }
     }
 
@@ -25,6 +26,8 @@ public class FeaturePiggyBank : FeatureData
     private int m_CountdownHours = 48;
 
     private PiggyBankData m_PiggyData;
+
+    public PiggyBankData GetData() => m_PiggyData;
 
     public FeaturePiggyBank(TypeFeature type, int levelUnlock = 0) : base(type, levelUnlock)
     {
@@ -35,14 +38,14 @@ public class FeaturePiggyBank : FeatureData
     // Cộng exp khi win level
     public void AddExpOnWin()
     {
-        if (m_PiggyData.isFull) return; // đang full thì không cộng thêm
+        if (m_PiggyData.isFull.Value) return; // đang full thì không cộng thêm
 
-        m_PiggyData.exp += m_ExpPerWin;
-        if (m_PiggyData.exp >= m_MaxExp)
+        m_PiggyData.exp.Value += m_ExpPerWin;
+        if (m_PiggyData.exp.Value >= m_MaxExp)
         {
-            m_PiggyData.exp = m_MaxExp;
-            m_PiggyData.isFull = true;
-            m_PiggyData.fullTimeStamp = NetworkTime.UTC.ToString("O");
+            m_PiggyData.exp.Value = m_MaxExp;
+            m_PiggyData.isFull.Value = true;
+            m_PiggyData.fullTimeStamp.Value = NetworkTime.UTC.ToString("O");
         }
         SaveData();
     }
@@ -52,7 +55,7 @@ public class FeaturePiggyBank : FeatureData
     {
         CheckExpire();
 
-        if (!m_PiggyData.isFull) return false; // chưa full thì không mua được
+        if (!m_PiggyData.isFull.Value) return false; // chưa full thì không mua được
 
         ResetPiggy();
         return true;
@@ -61,9 +64,9 @@ public class FeaturePiggyBank : FeatureData
     // Kiểm tra hết hạn
     private void CheckExpire()
     {
-        if (m_PiggyData.isFull && !string.IsNullOrEmpty(m_PiggyData.fullTimeStamp))
+        if (m_PiggyData.isFull.Value && !string.IsNullOrEmpty(m_PiggyData.fullTimeStamp.Value))
         {
-            DateTime fullTime = DateTime.Parse(m_PiggyData.fullTimeStamp);
+            DateTime fullTime = DateTime.Parse(m_PiggyData.fullTimeStamp.Value);
             DateTime expireTime = fullTime.AddHours(m_CountdownHours);
 
             if (DateTime.Now >= expireTime)
@@ -76,10 +79,10 @@ public class FeaturePiggyBank : FeatureData
     // Lấy thời gian còn lại để mua
     public TimeSpan GetRemainingTime()
     {
-        if (!m_PiggyData.isFull || string.IsNullOrEmpty(m_PiggyData.fullTimeStamp))
+        if (!m_PiggyData.isFull.Value || string.IsNullOrEmpty(m_PiggyData.fullTimeStamp.Value))
             return TimeSpan.Zero;
 
-        DateTime fullTime = DateTime.Parse(m_PiggyData.fullTimeStamp);
+        DateTime fullTime = DateTime.Parse(m_PiggyData.fullTimeStamp.Value);
         DateTime expireTime = fullTime.AddHours(m_CountdownHours);
 
         TimeSpan remain = expireTime - DateTime.Now;
@@ -89,20 +92,20 @@ public class FeaturePiggyBank : FeatureData
     // Reset Piggy về 0
     private void ResetPiggy()
     {
-        m_PiggyData.exp = 0;
-        m_PiggyData.isFull = false;
-        m_PiggyData.fullTimeStamp = "";
+        m_PiggyData.exp.Value = 0;
+        m_PiggyData.isFull.Value = false;
+        m_PiggyData.fullTimeStamp.Value = "";
         SaveData();
     }
 
     // Get Exp hiện tại
-    public int GetCurrentExp() => m_PiggyData.exp;
+    public int GetCurrentExp() => m_PiggyData.exp.Value;
 
     // Get Max Exp
     public int GetMaxExp() => m_MaxExp;
 
     // Kiểm tra đã full chưa
-    public bool IsFull() => m_PiggyData.isFull;
+    public bool IsFull() => m_PiggyData.isFull.Value;
 
     // Data save/load
     private void LoadData()

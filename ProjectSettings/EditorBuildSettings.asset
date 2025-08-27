@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/ThirdParties/Creator/Demo/Scenes/Popup/DPopup.unity
     guid: 46411c47c24404545aea993c486be51b
+  - enabled: 1
+    path: Assets/Scenes/PiggyBank/PiggyBank.unity
+    guid: 5cbfac90dd661cb4faa175211ea0a488
   m_configObjects: {}
