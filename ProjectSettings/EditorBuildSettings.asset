@@ -44,4 +44,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MoreLives/MoreLives.unity
     guid: ef3bfc42bc776904ebcdea5daabbd000
+  - enabled: 1
+    path: Assets/Scenes/Retry/Retry.unity
+    guid: 4c8f9e0fbcf7bd949b84681dd1428826
+  - enabled: 1
+    path: Assets/Scenes/SettingGamePlay/SettingGamePlay.unity
+    guid: cf0d82f0f61290843a5dd089a76acc51
+  - enabled: 1
+    path: Assets/Scenes/QuitGamePlay/QuitGamePlay.unity
+    guid: e07bef36a9926d745ae3228e853f3827
   m_configObjects: {}
