@@ -44,7 +44,7 @@ public class LuckySpinController : Controller
     private void UpdateInfoText()
     {
         var (freeLeft, adsLeft) = m_Data.GetRemainingSpins();
-        infoText.text = $"Free: {freeLeft} | Ads: {adsLeft}";
+        if (infoText) infoText.text = $"Free: {freeLeft} | Ads: {adsLeft}";
     }
 
     // Nút spin thường
