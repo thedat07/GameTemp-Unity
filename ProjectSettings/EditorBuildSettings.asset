@@ -53,4 +53,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/QuitGamePlay/QuitGamePlay.unity
     guid: e07bef36a9926d745ae3228e853f3827
+  - enabled: 1
+    path: Assets/Scenes/BuyBooster/BuyBooster.unity
+    guid: 3f13180f6ab50744d91548e3257bc907
   m_configObjects: {}
