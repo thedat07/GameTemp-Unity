@@ -3,6 +3,8 @@ using UnityEngine.Events;
 using ExaGames.Common.TimeBasedLifeSystem;
 using NaughtyAttributes;
 
+
+
 public class MasterModelView : MonoBehaviour, IInitializable
 {
     private MasterModel m_Model;
@@ -47,7 +49,8 @@ public class MasterModelView : MonoBehaviour, IInitializable
                 break;
             default:
                 break;
-        };
+        }
+        ;
 
         Log();
 

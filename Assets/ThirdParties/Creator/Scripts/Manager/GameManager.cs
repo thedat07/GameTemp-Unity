@@ -1,9 +1,17 @@
 using UnityEngine;
 using DesignPatterns;
 
+[System.Serializable]
+public class GameDataLog
+{
+    public int logPlayDone;
+}
+
 public class GameManager : SingletonPersistent<GameManager>
 {
     public bool hideUI;
+
+    public GameDataLog log;
 
     [SerializeField] SettingModel m_SettingModel;
     [SerializeField] MasterModel m_MasterModel;

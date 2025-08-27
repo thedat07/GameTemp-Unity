@@ -8,4 +8,14 @@ public class LoseController : Controller
     {
         return LOSE_SCENE_NAME;
     }
+
+    void Awake()
+    {
+        Log();
+    }
+
+    void Log()
+    {
+        GameManager.Instance.log.logPlayDone += 1;
+    }
 }
