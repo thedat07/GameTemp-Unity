@@ -35,7 +35,7 @@ public class FeatureDailyRewradsFree : FeatureData
         if (!CanClaim()) return false;
 
         m_Data.claimCount++;
-        m_Data.lastClaimTime = NetworkTime.UTC.ToString("O");
+        m_Data.lastClaimTime = NetworkTime.UTC.ToString();
         SaveData();
         return true;
     }

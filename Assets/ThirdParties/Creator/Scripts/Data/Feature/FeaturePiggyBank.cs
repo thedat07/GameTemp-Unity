@@ -45,7 +45,7 @@ public class FeaturePiggyBank : FeatureData
         {
             m_PiggyData.exp.Value = m_MaxExp;
             m_PiggyData.isFull.Value = true;
-            m_PiggyData.fullTimeStamp.Value = NetworkTime.UTC.ToString("O");
+            m_PiggyData.fullTimeStamp.Value = NetworkTime.UTC.ToString();
         }
         SaveData();
     }

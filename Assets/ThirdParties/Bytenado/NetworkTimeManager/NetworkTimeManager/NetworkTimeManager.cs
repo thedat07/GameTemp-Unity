@@ -142,7 +142,7 @@ namespace Bytenado
             StartCoroutine(SyncNetworkTimeCoroutine(WaitForNetworkMinSeconds));
         }
 
-        private void Awake()
+        public void Init()
         {
             // Destroy if singleton instance already exists.
             if (Instance != null && Instance != this) {

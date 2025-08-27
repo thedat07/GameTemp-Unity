@@ -2,6 +2,7 @@ using Creator;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YNL.Utilities.Extensions;
 
 public class UnLockNewBoosterData
 {
@@ -32,9 +33,10 @@ public class UnLockNewBoosterController : Controller
     public Image icon;
     public TextMeshProUGUI[] txtTile;
     public TextMeshProUGUI[] txtTut;
+    public RectTransform screenPoint;
 
     private UnLockNewBoosterData m_Data;
-    public UnLockSO.Data m_DataType;
+    private UnLockSO.Data m_DataType;
 
     public override void OnActive(object data)
     {
@@ -62,6 +64,15 @@ public class UnLockNewBoosterController : Controller
         if (icon)
         {
             icon.sprite = m_DataType.icon;
+        }
+
+        if (m_Data.point)
+        {
+            if (Canvas.TryGetComponent<RectTransform>(out RectTransform rect))
+            {
+                Camera cam = Canvas.worldCamera; ;
+                screenPoint.WorldToScreenSpace(m_Data.point.position, cam, rect, 100);
+            }
         }
     }
 

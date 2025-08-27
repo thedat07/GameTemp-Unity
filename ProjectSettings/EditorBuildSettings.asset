@@ -62,4 +62,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UnLockNewBooster/UnLockNewBooster.unity
     guid: 71e1c4d34795b424f829d80150ee5520
+  - enabled: 1
+    path: Assets/ThirdParties/Creator/Demo/Scenes/Game/DGame.unity
+    guid: 9761bb7ca9fbb42889fd55b2d3fc28d1
   m_configObjects: {}

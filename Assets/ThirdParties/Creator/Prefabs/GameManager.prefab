@@ -583,13 +583,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hideUI: 0
-  m_FeatureModel:
-    featureTheStickyCollector:
-      currentConfig:
-        totalSteps: 25
-        steps: []
-        requiredItemId: 
-        rewardSetIndex: 0
+  log:
+    logPlayDone: 0
   m_SettingModelView: {fileID: 6578075393011312102}
   m_MasterModelView: {fileID: 99410924891902406}
   m_StageModelView: {fileID: 275627112018197525}
@@ -598,6 +593,7 @@ MonoBehaviour:
   m_ShopModelView: {fileID: 6495066347722601384}
   m_ConfigController: {fileID: 1561823362190096716}
   m_FacebookController: {fileID: 307888051757308321}
+  m_NetworkTimeManager: {fileID: 4742551438298068331}
 --- !u!1 &6578075393011312100
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,6 +1421,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6646077367824872302, guid: 48f32b0ab049449948296df45bda70f5, type: 3}
   m_PrefabInstance: {fileID: 5373380692660081514}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4742551438298068331 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 811483710816019969, guid: 48f32b0ab049449948296df45bda70f5, type: 3}
+  m_PrefabInstance: {fileID: 5373380692660081514}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a75d7e30627ad4a76bcddac89f69a09b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9131147281032577123
 PrefabInstance:
   m_ObjectHideFlags: 0

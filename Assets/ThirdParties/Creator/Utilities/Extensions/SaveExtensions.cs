@@ -9,7 +9,7 @@ namespace UnityUtilities
         public const string keyFileMasterData = "FileMasterData";
         public const string keyFileSettingData = "FileSettingData";
         public const string keyFileAdsData = "FileAdsData";
-        public const string keyFileQuestData = "FileQuestData";
+        public const string keyFileQuestData = "FileFeatureData";
         public const string keyFileShopData = "FileShopData";
         public const string keyFileHomeData = "FileHomeData";
 

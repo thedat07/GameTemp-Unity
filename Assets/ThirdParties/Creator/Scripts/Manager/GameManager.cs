@@ -1,5 +1,6 @@
 using UnityEngine;
 using DesignPatterns;
+using Bytenado;
 
 [System.Serializable]
 public class GameDataLog
@@ -17,6 +18,7 @@ public partial class GameManager : SingletonPersistent<GameManager>
     [SerializeField] MasterModel m_MasterModel;
     [SerializeField] FeatureModel m_FeatureModel;
     [SerializeField] AdsModel m_AdsModel;
+    
 
     [Header("ModelView")]
     [SerializeField] SettingModelView m_SettingModelView;
@@ -27,6 +29,7 @@ public partial class GameManager : SingletonPersistent<GameManager>
     [SerializeField] ShopModelView m_ShopModelView;
     [SerializeField] FirebaseController m_ConfigController;
     [SerializeField] FacebookController m_FacebookController;
+    [SerializeField] NetworkTimeManager m_NetworkTimeManager;
 
     public bool IsDoneFirebase() => m_ConfigController.IsDone();
     public bool IsDoneFacebook() => m_FacebookController.IsDone();
@@ -41,6 +44,8 @@ public partial class GameManager : SingletonPersistent<GameManager>
 
     public void Init()
     {
+        m_NetworkTimeManager.Init();
+        
         m_MasterModel = new MasterModel();
         m_SettingModel = new SettingModel();
         m_FeatureModel = new FeatureModel();

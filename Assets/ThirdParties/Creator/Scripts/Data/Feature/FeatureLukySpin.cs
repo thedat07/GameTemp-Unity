@@ -17,7 +17,7 @@ public class FeatureLukySpin : FeatureData
         {
             freeSpinUsed = new BoolReactiveProperty(false);
             adsSpinsUsed = new IntReactiveProperty(0);
-            lastSpinDate = new StringReactiveProperty(NetworkTime.UTC.ToString("O"));
+            lastSpinDate = new StringReactiveProperty(NetworkTime.UTC.ToString());
         }
     }
 
@@ -81,7 +81,7 @@ public class FeatureLukySpin : FeatureData
     // Reset theo ngày user
     private void CheckDailyReset()
     {
-        string today = NetworkTime.UTC.Date.ToString("0");
+        string today = NetworkTime.UTC.ToString();
 
         if (m_SpinData.lastSpinDate.Value != today)
         {
@@ -106,6 +106,6 @@ public class FeatureLukySpin : FeatureData
 
     private void SaveData()
     {
-        ES3.Save(Key, m_SpinData);
+        SaveExtensions.PutFeature(m_Type, Key, m_SpinData);
     }
 }
