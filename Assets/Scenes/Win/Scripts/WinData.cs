@@ -22,6 +22,7 @@ public partial class WinController
 
     void InitData()
     {
+        GameManager.Instance.GetMasterModelView().Put(1, MasterDataType.Lives);
         m_DataLog = GameManager.Instance.log;
         m_Piggy = GameManager.Instance.GetFeatureData().featurePiggyBank;
     }

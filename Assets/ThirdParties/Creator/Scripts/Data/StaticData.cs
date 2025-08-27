@@ -101,4 +101,7 @@ public static class StaticData
         }
     }
 
+    public static int CoinKeepPlaying = 900;
+
+    public static int CoinAds = 900;
 }

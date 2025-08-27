@@ -17,7 +17,6 @@ public class MasterModelView : MonoBehaviour, IInitializable
 
     public bool CanPlay() => livesManager.CanPlay;
 
-    [Button]
     public void ConsumeLife() => livesManager.ConsumeLife();
 
     public string GetText(Gley.Localization.WordIDs wordID) => Gley.Localization.API.GetText(wordID);
@@ -155,12 +154,10 @@ public class MasterModelView : MonoBehaviour, IInitializable
 
     public void PlayGame()
     {
-        // if (GameManager.Instance.GetMasterData().dataStage.Get() <= StaticData.GoGamePlay)
-        //     Manager.RunScene(GamePlayController.GAMEPLAY_SCENE_NAME);
-        // else
-        //     Manager.RunScene(HomeController.HOME_SCENE_NAME);
-
-        Creator.Director.RunScene(DGameController.SCENE_NAME);
+        if (CanPlay())
+        {
+            ConsumeLife();
+            Creator.Director.RunScene(GamePlayController.GAMEPLAY_SCENE_NAME);
+        }
     }
-
 }
