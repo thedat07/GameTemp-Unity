@@ -7,9 +7,12 @@ public class UnLockNewBoosterData
 {
     public MasterDataType type;
 
-    public UnLockNewBoosterData(MasterDataType type)
+    public Transform point;
+
+    public UnLockNewBoosterData(MasterDataType type, Transform point)
     {
         this.type = type;
+        this.point = point;
     }
 }
 
