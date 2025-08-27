@@ -14,6 +14,8 @@ public class PiggyBankController : Controller
         return PIGGYBANK_SCENE_NAME;
     }
 
+    [Header("View")]
+
     public Image slider;
 
     public TextMeshPro expText;

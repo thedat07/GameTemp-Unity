@@ -1,5 +1,5 @@
-using UnityEngine;
 using UnityUtilities;
+using UniRx;
 
 [System.Serializable]
 public class FeatureLukySpin : FeatureData
@@ -9,21 +9,23 @@ public class FeatureLukySpin : FeatureData
     [System.Serializable]
     public class SpinData
     {
-        public bool freeSpinUsed;   // đã dùng free chưa
-        public int adsSpinsUsed;    // số lượt ads đã dùng
-        public string lastSpinDate; // ngày lưu
+        public BoolReactiveProperty freeSpinUsed;   // đã dùng free chưa
+        public IntReactiveProperty adsSpinsUsed;    // số lượt ads đã dùng
+        public StringReactiveProperty lastSpinDate; // ngày lưu
 
         public SpinData()
         {
-            freeSpinUsed = false;
-            adsSpinsUsed = 0;
-            lastSpinDate = NetworkTime.UTC.ToString("O");
+            freeSpinUsed = new BoolReactiveProperty(false);
+            adsSpinsUsed = new IntReactiveProperty(0);
+            lastSpinDate = new StringReactiveProperty(NetworkTime.UTC.ToString("O"));
         }
     }
 
     private int m_MaxDailySpins = StaticData.MaxAdsSpins;
 
     private SpinData m_SpinData;
+
+    public SpinData GetData() => m_SpinData;
 
     public FeatureLukySpin(TypeFeature type, int levelUnlock = 0) : base(type, levelUnlock)
     {
@@ -42,12 +44,12 @@ public class FeatureLukySpin : FeatureData
         if (!isAdsSpin)
         {
             // free spin
-            return !m_SpinData.freeSpinUsed;
+            return !m_SpinData.freeSpinUsed.Value;
         }
         else
         {
             // ads spin
-            return m_SpinData.adsSpinsUsed < m_MaxDailySpins;
+            return m_SpinData.adsSpinsUsed.Value < m_MaxDailySpins;
         }
     }
 
@@ -56,11 +58,11 @@ public class FeatureLukySpin : FeatureData
     {
         if (!isAdsSpin)
         {
-            m_SpinData.freeSpinUsed = true;
+            m_SpinData.freeSpinUsed.Value = true;
         }
         else
         {
-            m_SpinData.adsSpinsUsed++;
+            m_SpinData.adsSpinsUsed.Value++;
         }
         SaveData();
     }
@@ -70,8 +72,8 @@ public class FeatureLukySpin : FeatureData
     {
         CheckDailyReset();
 
-        int freeLeft = m_SpinData.freeSpinUsed ? 0 : 1;
-        int adsLeft = m_LevelUnlock - m_SpinData.adsSpinsUsed;
+        int freeLeft = m_SpinData.freeSpinUsed.Value ? 0 : 1;
+        int adsLeft = m_MaxDailySpins - m_SpinData.adsSpinsUsed.Value;
 
         return (freeLeft, adsLeft);
     }
@@ -79,17 +81,16 @@ public class FeatureLukySpin : FeatureData
     // Reset theo ngày user
     private void CheckDailyReset()
     {
-        string today = NetworkTime.UTC.ToString("O");
+        string today = NetworkTime.UTC.Date.ToString("0");
 
-        if (m_SpinData.lastSpinDate != today)
+        if (m_SpinData.lastSpinDate.Value != today)
         {
-            m_SpinData.freeSpinUsed = false;
-            m_SpinData.adsSpinsUsed = 0;
-            m_SpinData.lastSpinDate = today;
+            m_SpinData.freeSpinUsed.Value = false;
+            m_SpinData.adsSpinsUsed.Value = 0;
+            m_SpinData.lastSpinDate.Value = today;
             SaveData();
         }
     }
-
     private void LoadData()
     {
         if (SaveExtensions.KeyExists(m_Type, Key))
