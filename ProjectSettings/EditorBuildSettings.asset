@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Core/MainGame/MainGame.unity
     guid: 584dc122048f3fb41a602a2a92781cca
   - enabled: 1
-    path: Assets/Scenes/Core/Mask/PopupMask.unity
-    guid: 6ede02bb9db32c247b7af51ad1e91271
+    path: Assets/Scenes/Home/Home.unity
+    guid: 5c3837ffbfe344340a4015de05c418e1
   - enabled: 1
     path: Assets/Scenes/Core/Loading/PopupLoading.unity
     guid: 25f342e2e2656462992f0a79298b6b1c
@@ -35,9 +35,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GamePlay/GamePlay.unity
     guid: 3a8081060c3f8de41a617a9a6650b542
-  - enabled: 1
-    path: Assets/Scenes/Home/Home.unity
-    guid: 5c3837ffbfe344340a4015de05c418e1
   - enabled: 1
     path: Assets/Scenes/TryAgain/TryAgain.unity
     guid: 0ee738335c9f7074da6d34878119a04e
