@@ -71,7 +71,7 @@ public class AdsModelView : MonoBehaviour, IInitializable
 
             placementInter = placement;
 
-            Timer.Register(0.5f, () =>
+            Timer.Register(StaticData.DelayTimeDefault, () =>
             {
                 SetActiveShield(false);
                 Gley.MobileAds.API.ShowInterstitial(() => { UpdateLastAdTime(false); });
@@ -87,7 +87,7 @@ public class AdsModelView : MonoBehaviour, IInitializable
 
             placementInter = placement;
 
-            Timer.Register(0.5f, () =>
+            Timer.Register(StaticData.DelayTimeDefault, () =>
            {
                SetActiveShield(false);
                Gley.MobileAds.API.ShowInterstitial(() =>
@@ -105,7 +105,7 @@ public class AdsModelView : MonoBehaviour, IInitializable
 
         placementReward = placement;
 
-        Timer.Register(0.25f, () =>
+        Timer.Register(StaticData.DelayTimeDefault, () =>
          {
              SetActiveShield(false);
              Gley.MobileAds.API.ShowRewardedVideo(CompleteMethod);
@@ -113,7 +113,7 @@ public class AdsModelView : MonoBehaviour, IInitializable
 
         void CompleteMethod(bool completed)
         {
-            Timer.Register(0.2f, () =>
+            Timer.Register(StaticData.DelayTimeDefault, () =>
              {
                  if (completed)
                  {

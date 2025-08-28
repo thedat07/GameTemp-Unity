@@ -5,6 +5,8 @@ public static class StaticData
 {
     public static Vector2 ScreenGame = new Vector2(1080f, 1920f);
 
+    public static float DelayTimeDefault = 0.2f;
+
     public static int InterTimestep
     {
         get

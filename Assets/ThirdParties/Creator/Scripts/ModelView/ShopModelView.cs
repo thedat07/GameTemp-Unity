@@ -168,7 +168,7 @@ public class ShopModelView : MonoBehaviour, IInitializable
         }
         else
         {
-            Timer.Register(0.2f, () =>
+            Timer.Register(StaticData.DelayTimeDefault, () =>
             {
                 m_ShieldShop.gameObject.SetActive(false);
             });
