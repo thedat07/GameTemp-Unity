@@ -23,6 +23,7 @@ public partial class WinController : Controller
     void Log()
     {
         m_DataLog.logPlayDone += 1;
+        StaticData.IsRandomColor = false;
     }
 
     public void OnCoinAds()

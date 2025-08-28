@@ -46,6 +46,19 @@ public static class StaticData
         }
     }
 
+    public static bool IsRandomColor
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("GamePlayRandomColor", 0) == 1;
+        }
+        set
+        {
+            PlayerPrefs.SetInt("GamePlayRandomColor", value ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+    }
+
     public static int CoinKeepPlaying = 900;
 
     public static int CoinAds = 900;
