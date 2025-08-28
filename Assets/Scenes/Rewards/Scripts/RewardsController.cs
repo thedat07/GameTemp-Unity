@@ -1,18 +1,6 @@
-using System.Collections.Generic;
 using Creator;
 using Lean.Touch;
-using UnityEngine;
 using UnityTimer;
-
-public class RewardsViewData
-{
-    public InventoryItem[] rewards;
-
-    public RewardsViewData(InventoryItem[] rewards)
-    {
-        this.rewards = rewards;
-    }
-}
 
 public class RewardsController : Controller
 {
@@ -23,7 +11,7 @@ public class RewardsController : Controller
         return REWARDS_SCENE_NAME;
     }
 
-    private RewardsViewData m_Data;
+    private DataMethod m_Data;
 
     private bool m_CanCheckTab;
 
@@ -36,7 +24,7 @@ public class RewardsController : Controller
             m_CanCheckTab = false;
             m_FingerTap = false;
 
-            m_Data = data as RewardsViewData;
+            m_Data = data as DataMethod;
 
             Init();
 
@@ -49,11 +37,12 @@ public class RewardsController : Controller
 
     void Init()
     {
-        if (m_Data.rewards.Length == 1)
+        int count = m_Data.data.Count;
+        if (count == 1)
         {
             View1();
         }
-        else if (m_Data.rewards.Length <= 3)
+        else if (count <= 3)
         {
             View2();
         }
