@@ -196,6 +196,8 @@ MonoBehaviour:
     isBigReward: 0
   guaranteeAfterXSpins: 10
   spinButton: {fileID: 0}
+  canvasGroup: {fileID: 0}
+  soStoreRewards: {fileID: 11400000, guid: 3a176fb0bb26b7f498b8416c5aadcb7c, type: 2}
 --- !u!224 &5288978090664223715
 RectTransform:
   m_ObjectHideFlags: 0

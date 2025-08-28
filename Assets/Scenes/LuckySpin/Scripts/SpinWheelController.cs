@@ -28,6 +28,7 @@ public class SpinWheelController : MonoBehaviour
 
     [Header("UI")]
     public Button spinButton;
+    public CanvasGroup canvasGroup;
 
     [Header("So")]
     public SoStoreRewards soStoreRewards;
@@ -86,6 +87,8 @@ public class SpinWheelController : MonoBehaviour
 
         float totalRotation = (spinRounds * 360f) + targetAngle;
 
+        canvasGroup.blocksRaycasts = false;
+
         wheel.DOLocalRotate(
             new Vector3(0, 0, totalRotation),
             spinDuration,
@@ -94,6 +97,7 @@ public class SpinWheelController : MonoBehaviour
         .SetEase(Ease.OutQuart)
         .OnComplete(() =>
         {
+            canvasGroup.blocksRaycasts = true;
             isSpinning = false;
             spinButton.interactable = true;
 
