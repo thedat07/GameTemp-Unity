@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using AppsFlyerSDK;
+ using AdjustSdk;
 
 namespace Gley.MobileAds.Internal
 {
@@ -426,7 +426,7 @@ namespace Gley.MobileAds.Internal
         {
             FirebaseEvent.LogEvent("ads_inter_show", "placement", this.placementInter);
             FirebaseEvent.LogEvent("af_inters");
-            AppsFlyer.sendEvent("af_inters", null);
+            // AppsFlyer.sendEvent("af_inters", null);
             LogAdCountEvent(adInfo);
             LogAdCampaignInter();
         }
@@ -608,7 +608,7 @@ namespace Gley.MobileAds.Internal
 
             Dictionary<string, string> eventValues = new Dictionary<string, string>();
             eventValues.Add("reward_type", placementReward);
-            AppsFlyer.sendEvent("af_rewarded", eventValues);
+            // AppsFlyer.sendEvent("af_rewarded", eventValues);
 
             LogAdCountEvent(adInfo);
             LogAdCampaignVideo();
@@ -931,15 +931,12 @@ namespace Gley.MobileAds.Internal
             FirebaseEvent.LogAnalytics("ad_impression", impressionParameters);
             FirebaseEvent.LogAnalytics("ad_cgteam_impression", impressionParameters);
 
-            Dictionary<string, string> additionalParams = new Dictionary<string, string>();
-            additionalParams.Add(AdRevenueScheme.COUNTRY, "USA");
-            additionalParams.Add(AdRevenueScheme.AD_UNIT,  impressionData.AdUnitIdentifier);
-            additionalParams.Add(AdRevenueScheme.AD_TYPE,  impressionData.AdFormat);
-            additionalParams.Add(AdRevenueScheme.PLACEMENT, impressionData.Placement);
-            var logRevenue = new AFAdRevenueData("monetizationNetworkEx", MediationNetwork.ApplovinMax, "USD", impressionData.Revenue);
-            AppsFlyer.logAdRevenue(logRevenue, additionalParams);
-
-
+            var adRevenue = new AdjustAdRevenue("applovin_max_sdk");
+            adRevenue.SetRevenue(impressionData.Revenue, "USD");
+            adRevenue.AdRevenueNetwork = impressionData.NetworkName;
+            adRevenue.AdRevenueUnit = impressionData.AdUnitIdentifier;
+            adRevenue.AdRevenuePlacement = impressionData.Placement;
+            Adjust.TrackAdRevenue(adRevenue);
 
             UnityEngine.Console.Log("Max", "Value: " + impressionData.Revenue);
             double currentImpressionRevenue = impressionData.Revenue;
@@ -1015,7 +1012,7 @@ namespace Gley.MobileAds.Internal
                 FirebaseEvent.LogEvent(eventName);
                 Dictionary<string, string> eventValue = new Dictionary<string, string>();
                 eventValue.Add(eventName, eventName);
-                AppsFlyer.sendEvent(eventName, eventValue);
+                // AppsFlyer.sendEvent(eventName, eventValue);
             }
         }
 
@@ -1031,7 +1028,7 @@ namespace Gley.MobileAds.Internal
                 FirebaseEvent.LogEvent(eventName);
                 Dictionary<string, string> eventValue = new Dictionary<string, string>();
                 eventValue.Add(eventName, eventName);
-                AppsFlyer.sendEvent(eventName, eventValue);
+                // AppsFlyer.sendEvent(eventName, eventValue);
             }
         }
         #endregion

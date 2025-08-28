@@ -5,7 +5,6 @@
 using UnityEngine.Events;
 using System.Collections.Generic;
 using System;
-using AppsFlyerSDK;
 
 #if GleyIAPEnabled
 using UnityEngine;
@@ -403,7 +402,7 @@ namespace Gley.EasyIAP.Internal
                         if (OnCompleteMethod != null)
                         {
                             OnCompleteMethod(IAPOperationStatus.Success, "Purchase Successful", shopProducts[i]);
-                            AppsFlyerPurchaseEvent(e.purchasedProduct);
+                            AnalyticsTracker.TrackIAPWithVerify(e.purchasedProduct);
                         }
                     }
                     else
@@ -417,31 +416,6 @@ namespace Gley.EasyIAP.Internal
                 }
             }
             return PurchaseProcessingResult.Complete;
-
-            void AppsFlyerPurchaseEvent(Product product)
-            {
-                Dictionary<string, string> eventValue = new Dictionary<string, string>();
-                eventValue.Add("af_content_id", product.definition.id);
-                eventValue.Add("af_currency", product.metadata.isoCurrencyCode);
-
-                float localizedPrice = (float)product.metadata.localizedPrice * StaticData.RateRev;
-
-                string price = localizedPrice.ToString("0.#####", System.Globalization.CultureInfo.InvariantCulture);
-
-                eventValue.Add("af_revenue", price);
-
-                AppsFlyer.sendEvent("af_iap", eventValue);
-
-                DebugProduct(product.definition.id, product.metadata.isoCurrencyCode, price, product.metadata.localizedPrice.ToString(),
-
-                StaticData.RateRev.ToString(), ((float)product.metadata.localizedPrice).ToString());
-
-                void DebugProduct(string text1, string text2, string text3, string text4, string text5, string text6)
-                {
-                    UnityEngine.Console.Log("IAP", string.Format("Product: {0}\n{1}\n{2}\n{3}\n{4}\n{5}", text1, text2, text3, text4, text5, text6));
-                }
-
-            }
         }
 
         /// <summary>

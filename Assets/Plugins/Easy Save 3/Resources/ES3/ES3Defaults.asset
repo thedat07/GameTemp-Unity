@@ -30,7 +30,7 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
-    - AppsFlyer
+    - AdjustSdk.Scripts
     - Assembly-CSharp
     - Assembly-CSharp-firstpass
     - BrunoMikoski.AnimationSequencer
@@ -50,7 +50,6 @@ MonoBehaviour:
     - ParticleImage
     - Purchasing.Common
     - spine-unity
-    - Tests
     - UniRx
     - UniRx.Examples
     showAdvancedSettings: 0
