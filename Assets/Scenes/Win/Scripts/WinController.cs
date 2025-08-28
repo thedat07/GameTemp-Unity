@@ -2,7 +2,7 @@ using Creator;
 
 public partial class WinController : Controller
 {
-    public const string WIN_SCENE_NAME = "Win";
+    public const string WIN_SCENE_NAME = "WinScene";
 
     public override string SceneName()
     {
