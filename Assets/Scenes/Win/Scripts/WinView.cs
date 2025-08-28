@@ -1,7 +1,17 @@
 using Creator;
+using UnityEngine;
 
 public partial class WinController
 {
+    [System.Serializable]
+    public class NewFeature
+    {
+        public int levelUnlock;
+        public Sprite icon;
+    }
+
+    public NewFeature[] newFeatures;
+
     void ViewPopup()
     {
         ShowPopupPiggy();
