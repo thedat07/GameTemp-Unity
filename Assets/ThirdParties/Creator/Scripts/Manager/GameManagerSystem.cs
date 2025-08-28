@@ -11,8 +11,11 @@ public partial class GameManager
         if (m_MasterModelView.CanPlay())
         {
             bool isRandomColor = StaticData.IsRandomColor;
+
             m_MasterModelView.ConsumeLife();
+            
             Creator.Director.RunScene(GamePlayController.GAMEPLAY_SCENE_NAME);
+
             StaticData.IsRandomColor = true;
         }
     }
