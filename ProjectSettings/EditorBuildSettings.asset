@@ -65,4 +65,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/ThirdParties/Creator/Demo/Scenes/Game/DGame.unity
     guid: 9761bb7ca9fbb42889fd55b2d3fc28d1
+  - enabled: 1
+    path: Assets/Scenes/Rewards/Rewards.unity
+    guid: 99d8a6db81a2ed44ebde7425967a5793
   m_configObjects: {}

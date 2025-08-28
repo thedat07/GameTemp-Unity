@@ -70,8 +70,11 @@ public class LuckySpinController : Controller
     {
         if (m_Data.CanSpin(true))
         {
-            m_Data.DoSpin(true);
-            Console.Log("Ads spin thành công!");
+            GameManager.Instance.GetAdsModelView().ShowRewardedVideo("LuckySpin", () =>
+            {
+                m_Data.DoSpin(true);
+                Console.Log("Ads spin thành công!");
+            });
         }
         else
         {
