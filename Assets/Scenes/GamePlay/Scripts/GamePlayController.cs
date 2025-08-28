@@ -1,5 +1,17 @@
 using Creator;
 
+public class GamePlaySceneData
+{
+    public int level;
+    public bool randomColor;
+
+    public GamePlaySceneData(int level, bool randomColor)
+    {
+        this.level = level;
+        this.randomColor = randomColor;
+    }
+}
+
 public partial class GamePlayController : SingletonController<Controller>
 {
     public const string GAMEPLAY_SCENE_NAME = "GamePlay";
