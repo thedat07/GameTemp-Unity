@@ -27,13 +27,19 @@ public class RewardsController : Controller
 
     private bool m_CanCheckTab;
 
+    private bool m_FingerTap;
+
     public override void OnActive(object data)
     {
         if (data != null)
         {
             m_CanCheckTab = false;
+            m_FingerTap = false;
+
             m_Data = data as RewardsViewData;
+
             Init();
+
             Timer.Register(0.25f, () =>
             {
                 m_CanCheckTab = true;
@@ -58,9 +64,10 @@ public class RewardsController : Controller
 
     private void HandleFingerTap(LeanFinger finger)
     {
-        if (m_CanCheckTab)
+        if (m_CanCheckTab && !m_FingerTap)
         {
             OnKeyBack();
+            m_FingerTap = true;
         }
     }
 }
