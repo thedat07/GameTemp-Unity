@@ -132,6 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1387961}
   - component: {fileID: 1387962}
+  - component: {fileID: 1387963}
   m_Layer: 0
   m_Name: LuckySpin
   m_TagString: Untagged
@@ -173,6 +174,28 @@ MonoBehaviour:
   HasShield: 1
   UseCameraUI: 1
   Animation: {fileID: 8754637156297780078}
+  infoText: {fileID: 0}
+--- !u!114 &1387963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4751b3db633e8b348a5e5fb49544e1bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheel: {fileID: 0}
+  spinDuration: 4
+  spinRounds: 5
+  rewards:
+  - rewardId: 
+    weight: 1
+    isBigReward: 0
+  guaranteeAfterXSpins: 10
+  spinButton: {fileID: 0}
 --- !u!224 &5288978090664223715
 RectTransform:
   m_ObjectHideFlags: 0

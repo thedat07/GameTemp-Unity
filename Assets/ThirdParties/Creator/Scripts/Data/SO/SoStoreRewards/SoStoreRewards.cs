@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/FeatureTSCSO", order = 1)]
-public class FeatureTSCSO : ScriptableObject
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SoStoreRewards", order = 1)]
+public class SoStoreRewards : ScriptableObject
 {
     [System.Serializable]
     public class RewardData

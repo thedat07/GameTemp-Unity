@@ -22,11 +22,11 @@ public partial class FeatureTheStickyCollector : FeatureData
 
     TheStickyCollectorData m_Data;
 
-    FeatureTSCSO m_So;
+    SoStoreRewards m_So;
 
     public int GetIndexClaim() => m_Data.claimIndex;
 
-    public FeatureTheStickyCollector(TypeFeature type, FeatureTSCSO so, int levelUnlock = 0) : base(type, levelUnlock)
+    public FeatureTheStickyCollector(TypeFeature type, SoStoreRewards so, int levelUnlock = 0) : base(type, levelUnlock)
     {
         m_So = so;
         LoadData();

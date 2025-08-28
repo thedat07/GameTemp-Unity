@@ -1,0 +1,124 @@
+using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
+using System;
+using System.Collections.Generic;
+
+[Serializable]
+public class Reward
+{
+    public string rewardId;   // tên/ID phần thưởng
+    [Range(1, 100)]
+    public int weight = 1;    // tỉ lệ rơi (trọng số)
+    public bool isBigReward;  // đánh dấu phần thưởng "to"
+}
+
+public class SpinWheelController : MonoBehaviour
+{
+    [Header("Wheel Settings")]
+    public Transform wheel;
+    public float spinDuration = 4f;
+    public int spinRounds = 5;
+
+    [Header("Rewards")]
+    public List<Reward> rewards;
+
+    [Header("Guarantee Settings")]
+    public int guaranteeAfterXSpins = 10; // sau X vòng auto ra big reward
+
+    [Header("UI")]
+    public Button spinButton;
+
+    [Header("So")]
+    public SoStoreRewards soStoreRewards;
+
+    public Action<Reward> OnSpinEnd;
+
+    private bool isSpinning = false;
+    private int spinCount = 0; // đếm số vòng
+
+    void Start()
+    {
+        if (spinButton != null)
+            spinButton.onClick.AddListener(StartSpin);
+    }
+
+    public void StartSpin()
+    {
+        if (isSpinning) return;
+
+        isSpinning = true;
+        spinButton.interactable = false;
+
+        spinCount++;
+
+        int resultIndex;
+
+        // Check guarantee
+        if (spinCount >= guaranteeAfterXSpins)
+        {
+            // chọn 1 reward "to"
+            List<int> bigIndexes = new List<int>();
+            for (int i = 0; i < rewards.Count; i++)
+                if (rewards[i].isBigReward)
+                    bigIndexes.Add(i);
+
+            if (bigIndexes.Count > 0)
+            {
+                resultIndex = bigIndexes[UnityEngine.Random.Range(0, bigIndexes.Count)];
+                spinCount = 0; // reset sau khi ra big reward
+            }
+            else
+            {
+                // fallback nếu không có big reward -> random bình thường
+                resultIndex = GetWeightedRandomIndex();
+            }
+        }
+        else
+        {
+            // random theo tỉ lệ bình thường
+            resultIndex = GetWeightedRandomIndex();
+        }
+
+        int sectorCount = rewards.Count;
+        float sectorAngle = 360f / sectorCount;
+        float targetAngle = -(resultIndex * sectorAngle);
+
+        float totalRotation = (spinRounds * 360f) + targetAngle;
+
+        wheel.DOLocalRotate(
+            new Vector3(0, 0, totalRotation),
+            spinDuration,
+            RotateMode.FastBeyond360
+        )
+        .SetEase(Ease.OutQuart)
+        .OnComplete(() =>
+        {
+            isSpinning = false;
+            spinButton.interactable = true;
+
+            Reward result = rewards[resultIndex];
+            OnSpinEnd?.Invoke(result);
+
+            UnityEngine.Console.Log($"Spin result: {result.rewardId} | Count = {spinCount}");
+        });
+    }
+
+    private int GetWeightedRandomIndex()
+    {
+        int totalWeight = 0;
+        foreach (var r in rewards) totalWeight += r.weight;
+
+        int randomValue = UnityEngine.Random.Range(0, totalWeight);
+        int sum = 0;
+
+        for (int i = 0; i < rewards.Count; i++)
+        {
+            sum += rewards[i].weight;
+            if (randomValue < sum)
+                return i;
+        }
+
+        return 0;
+    }
+}

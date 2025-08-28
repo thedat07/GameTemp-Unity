@@ -60,7 +60,6 @@ namespace Director
             if (!IsInitSuccess) return defaultValue;
             if (!FirebaseRemoteConfig.DefaultInstance.Keys.Contains(key)) return defaultValue;
             return FirebaseRemoteConfig.DefaultInstance.GetValue(key).LongValue;
-
         }
 
         public static double GetDoubleConfig(string key, double defaultValue)
