@@ -18,6 +18,8 @@ public class LuckySpinController : Controller
 
     private FeatureLukySpin m_Data;
 
+    [SerializeField] SpinWheelController m_SpinWheelController;
+
     void Start()
     {
         m_Data = GameManager.Instance.GetFeatureData().featureLukySpin;
@@ -39,6 +41,8 @@ public class LuckySpinController : Controller
 
         // Khởi tạo text ban đầu
         UpdateInfoText();
+
+        m_SpinWheelController.Init(m_Data);
     }
 
     private void UpdateInfoText()

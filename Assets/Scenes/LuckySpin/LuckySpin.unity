@@ -175,6 +175,7 @@ MonoBehaviour:
   UseCameraUI: 1
   Animation: {fileID: 8754637156297780078}
   infoText: {fileID: 0}
+  m_SpinWheelController: {fileID: 1387963}
 --- !u!114 &1387963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,12 +192,12 @@ MonoBehaviour:
   spinDuration: 4
   spinRounds: 5
   rewards:
-  - rewardId: 
+  - rewardId: 0
     weight: 1
     isBigReward: 0
   guaranteeAfterXSpins: 10
   spinButton: {fileID: 0}
-  canvasGroup: {fileID: 0}
+  canvasGroup: {fileID: 8754637156297780077}
   soStoreRewards: {fileID: 11400000, guid: 3a176fb0bb26b7f498b8416c5aadcb7c, type: 2}
 --- !u!224 &5288978090664223715
 RectTransform:

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 [Serializable]
 public class Reward
 {
-    public string rewardId;   // tên/ID phần thưởng
+    public int rewardId;   // tên/ID phần thưởng
     [Range(1, 100)]
     public int weight = 1;    // tỉ lệ rơi (trọng số)
     public bool isBigReward;  // đánh dấu phần thưởng "to"
@@ -36,12 +36,17 @@ public class SpinWheelController : MonoBehaviour
     public Action<Reward> OnSpinEnd;
 
     private bool isSpinning = false;
-    private int spinCount = 0; // đếm số vòng
 
-    void Start()
+    private FeatureLukySpin m_Data;
+
+    public void Init(FeatureLukySpin data)
     {
+        m_Data = data;
+        
         if (spinButton != null)
             spinButton.onClick.AddListener(StartSpin);
+
+        OnSpinEnd += OnRewards;
     }
 
     public void StartSpin()
@@ -51,12 +56,12 @@ public class SpinWheelController : MonoBehaviour
         isSpinning = true;
         spinButton.interactable = false;
 
-        spinCount++;
+        m_Data.UpdateSpinCount(false);
 
         int resultIndex;
 
         // Check guarantee
-        if (spinCount >= guaranteeAfterXSpins)
+        if (m_Data.SpinCount() >= guaranteeAfterXSpins)
         {
             // chọn 1 reward "to"
             List<int> bigIndexes = new List<int>();
@@ -67,7 +72,7 @@ public class SpinWheelController : MonoBehaviour
             if (bigIndexes.Count > 0)
             {
                 resultIndex = bigIndexes[UnityEngine.Random.Range(0, bigIndexes.Count)];
-                spinCount = 0; // reset sau khi ra big reward
+                m_Data.UpdateSpinCount(true);
             }
             else
             {
@@ -104,7 +109,7 @@ public class SpinWheelController : MonoBehaviour
             Reward result = rewards[resultIndex];
             OnSpinEnd?.Invoke(result);
 
-            UnityEngine.Console.Log($"Spin result: {result.rewardId} | Count = {spinCount}");
+            UnityEngine.Console.Log($"Spin result: {result.rewardId} | Count = {m_Data.SpinCount()}");
         });
     }
 
@@ -124,5 +129,10 @@ public class SpinWheelController : MonoBehaviour
         }
 
         return 0;
+    }
+
+    private void OnRewards(Reward data)
+    {
+
     }
 }

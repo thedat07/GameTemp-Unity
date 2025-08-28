@@ -13,11 +13,14 @@ public class FeatureLukySpin : FeatureData
         public IntReactiveProperty adsSpinsUsed;    // số lượt ads đã dùng
         public StringReactiveProperty lastSpinDate; // ngày lưu
 
+        public IntReactiveProperty spinCount;
+
         public SpinData()
         {
             freeSpinUsed = new BoolReactiveProperty(false);
             adsSpinsUsed = new IntReactiveProperty(0);
             lastSpinDate = new StringReactiveProperty(NetworkTime.UTC.ToString());
+            spinCount = new IntReactiveProperty(0);
         }
     }
 
@@ -26,6 +29,8 @@ public class FeatureLukySpin : FeatureData
     private SpinData m_SpinData;
 
     public SpinData GetData() => m_SpinData;
+
+    public int SpinCount() => m_SpinData.spinCount.Value;
 
     public FeatureLukySpin(TypeFeature type, int levelUnlock = 0) : base(type, levelUnlock)
     {
@@ -102,6 +107,21 @@ public class FeatureLukySpin : FeatureData
             m_SpinData = new SpinData();
             SaveData();
         }
+    }
+
+    public void UpdateSpinCount(bool reset)
+    {
+        int spinCount = m_SpinData.spinCount.Value;
+        if (reset)
+        {
+            spinCount = 0;
+        }
+        else
+        {
+            spinCount += 1;
+        }
+        m_SpinData.spinCount.Value = spinCount;
+        SaveData();
     }
 
     private void SaveData()
