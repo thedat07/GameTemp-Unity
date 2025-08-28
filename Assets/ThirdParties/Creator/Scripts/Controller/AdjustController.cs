@@ -8,11 +8,16 @@ public class AdjustController : MonoBehaviour
 {
     public string appToken;
 
+    void Start()
+    {
+        Init();
+    }
+
     public void Init()
     {
 
 #if UNITY_EDITOR
-    AdjustConfig adjustConfig = new AdjustConfig(appToken, AdjustEnvironment.Sandbox);
+        AdjustConfig adjustConfig = new AdjustConfig(appToken, AdjustEnvironment.Sandbox);
 #else
     AdjustConfig adjustConfig = new AdjustConfig(appToken, AdjustEnvironment.Production);
 #endif
@@ -24,19 +29,23 @@ public class AdjustController : MonoBehaviour
         adjustConfig.IsSendingInBackgroundEnabled = true;
 
         // Attribution callback
-        adjustConfig.AttributionChangedDelegate = (attribution) =>
-        {
-            Console.Log("Adjus", "Attribution: " + attribution);
-        };
+        adjustConfig.AttributionChangedDelegate = AttributionChangedDelegate;
 
         // Deferred deeplink callback
-        adjustConfig.DeferredDeeplinkDelegate = (deeplinkUrl) =>
-        {
-            Console.Log("Adjus", "Deeplink: " + deeplinkUrl);
-        };
+        adjustConfig.DeferredDeeplinkDelegate = DeferredDeeplinkCallback;
 
         // Init Adjust SDK
         Adjust.InitSdk(adjustConfig);
+    }
+
+    public void AttributionChangedDelegate(AdjustAttribution attribution)
+    {
+        Console.Log("Adjus", "Attribution: " + attribution);        // ...
+    }
+
+    private void DeferredDeeplinkCallback(string deeplinkURL)
+    {
+        Console.Log("Adjus", "Deeplink: " + deeplinkURL);
     }
 }
 
