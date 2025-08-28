@@ -547,7 +547,7 @@ namespace Gley.EasyIAP.Internal
                 currentAppStore == AppStore.MacAppStore;
         }
 #endif
-        #endregion
+    #endregion
 
 
         #region RestorePurchases
@@ -1081,9 +1081,9 @@ namespace Gley.EasyIAP.Internal
             completeMethod?.Invoke(IAPOperationStatus.Fail, "Not Implemented", null);
         }
 
-        public int GetValue(ShopProductNames product)
+        public List<InventoryItem> GetValue(ShopProductNames product)
         {
-            return 0;
+            return new List<InventoryItem>();
         }
 
         public string GetLocalizedPriceString(ShopProductNames product)
