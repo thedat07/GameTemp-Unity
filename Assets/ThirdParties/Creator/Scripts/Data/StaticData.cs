@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class StaticData
 {
-    public static Vector2 ScreenGame = new Vector2(1080f, 2160f);
+    public static Vector2 ScreenGame = new Vector2(1080f, 1920f);
 
     public static int InterTimestep
     {
