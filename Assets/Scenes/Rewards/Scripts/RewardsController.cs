@@ -49,6 +49,32 @@ public class RewardsController : Controller
 
     void Init()
     {
+        if (m_Data.rewards.Length == 1)
+        {
+            View1();
+        }
+        else if (m_Data.rewards.Length <= 3)
+        {
+            View2();
+        }
+        else
+        {
+            View3();
+        }
+    }
+
+    void View1()
+    {
+
+    }
+
+    void View2()
+    {
+
+    }
+
+    void View3()
+    {
 
     }
 
