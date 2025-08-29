@@ -32,6 +32,6 @@ public class MainGameController : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        Creator.Director.RunScene(DGameController.SCENE_NAME);
+        Creator.Director.RunScene(HomeController.HOME_SCENE_NAME);
     }
 }

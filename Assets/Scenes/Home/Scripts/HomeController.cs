@@ -1,4 +1,5 @@
 using Creator;
+using UnityTimer;
 
 public class HomeData
 {
@@ -26,7 +27,6 @@ public class HomeController : SingletonController<HomeController>
 
     private HomeData m_Data;
 
-
     public override void OnActive(object data)
     {
         if (data != null)
@@ -37,5 +37,14 @@ public class HomeController : SingletonController<HomeController>
         {
             m_Data = new HomeData();
         }
+    }
+
+
+    void Start()
+    {
+        Timer.Register(0.25f, () =>
+        {
+            Creator.Director.LoadingAnimation(false);
+        });
     }
 }
